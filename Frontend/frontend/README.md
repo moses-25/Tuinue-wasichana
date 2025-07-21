@@ -39,7 +39,7 @@ frontend/
 │   │   │   │   ├── Register.jsx
 │   │   │   │   └── Register.css
 │   │   │   ├── authSlice.js
-│   │   │   └── authAPI.js
+│   │   │   └── authAPI.js                             zaki
 │   │   │
 │   │   ├── charities/
 │   │   │   ├── CharityList/
@@ -72,7 +72,7 @@ frontend/
 │   │   │   │   ├── StoryDetails.jsx
 │   │   │   │   └── StoryDetails.css
 │   │   │   ├── storiesSlice.js
-│   │   │   └── storiesAPI.js
+│   │   │   └── storiesAPI.js                        Herman
 │   │   │
 │   │   ├── admin/
 │   │   │   ├── CharityApproval/
@@ -95,7 +95,7 @@ frontend/
 │   │   │   └── MainLayout.css
 │   │   ├── AuthLayout/
 │   │   │   ├── AuthLayout.jsx
-│   │   │   └── AuthLayout.css
+│   │   │   └── AuthLayout.css                       Elvis
 │   │
 │   ├── pages/
 │   │   ├── Home/
@@ -121,7 +121,7 @@ frontend/
 │   │
 │   ├── constants/
 │   │   ├── routes.js
-│   │   └── roles.js
+│   │   └── roles.js                                Moses
 │   │
 │   ├── app/
 │   │   ├── App.jsx
@@ -141,7 +141,7 @@ frontend/
 ├── .env
 ├── .gitignore
 ├── package.json
-├── README.md
+├── README.md                                       Koki
 └── ...
 
 
