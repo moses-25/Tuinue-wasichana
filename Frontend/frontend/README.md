@@ -1,4 +1,5 @@
 TUINUE WASICHANA PROJECT
+Group 6
 frontend/
 │
 ├── public/
