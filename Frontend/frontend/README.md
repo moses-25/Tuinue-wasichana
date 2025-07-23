@@ -69,7 +69,7 @@ tuinue-wasichana-frontend/
 │   │   │   ├── Login/
 │   │   │   ├── Register/                                       
 │   │   │   ├── authSlice.js
-│   │   │   └── authAPI.js                                        Zaki
+
 │   │   ├── charities/
 │   │   │   ├── CharityList/
 │   │   │   ├── CharityDetails/
@@ -85,7 +85,7 @@ tuinue-wasichana-frontend/
 │   │   │   ├── StoriesList/
 │   │   │   ├── StoryDetails/
 │   │   │   ├── storiesSlice.js
-│   │   │   └── storiesstoriesAPI.js
+
 │   │   ├── admin/
 │   │   │   ├── AdminDashboard/
 │   │   │   ├── CharityApproval/                                      Elvis
@@ -97,9 +97,7 @@ tuinue-wasichana-frontend/
 │   │   ├── useFetch.js
 │   │   └── usePagination.js                                          Elvis
 │   │
-│   ├── services/                     # Axios setup + external services
-│   │   ├── axiosInstance.js
-│   │   └── api.js
+
 │   │
 │   ├── context/                      # React context for auth/user data
 │   │   └── AuthContext.js
@@ -110,7 +108,7 @@ tuinue-wasichana-frontend/
 │   │
 │   ├── constants/                    # Static enums, roles, routes, etc.
 │   │   ├── routes.js
-│   │   └── roles.js
+│   │   └── roles.js                      Moses
 │   │
 │   ├── app/                          
 │   │   ├── routes.jsx                # React Router setup
@@ -122,5 +120,4 @@ tuinue-wasichana-frontend/
 ├── .env
 ├── .gitignore
 ├── package.json
-├── README.md
-└── vite.config.js (or CRA config)
+
