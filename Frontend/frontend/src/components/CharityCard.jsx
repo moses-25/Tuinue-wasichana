@@ -75,7 +75,7 @@ const CharityCards = () => {
                 to={`/donate?cause=${cause.id}`} 
                 className="donate-button"
               >
-                Support This Cause
+                Donate To This Cause
               </Link>
             </div>
           ))}
