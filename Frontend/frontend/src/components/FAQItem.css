@@ -1,0 +1,128 @@
+.faq-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #fff9fa; /* Matching your auth form background */
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Same shadow as auth cards */
+}
+
+.faq-title {
+  color: #d23369; /* Your pink accent color */
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.faq-item {
+  border: 1px solid #ffe6eb; /* Light pink border */
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.faq-item.active {
+  border-color: #d23369; /* Active pink border */
+}
+
+.faq-question {
+  background-color: white;
+  padding: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.faq-question:hover {
+  background-color: #fff0f3; /* Light pink hover */
+}
+
+.faq-question h3 {
+  color: #2d3748; /* Dark text like your auth forms */
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.faq-toggle {
+  color: #d23369; /* Pink accent */
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  background-color: white;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 300px; /* Adjust based on content */
+}
+
+.faq-answer p {
+  padding: 0 1.2rem 1.2rem;
+  color: #4a5568; /* Slightly lighter text */
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .faq-container {
+    margin: 1rem;
+    padding: 1rem;
+  }
+  
+  .faq-question h3 {
+    font-size: 1rem;
+  }
+}
+
+
+/* Add these new styles to your existing FAQ.css */
+.faq-link {
+  color: #d23369; /* Your pink accent color */
+  text-decoration: none;
+  font-weight: 500;
+  margin: 0 4px;
+  transition: color 0.2s;
+}
+
+.faq-link:hover {
+  color: #a0296a; /* Darker pink on hover */
+  text-decoration: underline;
+}
+
+.faq-cta {
+  margin-top: 12px;
+  font-weight: 500;
+}
+
+.cta-link {
+  font-weight: 600;
+  background-color: #ffebf1; /* Light pink background */
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.cta-link:hover {
+  background-color: #ffd6e0; /* Slightly darker pink */
+  text-decoration: none;
+}
+
+/* Keep all your existing FAQ styles */
+.faq-container {
+  /* ... existing styles ... */
+}
+/* ... etc ... */
