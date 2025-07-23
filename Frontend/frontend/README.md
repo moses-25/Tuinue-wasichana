@@ -1,5 +1,28 @@
-TUINUE WASICHANA PROJECT
-frontend/
+# Tuinue Wasichana - Donation Platform
+
+A React-based platform that connects donors with local charities supporting African schoolgirls.
+
+## Features
+- Donate one-time or monthly
+- Browse verified charities
+- Track your donation history
+- View real stories and impact
+
+## Getting Started
+
+1. Clone this repo
+2. `cd frontend && npm install`
+3. `npm start`
+
+## Folder Structure
+
+See `src/` for modular feature folders, component structure, and routing setup.
+
+## License
+MIT
+
+
+tuinue-wasichana-frontend/
 │
 ├── public/
 │   ├── index.html
@@ -7,80 +30,67 @@ frontend/
 │   └── manifest.json
 │
 ├── src/
-│   ├── assets/
+│   ├── assets/                        # All static files like images and icons
 │   │   ├── images/
-│   │   │   └── logo.png
 │   │   └── icons/
-│   │       └── search.svg
 │   │
-│   ├── components/
+│   ├── components/                    # Reusable components
 │   │   ├── Button/
-│   │   │   ├── Button.jsx
-│   │   │   └── Button.css
-│   │   ├── Modal/
-│   │   │   ├── Modal.jsx
-│   │   │   └── Modal.css
 │   │   ├── Navbar/
-│   │   │   ├── Navbar.jsx
-│   │   │   └── Navbar.css
-│   │   ├── Sidebar/
-│   │   │   ├── Sidebar.jsx
-│   │   │   └── Sidebar.css
-│   │   └── Loader/
-│   │       ├── Loader.jsx
-│   │       └── Loader.css
+│   │   ├── Footer/
+│   │   ├── HeroSection/                            Zaki
+│   │   ├── ProgramCard/
+│   │   ├── CharityCard/
+│   │   ├── StoryCard/
+│   │   ├── FAQItem/
+│   │   └── Modal/
 │   │
-│   ├── features/
+│   ├── layouts/                       # Shared layout wrappers
+│   │   ├── MainLayout/
+│   │   └── AuthLayout/                                    Elvis
+│   │
+│   ├── pages/                         # Route-based views (user-facing)
+│   │   ├── Home/
+│   │   │   ├── Home.jsx               # Hero section, intro, CTA
+│   │   │   └── Home.css
+│   │   ├── About/
+│   │   ├── Programs/
+│   │   ├── Stories/
+│   │   ├── Charities/
+│   │   ├── CharityDetails/                                  Moses
+│   │   ├── Donate/
+│   │   ├── FAQ/
+│   │   ├── Contact/
+│   │   ├── NotFound/
+│   │   └── Dashboard/                # Wrapper if you decide to generalize dashboard
+│   │
+│   ├── features/                     # Logic per feature (Redux slices, APIs)
 │   │   ├── auth/
 │   │   │   ├── Login/
-│   │   │   │   ├── Login.jsx
-│   │   │   │   └── Login.css
-│   │   │   ├── Register/
-│   │   │   │   ├── Register.jsx
-│   │   │   │   └── Register.css
+│   │   │   ├── Register/                                       
 │   │   │   ├── authSlice.js
-│   │   │   └── authAPI.js                   Zaki
+│   │   │   └── authAPI.js
 │   │   │
 │   │   ├── charities/
 │   │   │   ├── CharityList/
-│   │   │   │   ├── CharityList.jsx
-│   │   │   │   └── CharityList.css
 │   │   │   ├── CharityDetails/
-│   │   │   │   ├── CharityDetails.jsx
-│   │   │   │   └── CharityDetails.css
 │   │   │   ├── CharityApply/
-│   │   │   │   ├── CharityApply.jsx
-│   │   │   │   └── CharityApply.css
 │   │   │   ├── charitiesSlice.js
 │   │   │   └── charitiesAPI.js
-│   │   │
 │   │   ├── donations/
 │   │   │   ├── DonationForm/
-│   │   │   │   ├── DonationForm.jsx
-│   │   │   │   └── DonationForm.css
-│   │   │   ├── DonationHistory/
-│   │   │   │   ├── DonationHistory.jsx
-│   │   │   │   └── DonationHistory.css
+│   │   │   ├── DonationHistory/                                      Herman
 │   │   │   ├── donationsSlice.js
 │   │   │   └── donationsAPI.js
-│   │   │
 │   │   ├── stories/
 │   │   │   ├── StoriesList/
-│   │   │   │   ├── StoriesList.jsx
-│   │   │   │   └── StoriesList.css
 │   │   │   ├── StoryDetails/
-│   │   │   │   ├── StoryDetails.jsx
-│   │   │   │   └── StoryDetails.css
 │   │   │   ├── storiesSlice.js
-│   │   │   └── storiesAPI.js                     Herman
+│   │   │   └── storiesAPI.js
 │   │   │
 │   │   ├── admin/
-│   │   │   ├── CharityApproval/
-│   │   │   │   ├── CharityApproval.jsx
-│   │   │   │   └── CharityApproval.css
 │   │   │   ├── AdminDashboard/
-│   │   │   │   ├── AdminDashboard.jsx
-│   │   │   │   └── AdminDashboard.css
+│   │   │   ├── CharityApproval/                                      Elvis
 │   │   │   ├── adminSlice.js
 │   │   │   └── adminAPI.js
 │   │
@@ -95,7 +105,7 @@ frontend/
 │   │   │   └── MainLayout.css
 │   │   ├── AuthLayout/
 │   │   │   ├── AuthLayout.jsx
-│   │   │   └── AuthLayout.css                        Elvis
+│   │   │   └── AuthLayout.css
 │   │
 │   ├── pages/
 │   │   ├── Home/
@@ -115,33 +125,21 @@ frontend/
 │   │   ├── api.js
 │   │   └── axiosInstance.js
 │   │
-│   ├── utils/
-│   │   ├── helpers.js
-│   │   └── validators.js
-│   │
-│   ├── constants/
+│   ├── constants/                    # Static enums, roles, routes, etc.
 │   │   ├── routes.js
 │   │   └── roles.js                      Moses
 │   │
-│   ├── app/
-│   │   ├── App.jsx
-│   │   ├── App.css
-│   │   ├── store.js
-│   │   ├── routes.jsx
-│   │   └── index.js
+│   ├── app/                          
+│   │   ├── routes.jsx                # React Router setup
+│   │   └── store.js                  # Redux store
 │   │
-│   ├── index.js
-│   └── index.css
-│
-├── tests/
-│   ├── components/
-│   ├── features/
-│   └── pages/
+│   ├── index.jsx                     # React root
+│   └── index.css                     # Global reset + variables (if any)
 │
 ├── .env
 ├── .gitignore
 ├── package.json
-├── README.md                     Koki
+├── README.md
 └── ...
 
 
