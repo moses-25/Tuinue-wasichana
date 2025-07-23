@@ -69,7 +69,8 @@ tuinue-wasichana-frontend/
 │   │   │   ├── Login/
 │   │   │   ├── Register/                                       
 │   │   │   ├── authSlice.js
-│   │   │   └── authAPI.js                                        Zaki
+│   │   │   └── authAPI.js
+│   │   │
 │   │   ├── charities/
 │   │   │   ├── CharityList/
 │   │   │   ├── CharityDetails/
@@ -85,7 +86,8 @@ tuinue-wasichana-frontend/
 │   │   │   ├── StoriesList/
 │   │   │   ├── StoryDetails/
 │   │   │   ├── storiesSlice.js
-│   │   │   └── storiesstoriesAPI.js
+│   │   │   └── storiesAPI.js
+│   │   │
 │   │   ├── admin/
 │   │   │   ├── AdminDashboard/
 │   │   │   ├── CharityApproval/                                      Elvis
@@ -95,22 +97,37 @@ tuinue-wasichana-frontend/
 │   ├── hooks/
 │   │   ├── useAuth.js
 │   │   ├── useFetch.js
-│   │   └── usePagination.js                                          Elvis
+│   │   └── usePagination.js
 │   │
-│   ├── services/                     # Axios setup + external services
-│   │   ├── axiosInstance.js
-│   │   └── api.js
+│   ├── layouts/
+│   │   ├── MainLayout/
+│   │   │   ├── MainLayout.jsx
+│   │   │   └── MainLayout.css
+│   │   ├── AuthLayout/
+│   │   │   ├── AuthLayout.jsx
+│   │   │   └── AuthLayout.css
 │   │
-│   ├── context/                      # React context for auth/user data
-│   │   └── AuthContext.js
+│   ├── pages/
+│   │   ├── Home/
+│   │   │   ├── Home.jsx
+│   │   │   └── Home.css
+│   │   ├── About/
+│   │   │   ├── About.jsx
+│   │   │   └── About.css
+│   │   ├── Dashboard/
+│   │   │   ├── Dashboard.jsx
+│   │   │   └── Dashboard.css
+│   │   ├── NotFound/
+│   │   │   ├── NotFound.jsx
+│   │   │   └── NotFound.css
 │   │
-│   ├── utils/                        # Reusable helpers
-│   │   ├── validators.js
-│   │   └── formatters.js
+│   ├── services/
+│   │   ├── api.js
+│   │   └── axiosInstance.js
 │   │
 │   ├── constants/                    # Static enums, roles, routes, etc.
 │   │   ├── routes.js
-│   │   └── roles.js
+│   │   └── roles.js                      Moses
 │   │
 │   ├── app/                          
 │   │   ├── routes.jsx                # React Router setup
@@ -123,4 +140,79 @@ tuinue-wasichana-frontend/
 ├── .gitignore
 ├── package.json
 ├── README.md
-└── vite.config.js (or CRA config)
+└── ...
+
+
+backend/
+│
+├── app/
+│   ├── __init__.py                # App factory, initializes Flask app and extensions
+│   ├── config.py                  # Configuration settings
+│   ├── models/                    # SQLAlchemy models
+│   │   ├── __init__.py
+│   │   ├── user.py
+│   │   ├── charity.py
+│   │   ├── donation.py
+│   │   ├── beneficiary.py
+│   │   ├── story.py
+│   │   └── inventory.py
+│   │
+│   ├── schemas/                   # Marshmallow schemas for serialization/validation
+│   │   ├── __init__.py
+│   │   ├── user_schema.py
+│   │   ├── charity_schema.py
+│   │   ├── donation_schema.py
+│   │   ├── beneficiary_schema.py
+│   │   ├── story_schema.py
+│   │   └── inventory_schema.py
+│   │
+│   ├── api/                       # API routes, organized by domain
+│   │   ├── __init__.py
+│   │   ├── auth.py
+│   │   ├── charity.py
+│   │   ├── donation.py
+│   │   ├── beneficiary.py
+│   │   ├── story.py
+│   │   └── admin.py
+│   │
+│   ├── services/                  # Business logic, service classes/functions
+│   │   ├── __init__.py
+│   │   ├── auth_service.py
+│   │   ├── charity_service.py
+│   │   ├── donation_service.py
+│   │   ├── beneficiary_service.py
+│   │   ├── story_service.py
+│   │   └── admin_service.py
+│   │
+│   ├── utils/                     # Utility functions/helpers
+│   │   ├── __init__.py
+│   │   ├── email.py
+│   │   ├── pagination.py
+│   │   └── validators.py
+│   │
+│   ├── extensions.py              # Flask extensions (db, migrate, jwt, mail, etc.)
+│   └── tasks.py                   # Background tasks (e.g., reminders, Celery)
+│
+├── migrations/                    # Database migration scripts (Alembic/Flask-Migrate)
+│
+├── tests/                         # Unit and integration tests
+│   ├── __init__.py
+│   ├── conftest.py                # pytest fixtures
+│   ├── test_auth.py
+│   ├── test_charity.py
+│   ├── test_donation.py
+│   ├── test_beneficiary.py
+│   ├── test_story.py
+│   └── test_admin.py
+│
+├── instance/
+│   └── config.py                  # Instance-specific settings (e.g., secrets)
+│
+├── .env                           # Environment variables
+├── .flaskenv                      # Flask environment variables
+├── .gitignore
+├── requirements.txt               # Python dependencies
+├── requirements-dev.txt           # Dev/test dependencies
+├── manage.py                      # Entry point for app/run scripts
+├── README.md
+└── wsgi.py                        # WSGI entry point for production
