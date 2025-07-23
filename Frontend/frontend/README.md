@@ -38,7 +38,7 @@ tuinue-wasichana-frontend/
 │   │   ├── Button/
 │   │   ├── Navbar/
 │   │   ├── Footer/
-│   │   ├── HeroSection/
+│   │   ├── HeroSection/                            Zaki
 │   │   ├── ProgramCard/
 │   │   ├── CharityCard/
 │   │   ├── StoryCard/
@@ -47,7 +47,7 @@ tuinue-wasichana-frontend/
 │   │
 │   ├── layouts/                       # Shared layout wrappers
 │   │   ├── MainLayout/
-│   │   └── AuthLayout/
+│   │   └── AuthLayout/                                    Elvis
 │   │
 │   ├── pages/                         # Route-based views (user-facing)
 │   │   ├── Home/
@@ -57,7 +57,7 @@ tuinue-wasichana-frontend/
 │   │   ├── Programs/
 │   │   ├── Stories/
 │   │   ├── Charities/
-│   │   ├── CharityDetails/
+│   │   ├── CharityDetails/                                  Moses
 │   │   ├── Donate/
 │   │   ├── FAQ/
 │   │   ├── Contact/
@@ -67,9 +67,9 @@ tuinue-wasichana-frontend/
 │   ├── features/                     # Logic per feature (Redux slices, APIs)
 │   │   ├── auth/
 │   │   │   ├── Login/
-│   │   │   ├── Register/
+│   │   │   ├── Register/                                       
 │   │   │   ├── authSlice.js
-│   │   │   └── authAPI.js
+│   │   │   └── authAPI.js                                        Zaki
 │   │   ├── charities/
 │   │   │   ├── CharityList/
 │   │   │   ├── CharityDetails/
@@ -78,7 +78,7 @@ tuinue-wasichana-frontend/
 │   │   │   └── charitiesAPI.js
 │   │   ├── donations/
 │   │   │   ├── DonationForm/
-│   │   │   ├── DonationHistory/
+│   │   │   ├── DonationHistory/                                      Herman
 │   │   │   ├── donationsSlice.js
 │   │   │   └── donationsAPI.js
 │   │   ├── stories/
@@ -88,14 +88,14 @@ tuinue-wasichana-frontend/
 │   │   │   └── storiesstoriesAPI.js
 │   │   ├── admin/
 │   │   │   ├── AdminDashboard/
-│   │   │   ├── CharityApproval/
+│   │   │   ├── CharityApproval/                                      Elvis
 │   │   │   ├── adminSlice.js
 │   │   │   └── adminAPI.js
 │   │
 │   ├── hooks/
 │   │   ├── useAuth.js
 │   │   ├── useFetch.js
-│   │   └── usePagination.js
+│   │   └── usePagination.js                                          Elvis
 │   │
 │   ├── services/                     # Axios setup + external services
 │   │   ├── axiosInstance.js
