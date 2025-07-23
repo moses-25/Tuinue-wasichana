@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Login from './features/auth/Login';
 import Footer from './components/Footer';
 import FAQ from './components/FAQItem';
+import HeroSection from './components/HeroSection';
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/navbar" element={<Navbar />} />
         <Route path="/footer" element={<Footer />} />
-        <Route path ="/faq" element={<FAQ />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/hero" element={<HeroSection />} />
       </Routes>
     </Router>
   );
