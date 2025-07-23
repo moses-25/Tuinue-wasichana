@@ -7,6 +7,7 @@ import FAQ from './components/FAQItem';
 import HeroSection from './components/HeroSection';
 import CharityCards from './components/CharityCard';
 import ProgramCards from './components/ProgramCard';
+import StoryCard from './components/StoryCard';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/hero" element={<HeroSection />} />
         <Route path="/cha" element={<CharityCards />} />
         <Route path="/prog" element={<ProgramCards />} />
+        <Route path="/story" element={<StoryCard />} />
       </Routes>
     </Router>
   );
