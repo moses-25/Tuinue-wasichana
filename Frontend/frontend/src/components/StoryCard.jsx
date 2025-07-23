@@ -1,7 +1,8 @@
-
-import { Link } from 'react-router-dom';
 import { FiAward, FiBook, FiUser } from 'react-icons/fi';
 import './StoryCard.css';
+import AminaImg from '../assets/images/Amina.jpg'; 
+import GraceImg from '../assets/images/Grace.jpg';
+import AdhiImg from '../assets/images/Adhi.jpg';
 
 const SuccessStories = () => {
   const stories = [
@@ -12,7 +13,7 @@ const SuccessStories = () => {
       story: "Tuinue Wasichana paid my school fees through high school. Today I'm the first female engineer in my family, mentoring 5 girls in STEM.",
       achievement: "First in family to attend university",
       year: "2018 Graduate",
-      image: "/images/amina.jpg" // ill find an image of a girl to use here
+      image: AminaImg // will find a better picture when i do
     },
     {
       id: 2,
@@ -21,7 +22,7 @@ const SuccessStories = () => {
       story: "The mentorship program helped me believe I could become a doctor. I'm now in my 3rd year of medical school with a full scholarship.",
       achievement: "KCSE A- student",
       year: "2020 Graduate",
-      image: "/images/grace.jpg" // and another
+      image: GraceImg
     },
     {
       id: 3,
@@ -30,7 +31,7 @@ const SuccessStories = () => {
       story: "The STEM scholarship changed my life. I now run an NGO that has trained over 200 girls in coding and robotics.",
       achievement: "Young Innovator Award 2022",
       year: "2016 Graduate",
-      image: "/images/lilian.jpg" // here as well
+      image: AdhiImg
     }
   ];
 
