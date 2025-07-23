@@ -81,10 +81,6 @@ const CharityCards = () => {
           ))}
         </div>
       </div>
-      
-      <div className="section-footer">
-        <p>Have questions about giving? <Link to="/contact" className="footer-link">Contact our team</Link></p>
-      </div>
     </section>
   );
 };

@@ -2,7 +2,7 @@
   padding: 5rem 2rem;
   background-color: #fff9fa;
   text-align: center;
-  max-width: 1400px;
+  max-width: 1910px;
   margin: 0 auto;
 }
 
@@ -171,21 +171,6 @@
   background: linear-gradient(to right, #b52a5a, #d23369);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(210, 51, 105, 0.4);
-}
-
-.section-footer {
-  margin-top: 4rem;
-  color: #4a5568;
-}
-
-.footer-link {
-  color: #d23369;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.footer-link:hover {
-  text-decoration: underline;
 }
 
 /* Responsive Design */
