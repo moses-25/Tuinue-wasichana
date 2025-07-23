@@ -16,13 +16,11 @@ const HeroSection = () => {
           </div>
         </div>
         <div className="hero-image">
-          {/* Replace with your actual image or illustration */}
-<img 
-  src={heroImg} 
-  alt="Empowered girl smiling"
-  className="hero-img"
-/>
-
+            <img 
+            src={heroImg} 
+            alt="Empowered girl smiling"
+            className="hero-img"
+            />
         </div>
       </div>
       

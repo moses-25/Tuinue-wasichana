@@ -5,6 +5,7 @@ import Login from './features/auth/Login';
 import Footer from './components/Footer';
 import FAQ from './components/FAQItem';
 import HeroSection from './components/HeroSection';
+import CharityCards from './components/CharityCard';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/footer" element={<Footer />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/hero" element={<HeroSection />} />
+        <Route path="/cha" element={<CharityCards />} />
       </Routes>
     </Router>
   );
