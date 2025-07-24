@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python/
+
+# Virtual environment
+venv/
+env/
+.env
+
+# Editor-specific files
+.vscode/
+.idea/
+
+# Flask specific
+instance/
+
+# Logs
+*.log
