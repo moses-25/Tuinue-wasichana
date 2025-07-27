@@ -10,3 +10,7 @@ class User(db.Model):
     role = db.Column(db.String(20), nullable=False)
     is_anonymous = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime)
+
+    charities = db.relationship('Charity', backref='user', lazy=True)
+    charity_applications = db.relationship('CharityApplication', backref='user', lazy=True)
+    donations = db.relationship('Donation', backref='donor', lazy=True)
