@@ -4,6 +4,10 @@ from app.models.charity import Charity
 from app.models.charity_application import CharityApplication
 from app.models.donation import Donation
 from app.models.payment import Payment
+from app.models.story import Story
+from app.models.beneficiary import Beneficiary
+from app.models.inventory import Inventory
+from app.models.reminder import Reminder
 
 def init_db_command():
     """Clear existing data and create new tables."""

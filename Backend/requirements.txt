@@ -34,3 +34,4 @@ tzdata==2025.2
 vine==5.1.0
 wcwidth==0.2.13
 Werkzeug==2.3.7
+Flask-RESTX==1.1.0

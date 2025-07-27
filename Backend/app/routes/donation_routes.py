@@ -1,4 +1,5 @@
-from flask import Blueprint, request, jsonify
+from flask import request, jsonify
+from flask_restx import Namespace, Resource, fields
 from app.services.database import db
 from app.models.donation import Donation
 from app.models.payment import Payment
@@ -7,66 +8,90 @@ from app.models.charity import Charity
 from app.middlewares.auth_middleware import roles_required
 from flask_jwt_extended import get_jwt_identity
 
-donation_bp = Blueprint('donation_bp', __name__)
+donation_ns = Namespace('donations', description='Donation related operations')
 
-@donation_bp.route('/donate', methods=['POST'])
-@roles_required('donor', 'admin') # Donors and admins can make donations
-def make_donation():
-    user_id = get_jwt_identity()
-    data = request.get_json()
+donation_request_model = donation_ns.model('DonationRequest', {
+    'charity_id': fields.Integer(required=True, description='ID of the charity to donate to'),
+    'amount': fields.Float(required=True, description='Amount of donation'),
+    'recurring': fields.Boolean(description='Is this a recurring donation?', default=False),
+    'is_anonymous': fields.Boolean(description='Donate anonymously?', default=False),
+    'payment_method': fields.String(required=True, description='Payment method (e.g., mpesa)'),
+    'transaction_id': fields.String(required=True, description='Transaction ID from payment gateway')
+})
 
-    charity_id = data.get('charity_id')
-    amount = data.get('amount')
-    recurring = data.get('recurring', False)
-    is_anonymous = data.get('is_anonymous', False)
-    payment_method = data.get('payment_method') # Should be 'mpesa'
-    transaction_id = data.get('transaction_id') # Mpesa transaction ID
+donation_response_model = donation_ns.model('DonationResponse', {
+    'id': fields.Integer(readOnly=True),
+    'user_id': fields.Integer,
+    'charity_id': fields.Integer,
+    'amount': fields.String,
+    'recurring': fields.Boolean,
+    'status': fields.String,
+    'is_anonymous': fields.Boolean,
+    'timestamp': fields.DateTime
+})
 
-    if not all([charity_id, amount, payment_method, transaction_id]):
-        return jsonify({'message': 'Missing required donation details'}), 400
+@donation_ns.route('/donate')
+class Donate(Resource):
+    @donation_ns.doc('make_donation')
+    @donation_ns.expect(donation_request_model)
+    @donation_ns.marshal_with(donation_response_model, code=201)
+    @roles_required('donor', 'admin')
+    def post(self):
+        user_id = get_jwt_identity()
+        data = request.get_json()
 
-    charity = Charity.query.get(charity_id)
-    if not charity:
-        return jsonify({'message': 'Charity not found'}), 404
+        charity_id = data.get('charity_id')
+        amount = data.get('amount')
+        recurring = data.get('recurring', False)
+        is_anonymous = data.get('is_anonymous', False)
+        payment_method = data.get('payment_method')
+        transaction_id = data.get('transaction_id')
 
-    try:
-        amount = float(amount)
-        if amount <= 0:
-            return jsonify({'message': 'Amount must be positive'}), 400
-    except ValueError:
-        return jsonify({'message': 'Invalid amount'}), 400
+        if not all([charity_id, amount, payment_method, transaction_id]):
+            donation_ns.abort(400, message='Missing required donation details')
 
-    # Create Donation entry
-    new_donation = Donation(
-        user_id=user_id,
-        charity_id=charity_id,
-        amount=amount,
-        recurring=recurring,
-        is_anonymous=is_anonymous,
-        status='pending' # Status is pending until payment is verified
-    )
-    db.session.add(new_donation)
-    db.session.flush() # Flush to get donation.id for payment
+        charity = Charity.query.get(charity_id)
+        if not charity:
+            donation_ns.abort(404, message='Charity not found')
 
-    # Create Payment entry
-    new_payment = Payment(
-        donation_id=new_donation.id,
-        method=payment_method,
-        transaction_id=transaction_id,
-        status='success' # Assuming Mpesa STK Push is successful for now
-    )
-    db.session.add(new_payment)
-    db.session.commit()
+        try:
+            amount = float(amount)
+            if amount <= 0:
+                donation_ns.abort(400, message='Amount must be positive')
+        except ValueError:
+            donation_ns.abort(400, message='Invalid amount')
 
-    # Update donation status to complete if payment is successful
-    new_donation.status = 'complete'
-    db.session.commit()
+        new_donation = Donation(
+            user_id=user_id,
+            charity_id=charity_id,
+            amount=amount,
+            recurring=recurring,
+            is_anonymous=is_anonymous,
+            status='pending'
+        )
+        db.session.add(new_donation)
+        db.session.flush()
 
-    return jsonify({'message': 'Donation successful', 'donation': new_donation.to_dict()}), 201
+        new_payment = Payment(
+            donation_id=new_donation.id,
+            method=payment_method,
+            transaction_id=transaction_id,
+            status='success'
+        )
+        db.session.add(new_payment)
+        db.session.commit()
 
-@donation_bp.route('/my-donations', methods=['GET'])
-@roles_required('donor', 'admin')
-def get_my_donations():
-    user_id = get_jwt_identity()
-    donations = Donation.query.filter_by(user_id=user_id).all()
-    return jsonify([donation.to_dict() for donation in donations]), 200
+        new_donation.status = 'complete'
+        db.session.commit()
+
+        return new_donation, 201
+
+@donation_ns.route('/my-donations')
+class MyDonations(Resource):
+    @donation_ns.doc('get_my_donations')
+    @donation_ns.marshal_list_with(donation_response_model)
+    @roles_required('donor', 'admin')
+    def get(self):
+        user_id = get_jwt_identity()
+        donations = Donation.query.filter_by(user_id=user_id).all()
+        return donations
