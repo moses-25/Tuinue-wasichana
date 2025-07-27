@@ -8,12 +8,14 @@ import HeroSection from './components/HeroSection';
 import CharityCards from './components/CharityCard';
 import ProgramCards from './components/ProgramCard';
 import StoryCard from './components/StoryCard';
+import HomePage from './Pages/HomePage';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/home" element={<HomePage />} />
         <Route path="/navbar" element={<Navbar />} />
         <Route path="/footer" element={<Footer />} />
         <Route path="/faq" element={<FAQ />} />

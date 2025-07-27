@@ -10,11 +10,26 @@ import {
   FiLogIn,
   FiLogOut
 } from 'react-icons/fi';
+import { useState, useEffect } from 'react';
 import './Navbar.css';
 
 const Navbar = ({ isAuthenticated }) => {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 10;
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [scrolled]);
+
   return (
-    <nav className="navbar-container">
+    <nav className={`navbar-container ${scrolled ? 'scrolled' : ''}`}>
       <div className="navbar-logo">
         <Link to="/">TuinueWasichana</Link>
       </div>

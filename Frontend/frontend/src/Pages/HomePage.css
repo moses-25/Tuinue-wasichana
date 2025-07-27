@@ -1,0 +1,157 @@
+/* How You Can Help Section */
+.how {
+  padding: 5rem 2rem;
+  background: linear-gradient(135deg, #fff9fa 0%, #ffebf1 100%);
+  text-align: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 2.2rem;
+  color: #d23369;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.section-subtitle {
+  font-size: 1.2rem;
+  color: #718096;
+  margin-bottom: 3rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.steps-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.step-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 5px 15px rgba(210, 51, 105, 0.08);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+  border: 1px solid #ffe5ec;
+}
+
+.step-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(210, 51, 105, 0.12);
+}
+
+.step-number {
+  position: absolute;
+  top: 0;
+  right: 1.5rem;
+  font-size: 5rem;
+  font-weight: bold;
+  color: rgba(210, 51, 105, 0.05);
+  line-height: 1;
+}
+
+.step-card h3 {
+  color: #d23369;
+  margin: 1rem 0;
+  font-size: 1.3rem;
+  position: relative;
+}
+
+.step-card p {
+  color: #4a5568;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.step-link {
+  color: #d23369;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.step-link:hover {
+  color: #a0296a;
+}
+
+.step-link::after {
+  content: "→";
+  margin-left: 5px;
+  transition: transform 0.3s ease;
+}
+
+.step-link:hover::after {
+  transform: translateX(3px);
+}
+
+.impact-note {
+  background: linear-gradient(135deg, #d23369 0%, #a0296a 100%);
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 800px;
+  margin: 0 auto;
+  box-shadow: 0 5px 20px rgba(210, 51, 105, 0.2);
+}
+
+.impact-note p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.primary-button {
+  background: white;
+  color: #d23369;
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.primary-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .how {
+    padding: 3rem 1rem;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .steps-container {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .impact-note {
+    padding: 1.5rem;
+  }
+  
+  .impact-note p {
+    font-size: 1rem;
+  }
+}
