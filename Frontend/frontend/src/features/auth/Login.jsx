@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { FiUser, FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi';
 import './Login.css';
+import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -65,6 +67,8 @@ const Auth = () => {
   };
 
   return (
+    <>
+    <Navbar />
     <div className="auth-container">
       <div className="auth-card">
         <h2>{isLogin ? 'Welcome Back' : 'Create Account'}</h2>
@@ -208,6 +212,8 @@ const Auth = () => {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 

@@ -40,24 +40,19 @@ const Navbar = ({ isAuthenticated }) => {
           <span>Home</span>
         </Link>
         
-        <Link to="/donations" className="nav-link">
+        <Link to="/cha" className="nav-link">
           <FiDollarSign className="nav-icon" />
-          <span>Donations</span>
+          <span>Charities</span>
         </Link>
         
-        <Link to="/programs" className="nav-link">
+        <Link to="/prog" className="nav-link">
           <FiBookOpen className="nav-icon" />
           <span>Programs</span>
         </Link>
         
-        <Link to="/stories" className="nav-link">
+        <Link to="/story" className="nav-link">
           <FiBookmark className="nav-icon" />
           <span>Stories</span>
-        </Link>
-        
-        <Link to="/about" className="nav-link">
-          <FiInfo className="nav-icon" />
-          <span>About</span>
         </Link>
         
         <Link to="/contact" className="nav-link">

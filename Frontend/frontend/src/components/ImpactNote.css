@@ -1,0 +1,43 @@
+.impact-note {
+  background: linear-gradient(135deg, #d23369 0%, #a0296a 100%);
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 800px;
+  margin: 2rem auto;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(210, 51, 105, 0.2);
+}
+
+.impact-note p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.impact-note .primary-button {
+  background: white;
+  color: #d23369;
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.impact-note .primary-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+@media (max-width: 768px) {
+  .impact-note {
+    padding: 1.5rem;
+  }
+  
+  .impact-note p {
+    font-size: 1rem;
+  }
+}
