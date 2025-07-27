@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+virtualenv/
+virtual-env/
+virtual_env/
+virtualenv-2.7/
+virtualenv-3.4/
+virtualenv-3.5/
+virtualenv-3.6/
+virtualenv-3.7/
+virtualenv-3.8/
+virtualenv-3.9/
+virtualenv-3.10/
+virtualenv-3.11/
+virtualenv-3.12/
+virtualenv/
+env/
+.venv/
+
+# Environment variables
+.env
+.flaskenv
+
+# Database
+*.sqlite3
+*.db
+
+# IDEs
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+thumbs.db
