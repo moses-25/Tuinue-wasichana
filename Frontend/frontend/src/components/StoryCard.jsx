@@ -22,7 +22,7 @@ const SuccessStories = () => {
       story: "The mentorship program helped me believe I could become a doctor. I'm now in my 3rd year of medical school with a full scholarship.",
       achievement: "KCSE A- student",
       year: "2020 Graduate",
-      image: GraceImg
+      image: GraceImg // will find something better as whell or interchangeable!
     },
     {
       id: 3,
@@ -31,7 +31,7 @@ const SuccessStories = () => {
       story: "The STEM scholarship changed my life. I now run an NGO that has trained over 200 girls in coding and robotics.",
       achievement: "Young Innovator Award 2022",
       year: "2016 Graduate",
-      image: AdhiImg
+      image: AdhiImg // interchangeable as well
     }
   ];
 

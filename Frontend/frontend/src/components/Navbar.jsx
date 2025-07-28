@@ -10,11 +10,26 @@ import {
   FiLogIn,
   FiLogOut
 } from 'react-icons/fi';
+import { useState, useEffect } from 'react';
 import './Navbar.css';
 
 const Navbar = ({ isAuthenticated }) => {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 10;
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [scrolled]);
+
   return (
-    <nav className="navbar-container">
+    <nav className={`navbar-container ${scrolled ? 'scrolled' : ''}`}>
       <div className="navbar-logo">
         <Link to="/">TuinueWasichana</Link>
       </div>
@@ -25,24 +40,19 @@ const Navbar = ({ isAuthenticated }) => {
           <span>Home</span>
         </Link>
         
-        <Link to="/donations" className="nav-link">
+        <Link to="/charity" className="nav-link">
           <FiDollarSign className="nav-icon" />
-          <span>Donations</span>
+          <span>Charities</span>
         </Link>
         
-        <Link to="/programs" className="nav-link">
+        <Link to="/prog" className="nav-link">
           <FiBookOpen className="nav-icon" />
           <span>Programs</span>
         </Link>
         
-        <Link to="/stories" className="nav-link">
+        <Link to="/story" className="nav-link">
           <FiBookmark className="nav-icon" />
           <span>Stories</span>
-        </Link>
-        
-        <Link to="/about" className="nav-link">
-          <FiInfo className="nav-icon" />
-          <span>About</span>
         </Link>
         
         <Link to="/contact" className="nav-link">
