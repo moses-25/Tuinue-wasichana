@@ -95,3 +95,64 @@ class MyDonations(Resource):
         user_id = get_jwt_identity()
         donations = Donation.query.filter_by(user_id=user_id).all()
         return donations
+
+@donation_ns.route('/recurring')
+class RecurringDonation(Resource):
+    @donation_ns.doc('setup_recurring_donation')
+    @donation_ns.expect(donation_request_model)
+    @roles_required('donor', 'admin')
+    def post(self):
+        """Set up a recurring donation with reminder scheduling"""
+        user_id = get_jwt_identity()
+        data = request.get_json()
+
+        charity_id = data.get('charity_id')
+        amount = data.get('amount')
+        is_anonymous = data.get('is_anonymous', False)
+
+        if not all([charity_id, amount]):
+            donation_ns.abort(400, message='Missing required donation details')
+
+        charity = Charity.query.get(charity_id)
+        if not charity:
+            donation_ns.abort(404, message='Charity not found')
+
+        try:
+            amount = float(amount)
+            if amount <= 0:
+                donation_ns.abort(400, message='Amount must be positive')
+        except ValueError:
+            donation_ns.abort(400, message='Invalid amount')
+
+        # Create the initial donation record
+        new_donation = Donation(
+            user_id=user_id,
+            charity_id=charity_id,
+            amount=amount,
+            recurring=True,
+            is_anonymous=is_anonymous,
+            status='pending'
+        )
+        db.session.add(new_donation)
+        db.session.flush()
+
+        # Schedule monthly reminder (this would integrate with Celery)
+        from app.models.reminder import Reminder
+        from datetime import datetime, timedelta
+        
+        next_month = datetime.utcnow() + timedelta(days=30)
+        reminder = Reminder(
+            user_id=user_id,
+            charity_id=charity_id,
+            amount=amount,
+            scheduled_time=next_month,
+            status='pending'
+        )
+        db.session.add(reminder)
+        db.session.commit()
+
+        return jsonify({
+            'message': 'Recurring donation set up successfully',
+            'donation': new_donation.to_dict(),
+            'next_reminder': next_month.isoformat()
+        }), 201

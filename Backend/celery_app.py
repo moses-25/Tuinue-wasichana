@@ -1,6 +1,6 @@
 from celery import Celery
-from Backend.app import create_app
-from Backend.config.config import Config
+from app import create_app
+from config.config import Config
 
 def make_celery(app):
     celery = Celery(

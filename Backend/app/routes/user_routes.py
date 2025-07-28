@@ -68,7 +68,7 @@ class UserLogin(Resource):
 
         if user and user.check_password(password):
             access_token = create_access_token(identity=user.id)
-            return jsonify(access_token=access_token, user=user.to_dict()), 200
+            return {'access_token': access_token, 'user': user.to_dict()}, 200
         else:
             user_ns.abort(401, message='Invalid credentials')
 
@@ -81,4 +81,4 @@ class ProtectedResource(Resource):
         user = User.query.get(current_user_id)
         if user is None:
             user_ns.abort(404, message='User not found')
-        return jsonify({'message': f'Hello {user.name}! You are {user.role}.'}), 200
+        return {'message': f'Hello {user.name}! You are {user.role}.'}, 200

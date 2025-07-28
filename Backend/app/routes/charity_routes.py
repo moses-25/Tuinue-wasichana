@@ -152,3 +152,81 @@ class AdminCharity(Resource):
     def delete(self, charity_id):
         return CharityController.delete_charity(charity_id)
 
+@charity_ns.route('/admin/charities/<int:charity_id>/approve')
+class AdminCharityApprove(Resource):
+    @charity_ns.doc('admin_approve_charity')
+    @charity_ns.response(200, 'Charity approved successfully')
+    @charity_ns.response(404, 'Charity not found')
+    @roles_required('admin')
+    def post(self, charity_id):
+        charity = Charity.query.get(charity_id)
+        if not charity:
+            charity_ns.abort(404, message='Charity not found')
+        
+        charity.status = 'approved'
+        db.session.commit()
+        
+        return jsonify({'message': 'Charity approved successfully', 'charity': charity.to_dict()}), 200
+
+# Public endpoints for donors
+@charity_ns.route('/')
+class CharityList(Resource):
+    @charity_ns.doc('get_approved_charities')
+    @charity_ns.marshal_list_with(charity_response_model)
+    def get(self):
+        """Get all approved charities for donors to view"""
+        charities = Charity.query.filter_by(status='approved').all()
+        return charities
+
+@charity_ns.route('/<int:charity_id>')
+class CharityDetail(Resource):
+    @charity_ns.doc('get_charity_details')
+    @charity_ns.marshal_with(charity_response_model)
+    def get(self, charity_id):
+        """Get specific charity details"""
+        charity = Charity.query.get(charity_id)
+        if not charity:
+            charity_ns.abort(404, message='Charity not found')
+        return charity
+
+# Charity dashboard endpoints
+@charity_ns.route('/my-charity/donors')
+class CharityDonors(Resource):
+    @charity_ns.doc('get_charity_donors')
+    @roles_required('charity')
+    def get(self):
+        """Get donors for the current charity"""
+        user_id = get_jwt_identity()
+        charity = Charity.query.filter_by(owner_id=user_id).first()
+        
+        if not charity:
+            charity_ns.abort(404, message='Charity not found for current user')
+        
+        # Get unique donors who donated to this charity
+        donors = db.session.query(User).join(Donation).filter(
+            Donation.charity_id == charity.id,
+            Donation.status == 'complete',
+            Donation.is_anonymous == False
+        ).distinct().all()
+        
+        return jsonify([{
+            'id': donor.id,
+            'name': donor.name,
+            'email': donor.email
+        } for donor in donors])
+
+@charity_ns.route('/my-charity/donations')
+class CharityDonations(Resource):
+    @charity_ns.doc('get_charity_donations')
+    @roles_required('charity')
+    def get(self):
+        """Get donations received by the current charity"""
+        user_id = get_jwt_identity()
+        charity = Charity.query.filter_by(owner_id=user_id).first()
+        
+        if not charity:
+            charity_ns.abort(404, message='Charity not found for current user')
+        
+        donations = Donation.query.filter_by(charity_id=charity.id).all()
+        return jsonify([donation.to_dict() for donation in donations])
+

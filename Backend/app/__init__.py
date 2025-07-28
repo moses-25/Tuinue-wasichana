@@ -10,6 +10,8 @@ from app.routes.donation_routes import donation_ns
 from app.routes.story_routes import story_ns
 from app.routes.beneficiary_routes import beneficiary_ns
 from app.routes.inventory_routes import inventory_ns
+from app.routes.payment_routes import payment_ns
+from app.routes.admin_routes import admin_ns
 from config.config import Config
 
 migrate = Migrate()
@@ -39,6 +41,8 @@ def create_app():
     api.add_namespace(story_ns, path='/stories')
     api.add_namespace(beneficiary_ns, path='/beneficiaries')
     api.add_namespace(inventory_ns, path='/inventory')
+    api.add_namespace(payment_ns, path='/payments')
+    api.add_namespace(admin_ns, path='/admin')
 
     # Register the API blueprint
     app.register_blueprint(api_bp)
