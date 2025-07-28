@@ -70,7 +70,7 @@ const SuccessStories = () => {
       
       <div className="section-footer">
         <Link to="/charity" className="view-all-btn">
-          Help make more girls successful →
+          Help make more girls successful  →→
         </Link>
       </div>
     </section>

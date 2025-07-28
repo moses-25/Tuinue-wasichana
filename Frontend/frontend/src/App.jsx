@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React from 'react';
 import Navbar from './components/Navbar';
-import Login from './features/auth/Login';
 import Footer from './components/Footer';
 import FAQ from './components/FAQItem';
 import HeroSection from './components/HeroSection';
@@ -13,13 +12,14 @@ import ImpactNote from './components/ImpactNote';
 import Charities from './Pages/Charities';
 import Donations from './Pages/Donations';
 import Stories from './Pages/Stories';
+import Login2 from './features/auth/Login2';
+import Register from './features/auth/Register';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/navbar" element={<Navbar />} />
         <Route path="/footer" element={<Footer />} />
         <Route path="/faq" element={<FAQ />} />
@@ -31,6 +31,8 @@ function App() {
         <Route path="/Charity" element={<Charities />} />
         <Route path="/don" element={<Donations />} />
         <Route path="/stories" element={<Stories />} />
+        <Route path="/log" element={<Login2 />} />
+        <Route path ="/reg" element={<Register />} />
       </Routes>
     </Router>
   );

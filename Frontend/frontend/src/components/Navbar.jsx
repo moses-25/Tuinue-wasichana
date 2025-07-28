@@ -67,9 +67,9 @@ const Navbar = ({ isAuthenticated }) => {
             </Link>
           </>
         ) : (
-          <Link to="/login" className="nav-link">
+          <Link to="/log" className="nav-link">
             <FiLogIn className="nav-icon" />
-            <span>Login</span>
+            <span>Login/Signup</span>
           </Link>
         )}
       </div>
