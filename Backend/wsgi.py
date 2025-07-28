@@ -50,6 +50,24 @@ def initialize_database(app):
 # Create the Flask application instance for Gunicorn
 application = create_app()
 
+# Add root routes after app creation
+with application.app_context():
+    @application.route('/')
+    def root():
+        return {
+            'message': 'Tuinue Wasichana API is running!',
+            'status': 'healthy',
+            'endpoints': {
+                'health': '/health',
+                'api_docs': '/api/v1/',
+                'api_health': '/api/v1/health/'
+            }
+        }, 200
+    
+    @application.route('/health')
+    def health_check():
+        return {'status': 'healthy', 'service': 'tuinue-wasichana-api'}, 200
+
 # Initialize database (only in production)
 if os.getenv('FLASK_ENV') == 'production':
     initialize_database(application)
