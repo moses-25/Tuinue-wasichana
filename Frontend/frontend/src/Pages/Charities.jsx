@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import './Charities.css';
 
 const Charities = () => {
-  // Sample charity data
+  // this is mock data
   const allCharities = [
     {
       id: 1,
@@ -69,18 +69,18 @@ const Charities = () => {
     }
   ];
 
-  // State for filters
+  // this here is for the filters
   const [filters, setFilters] = useState({
     search: '',
     category: 'All Categories',
     location: 'All Locations'
   });
 
-  // Get unique locations and categories for filter dropdowns
+  // random locations
   const locations = ['All Locations', ...new Set(allCharities.map(charity => charity.location))];
   const categories = ['All Categories', ...new Set(allCharities.map(charity => charity.category))];
 
-  // Filter charities based on filter criteria
+  
   const filteredCharities = allCharities.filter(charity => {
     return (
       charity.name.toLowerCase().includes(filters.search.toLowerCase()) &&
@@ -113,7 +113,7 @@ const Charities = () => {
               <div className="filter-group">
                 <label>Search</label>
                 <input
-                  type="text"
+                  type="text" 
                   name="search"
                   placeholder="Search charities..."
                   value={filters.search}
@@ -188,7 +188,7 @@ const Charities = () => {
                     <Link to={`/charities/${charity.id}`} className="learn-more-button">
                       Learn More
                     </Link>
-                    <Link to={`/donate/${charity.id}`} className="donate-button">
+                    <Link to={`/don/${charity.id}`} className="donate-button">
                       Donate
                     </Link>
                   </div>

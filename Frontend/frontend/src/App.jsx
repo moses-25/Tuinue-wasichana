@@ -11,6 +11,7 @@ import StoryCard from './components/StoryCard';
 import HomePage from './Pages/HomePage';
 import ImpactNote from './components/ImpactNote';
 import Charities from './Pages/Charities';
+import Donations from './Pages/Donations';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/story" element={<StoryCard />} />
         <Route path="/note" element={<ImpactNote />} />
         <Route path="/Charity" element={<Charities />} />
+        <Route path="/don" element={<Donations />} />
       </Routes>
     </Router>
   );
