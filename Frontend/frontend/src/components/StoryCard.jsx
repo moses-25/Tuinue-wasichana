@@ -1,4 +1,5 @@
 import { FiAward, FiBook, FiUser } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import './StoryCard.css';
 import AminaImg from '../assets/images/Amina.jpg'; 
 import GraceImg from '../assets/images/Grace.jpg';
@@ -68,9 +69,9 @@ const SuccessStories = () => {
       </div>
       
       <div className="section-footer">
-        <button className="view-all-btn">
-          View More Success Stories →
-        </button>
+        <Link to="/charity" className="view-all-btn">
+          Help make more girls successful →
+        </Link>
       </div>
     </section>
   );

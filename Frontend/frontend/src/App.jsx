@@ -12,6 +12,7 @@ import HomePage from './Pages/HomePage';
 import ImpactNote from './components/ImpactNote';
 import Charities from './Pages/Charities';
 import Donations from './Pages/Donations';
+import Stories from './Pages/Stories';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/note" element={<ImpactNote />} />
         <Route path="/Charity" element={<Charities />} />
         <Route path="/don" element={<Donations />} />
+        <Route path="/stories" element={<Stories />} />
       </Routes>
     </Router>
   );

@@ -1,6 +1,6 @@
 .stories-section {
   padding: 5rem 2rem;
-  background-color: #fff9fa;
+  background-color: #ffffff;
   max-width: 1400px;
   margin: 0 auto;
 }
@@ -34,7 +34,7 @@
 }
 
 .story-card {
-  background: white;
+  background: linear-gradient(135deg, #fff9fa 0%, #ffebf1 100%);
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 5px 20px rgba(210, 51, 105, 0.08);
@@ -118,6 +118,8 @@
 }
 
 .view-all-btn {
+  max-width: 300px;
+  text-decoration: none;
   background: transparent;
   color: #d23369;
   border: 2px solid #d23369;
@@ -131,7 +133,9 @@
 }
 
 .view-all-btn:hover {
-  background-color: #ffebf1;
+  transform: scale(1.05);
+  color: white;
+  background-color: #f72564;
 }
 
 /* Responsive Design */

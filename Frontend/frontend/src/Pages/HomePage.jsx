@@ -85,7 +85,7 @@ const HomePage = () => {
         <div className="container">
           <div className="charities-header">
             <h2 className="charities-title">Featured Charities Making a Difference</h2>
-            <Link to="/cha" className="view-all-link">
+            <Link to="/charity" className="view-all-link">
               View All Charities →
             </Link>
           </div>
