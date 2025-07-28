@@ -13,21 +13,25 @@ from app.models.beneficiary import Beneficiary
 from app.models.inventory import Inventory
 from app.models.reminder import Reminder
 
+# Create the Flask application instance
 app = create_app()
 
-@app.before_first_request
-def create_tables():
-    """Create database tables on first request"""
-    try:
-        db.create_all()
-    except Exception as e:
-        app.logger.error(f"Error creating tables: {e}")
+# Initialize database tables (only in production)
+if os.getenv('FLASK_ENV') == 'production':
+    with app.app_context():
+        try:
+            db.create_all()
+            app.logger.info("Database tables created successfully")
+        except Exception as e:
+            app.logger.error(f"Error creating tables: {e}")
 
+# Health check route (already defined in app/__init__.py, but adding here for redundancy)
 @app.route('/health')
 def health_check():
     """Health check endpoint for monitoring"""
     return {'status': 'healthy', 'service': 'tuinue-wasichana-api'}, 200
 
+# For development server
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     debug = os.environ.get('FLASK_ENV') == 'development'
