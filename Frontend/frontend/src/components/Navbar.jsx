@@ -8,7 +8,8 @@ import {
   FiMessageSquare,
   FiUser,
   FiLogIn,
-  FiLogOut
+  FiLogOut,
+  FiPieChart // Added dashboard icon
 } from 'react-icons/fi';
 import { useState, useEffect } from 'react';
 import './Navbar.css';
@@ -54,6 +55,14 @@ const Navbar = ({ isAuthenticated }) => {
           <FiMessageSquare className="nav-icon" />
           <span>Contact</span>
         </Link>
+
+        {/* Added Dashboard Link */}
+        {isAuthenticated && (
+          <Link to="/dashboard" className="nav-link">
+            <FiPieChart className="nav-icon" />
+            <span>Dashboard</span>
+          </Link>
+        )}
         
         {isAuthenticated ? (
           <>
