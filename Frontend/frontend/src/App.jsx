@@ -14,6 +14,7 @@ import Donations from './Pages/Donations';
 import Stories from './Pages/Stories';
 import Login2 from './features/auth/Login2';
 import Register from './features/auth/Register';
+import AdminDashboard from './Pages/Admin/AdminDashboard';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path="/stories" element={<Stories />} />
         <Route path="/log" element={<Login2 />} />
         <Route path ="/reg" element={<Register />} />
+        <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
     </Router>
   );

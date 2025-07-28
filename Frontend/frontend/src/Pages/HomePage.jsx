@@ -112,6 +112,7 @@ const HomePage = () => {
       <ImpactNote 
             message="Real change starts with you. Right now, 100+ girls are waiting for someone like you to change their future."
             ctaText="Be Their Hero Today"
+            ctaLink="/charity"
       />
       <Footer />
     </>
