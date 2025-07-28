@@ -20,9 +20,19 @@ class Config:
     SQLALCHEMY_DATABASE_URI = DATABASE_URL
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-    # Celery Configuration
-    CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://localhost:6379/0')
-    CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND', 'redis://localhost:6379/0')
+    # Celery Configuration (Free plan fallback)
+    USE_REDIS = os.getenv('USE_REDIS', 'true').lower() == 'true'
+    
+    if USE_REDIS:
+        CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://localhost:6379/0')
+        CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND', 'redis://localhost:6379/0')
+    else:
+        # Use database as broker for free plan (limited functionality)
+        CELERY_BROKER_URL = f"db+{DATABASE_URL}"
+        CELERY_RESULT_BACKEND = f"db+{DATABASE_URL}"
+    
+    # Session Configuration
+    SESSION_TYPE = os.getenv('SESSION_TYPE', 'redis' if USE_REDIS else 'sqlalchemy')
     
     # Mpesa Configuration
     MPESA_CONSUMER_KEY = os.getenv('MPESA_CONSUMER_KEY')
@@ -34,3 +44,11 @@ class Config:
     # Environment detection
     FLASK_ENV = os.getenv('FLASK_ENV', 'development')
     DEBUG = FLASK_ENV == 'development'
+    
+    # Free plan optimizations
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        'pool_pre_ping': True,
+        'pool_recycle': 300,
+        'pool_size': 5,  # Reduced for free plan
+        'max_overflow': 0,  # No overflow for free plan
+    }

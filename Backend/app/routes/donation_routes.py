@@ -136,23 +136,18 @@ class RecurringDonation(Resource):
         db.session.add(new_donation)
         db.session.flush()
 
-        # Schedule monthly reminder (this would integrate with Celery)
-        from app.models.reminder import Reminder
-        from datetime import datetime, timedelta
+        # Schedule monthly reminder using simplified service
+        from app.services.reminder_service import ReminderService
         
-        next_month = datetime.utcnow() + timedelta(days=30)
-        reminder = Reminder(
+        reminder = ReminderService.create_reminder(
             user_id=user_id,
             charity_id=charity_id,
             amount=amount,
-            scheduled_time=next_month,
-            status='pending'
+            days_from_now=30
         )
-        db.session.add(reminder)
-        db.session.commit()
 
-        return jsonify({
+        return {
             'message': 'Recurring donation set up successfully',
             'donation': new_donation.to_dict(),
-            'next_reminder': next_month.isoformat()
-        }), 201
+            'next_reminder': reminder.scheduled_time.isoformat() if reminder else None
+        }, 201

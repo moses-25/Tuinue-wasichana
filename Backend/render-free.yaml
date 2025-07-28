@@ -1,9 +1,10 @@
+# Render Free Plan Configuration for Tuinue Wasichana
 services:
   # Web Service (Flask API) - FREE PLAN OPTIMIZED
   - type: web
     name: tuinue-wasichana-api
     env: python
-    plan: free
+    plan: free  # Explicitly use free plan
     buildCommand: cd Backend && pip install -r requirements.txt
     startCommand: cd Backend && gunicorn --bind 0.0.0.0:$PORT --workers 1 --timeout 120 --max-requests 1000 --max-requests-jitter 100 app:app
     envVars:
@@ -19,6 +20,7 @@ services:
         generateValue: true
       - key: JWT_SECRET_KEY
         generateValue: true
+      # Free plan doesn't include Redis, so we'll use database for session storage
       - key: USE_REDIS
         value: false
       - key: SESSION_TYPE
@@ -29,4 +31,4 @@ databases:
   - name: tuinue-wasichana-db
     databaseName: tuinue_wasichana
     user: tuinue_user
-    plan: free
+    plan: free  # Free PostgreSQL database (1GB storage, shared CPU)
