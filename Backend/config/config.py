@@ -9,12 +9,13 @@ class Config:
 
     DATABASE_URL = os.getenv('DATABASE_URL')
 
-    if not DATABASE_URL:
-        raise ValueError("DATABASE_URL environment variable is not set. Please create a .env file and set it.")
-
-    # Add a check to prevent common placeholder errors in the connection string.
-    if ':port' in DATABASE_URL:
-        raise ValueError("Your DATABASE_URL in the .env file seems to contain a placeholder ':port'. Please replace it with the actual database port number (e.g., ':3306' for MySQL).")
+    if DATABASE_URL:
+        # Handle Render's postgres:// URL format
+        if DATABASE_URL.startswith('postgres://'):
+            DATABASE_URL = DATABASE_URL.replace('postgres://', 'postgresql://', 1)
+    else:
+        # Development fallback
+        DATABASE_URL = 'sqlite:///tuinue_dev.db'
 
     SQLALCHEMY_DATABASE_URI = DATABASE_URL
     SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -29,3 +30,7 @@ class Config:
     MPESA_BUSINESS_SHORT_CODE = os.getenv('MPESA_BUSINESS_SHORT_CODE')
     MPESA_PASSKEY = os.getenv('MPESA_PASSKEY')
     MPESA_CALLBACK_URL = os.getenv('MPESA_CALLBACK_URL', 'https://yourdomain.com/api/v1/payments/verify')
+    
+    # Environment detection
+    FLASK_ENV = os.getenv('FLASK_ENV', 'development')
+    DEBUG = FLASK_ENV == 'development'

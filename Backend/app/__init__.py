@@ -12,6 +12,7 @@ from app.routes.beneficiary_routes import beneficiary_ns
 from app.routes.inventory_routes import inventory_ns
 from app.routes.payment_routes import payment_ns
 from app.routes.admin_routes import admin_ns
+from app.routes.health_routes import health_ns
 from config.config import Config
 
 migrate = Migrate()
@@ -43,8 +44,14 @@ def create_app():
     api.add_namespace(inventory_ns, path='/inventory')
     api.add_namespace(payment_ns, path='/payments')
     api.add_namespace(admin_ns, path='/admin')
+    api.add_namespace(health_ns, path='/health')
 
     # Register the API blueprint
     app.register_blueprint(api_bp)
+    
+    # Add health check route at root level for load balancers
+    @app.route('/health')
+    def health():
+        return {'status': 'healthy', 'service': 'tuinue-wasichana-api'}, 200
 
     return app
