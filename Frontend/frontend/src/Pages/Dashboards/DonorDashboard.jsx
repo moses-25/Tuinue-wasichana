@@ -91,7 +91,6 @@ const DonorDashboard = () => {
     <div className="donor-dashboard">
       <div className="dashboard-header">
         <h1>
-          <FiPieChart className="header-icon" />
           Donor Dashboard
         </h1>
         <p className="welcome-message">Welcome back! Here's your giving overview.</p>

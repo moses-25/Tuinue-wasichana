@@ -27,8 +27,8 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  color: #2d3748;
   margin-bottom: 0.5rem;
-  color: var(--color-accent);
 }
 
 .header-icon {
