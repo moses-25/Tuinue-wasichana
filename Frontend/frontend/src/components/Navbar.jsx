@@ -40,7 +40,7 @@ const Navbar = ({ isAuthenticated }) => {
           <span>Home</span>
         </Link>
         
-        <Link to="/cha" className="nav-link">
+        <Link to="/charity" className="nav-link">
           <FiDollarSign className="nav-icon" />
           <span>Charities</span>
         </Link>

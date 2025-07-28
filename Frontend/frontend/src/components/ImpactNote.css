@@ -18,7 +18,7 @@
   background: white;
   color: #d23369;
   padding: 0.8rem 2rem;
-  border-radius: 50px;
+  border-radius: 10px;
   text-decoration: none;
   font-weight: bold;
   display: inline-block;
@@ -29,7 +29,9 @@
 
 .impact-note .primary-button:hover {
   transform: scale(1.05);
+  color: #ff0055;
   box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 0 15px white, 0 0 20px white, 0 0 35px white;
 }
 
 @media (max-width: 768px) {

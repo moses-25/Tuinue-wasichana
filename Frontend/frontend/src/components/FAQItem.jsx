@@ -10,7 +10,7 @@ const FAQ = () => {
       question: "How do I create an account?",
       answer: (
         <>
-          Click on the <Link to="/auth?mode=register">Register Her</Link> button on the login page 
+          Click on the <Link to="/login?mode=register">Register Here</Link> button on the login page 
           and fill in your details to create an account.
         </>
       )

@@ -1,10 +1,12 @@
+
 .faq-container {
+
   max-width: 2000px;
-  margin: 2rem auto;
+  margin: 0 auto;
   padding: 1.5rem;
-  background: linear-gradient(135deg, #fff5f7 0%, #ffebf1 100%);
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);  
+  /*background-color: rgba(253, 252, 252, 0.438);*/
+  background: linear-gradient(360deg, #ffffff 0%, #ffebf1 100%);
+  border-radius: 0px;
 }
 
 .faq-title {

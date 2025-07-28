@@ -16,7 +16,7 @@ html, body, #root {
 
 .auth-card {
     border: 1px solid rgb(189, 188, 188);
-    background: #FFD6E0;
+    background: #ffebf1;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     padding: 40px;

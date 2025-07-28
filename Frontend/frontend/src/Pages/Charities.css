@@ -1,0 +1,254 @@
+.charities-page {
+  padding: 3rem 0;
+  background-color: #f8f9fa;
+  min-height: calc(100vh - 120px);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+  font-size: 1.2rem;
+  color: #718096;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.filter-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+.filter-group input,
+.filter-group select {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.filter-group input:focus,
+.filter-group select:focus {
+  border-color: #d23369;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(210, 51, 105, 0.1);
+}
+
+.results-count {
+  color: #718096;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.charities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.charity-card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.charity-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.charity-image {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.charity-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.charity-card:hover .charity-image img {
+  transform: scale(1.05);
+}
+
+.charity-category {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: #d23369;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.charity-content {
+  padding: 1.5rem;
+}
+
+.charity-content h3 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+}
+
+.charity-description {
+  color: #4a5568;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.charity-location {
+  color: #718096;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.charity-location::before {
+  content: "📍";
+  margin-right: 0.3rem;
+}
+
+.charity-stats {
+  margin: 1.5rem 0;
+}
+
+.donors-count {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.donors-count .count {
+  font-weight: 700;
+  color: #d23369;
+  margin-right: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.donors-count .label {
+  color: #718096;
+  font-size: 0.9rem;
+}
+
+.progress-container {
+  margin-top: 1rem;
+}
+
+.progress-bar {
+  height: 8px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #d23369;
+  border-radius: 4px;
+}
+
+.progress-text {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #718096;
+}
+
+.charity-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.learn-more-button,
+.donate-button {
+  flex: 1;
+  text-align: center;
+  padding: 0.8rem;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.learn-more-button {
+  background-color: white;
+  color: #d23369;
+  border: 1px solid #d23369;
+}
+
+.learn-more-button:hover {
+  background-color: #fff5f7;
+}
+
+.donate-button {
+  background-color: #d23369;
+  color: white;
+  border: 1px solid #d23369;
+}
+
+.donate-button:hover {
+  background-color: #a0296a;
+}
+
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 768px) {
+  .charities-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .page-title {
+    font-size: 2rem;
+  }
+  
+  .page-subtitle {
+    font-size: 1rem;
+  }
+  
+  .charity-actions {
+    flex-direction: column;
+  }
+}

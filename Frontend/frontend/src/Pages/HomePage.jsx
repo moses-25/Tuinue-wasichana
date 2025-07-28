@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
 import Footer from '../components/Footer';
 import FAQ from '../components/FAQItem';
+import ImpactNote from '../components/ImpactNote';
 import './HomePage.css';
 
 
@@ -108,6 +109,10 @@ const HomePage = () => {
         </div>
       </section>
       <FAQ />
+      <ImpactNote 
+            message="Real change starts with you. Right now, 100+ girls are waiting for someone like you to change their future."
+            ctaText="Be Their Hero Today"
+      />
       <Footer />
     </>
   );

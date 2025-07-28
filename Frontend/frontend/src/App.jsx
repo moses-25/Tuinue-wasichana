@@ -10,6 +10,7 @@ import ProgramCards from './components/ProgramCard';
 import StoryCard from './components/StoryCard';
 import HomePage from './Pages/HomePage';
 import ImpactNote from './components/ImpactNote';
+import Charities from './Pages/Charities';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/prog" element={<ProgramCards />} />
         <Route path="/story" element={<StoryCard />} />
         <Route path="/note" element={<ImpactNote />} />
+        <Route path="/Charity" element={<Charities />} />
       </Routes>
     </Router>
   );
