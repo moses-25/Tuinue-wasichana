@@ -1,4 +1,4 @@
-/* Donor Dashboard Styles */
+/* === ROOT COLORS === */
 :root {
   --color-accent: #a0296a;
   --color-accent-hover: #df017b;
@@ -10,19 +10,19 @@
   --color-warning-text: #dd6b20;
 }
 
-/* Layout */
-.donor-dashboard {
+/* === LAYOUT === */
+.dashboard-main {
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
   color: #2d3748;
 }
 
-.dashboard-header {
+.dashboard-section-header {
   margin-bottom: 2rem;
 }
 
-.dashboard-header h1 {
+.dashboard-section-header h1 {
   font-size: 2rem;
   display: flex;
   align-items: center;
@@ -31,61 +31,57 @@
   margin-bottom: 0.5rem;
 }
 
-.header-icon {
-  color: var(--color-accent);
-}
-
-.welcome-message {
+.dashboard-welcome-text {
   color: var(--color-muted);
   margin: 0;
 }
 
-/* Stats Grid */
-.stats-grid {
+/* === STATS BLOCK === */
+.dashboard-stats-block {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.5rem;
   margin-bottom: 2rem;
 }
 
-.stat-card {
+.stat-insight-card {
   background: white;
   border-radius: 8px;
   padding: 1.5rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-.stat-icon {
+.stat-icon-container {
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
 
-.stat-title {
+.stat-heading {
   font-size: 0.9rem;
   color: var(--color-muted);
   margin: 0 0 0.5rem 0;
   letter-spacing: 0.4px;
 }
 
-.stat-value {
+.stat-metric {
   font-size: 1.75rem;
   font-weight: 700;
   margin: 0 0 0.25rem 0;
 }
 
-.stat-change {
+.stat-delta {
   font-size: 0.85rem;
   font-weight: 500;
 }
 
-/* Tabs */
-.dashboard-tabs {
+/* === TAB SELECTOR === */
+.dashboard-tab-selector {
   display: flex;
   border-bottom: 1px solid #e2e8f0;
   margin-bottom: 2rem;
 }
 
-.tab-button {
+.donation-history-toggle {
   padding: 0.75rem 1.5rem;
   background: none;
   border: none;
@@ -96,59 +92,51 @@
   transition: all 0.3s ease;
 }
 
-.tab-button.active {
+.donation-history-toggle.active-tab {
   color: var(--color-accent);
   border-bottom-color: var(--color-accent);
   font-weight: 500;
 }
 
-.tab-button:hover:not(.active) {
+.donation-history-toggle:hover:not(.active-tab) {
   color: var(--color-accent-hover);
 }
 
-/* Content Areas */
-.dashboard-content {
+/* === TAB VIEWS === */
+.dashboard-tab-view {
   background: white;
   border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
 }
 
-.section-title {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-top: 0;
-}
-
 .section-icon {
   color: var(--color-accent);
 }
 
-/* Overview Content */
-.overview-content {
+/* === OVERVIEW TAB === */
+.dashboard-overview-tab {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 2rem;
 }
 
-.recent-donations {
+.recent-donations-panel {
   grid-column: 1;
 }
 
-.recommended-charities {
+.charity-suggestions-panel {
   grid-column: 2;
 }
 
-/* Donation Cards */
-.donations-list {
+.donation-card-collection {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
-.donation-card {
+.donation-entry-card {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -158,16 +146,16 @@
   transition: transform 0.2s ease;
 }
 
-.donation-card:hover {
+.donation-entry-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.donation-info h3 {
+.entry-details h3 {
   margin: 0 0 0.25rem 0;
 }
 
-.donation-status {
+.donation-status-tag {
   font-size: 0.85rem;
   font-weight: 500;
   padding: 0.25rem 0.75rem;
@@ -175,12 +163,12 @@
   display: inline-block;
 }
 
-.donation-status.completed {
+.donation-status-tag.completed {
   background-color: var(--color-success-bg);
   color: var(--color-success-text);
 }
 
-.donation-status.pending {
+.donation-status-tag.pending {
   background-color: var(--color-warning-bg);
   color: var(--color-warning-text);
 }
@@ -200,41 +188,51 @@
   margin: 0;
 }
 
-/* Recommended Charities */
-.charities-grid {
+.donation-list-expand-btn {
+  background: none;
+  border: none;
+  color: var(--color-accent);
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  transition: color 0.3s ease;
+}
+
+.donation-list-expand-btn:hover {
+  color: var(--color-accent-hover);
+}
+
+/* === SUGGESTED CHARITIES === */
+.charity-card-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
 }
 
-.charity-card {
+.charity-suggestion-card {
   background-color: var(--color-card-bg);
   border-radius: 8px;
   padding: 1.5rem;
   transition: transform 0.2s ease;
 }
 
-.charity-card:hover {
+.charity-suggestion-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.charity-card h3 {
-  margin: 0 0 0.5rem 0;
-}
-
-.charity-card p{
+.charity-category-label {
   font-size: 0.9rem;
-  color: white;
+  color: var(--color-muted);
   margin: 0 0 1rem 0;
 }
 
-.donate-button {
+.primary-donation-cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background-color: #a0296a; /* Keep your accent color */
+  background-color: var(--color-accent);
   color: #ffffff;
   font-size: 1rem;
   font-weight: 500;
@@ -246,29 +244,25 @@
   letter-spacing: 0.3px;
 }
 
-.donate-button:hover {
-  background-color: #df017b;
+.primary-donation-cta:hover {
+  background-color: var(--color-accent-hover);
   box-shadow: 0 4px 10px rgba(160, 41, 106, 0.25);
   transform: translateY(-1px);
 }
 
-.donate-button .icon {
+.primary-donation-cta .icon {
   font-size: 1.1rem;
-  margin-top: 1px; 
-}
-
-.donate-button .icon:hover {
-  color: #ffffff; /* Ensure icon color remains white on hover */
+  margin-top: 1px;
 }
 
 
-/* Donations Table - Updated */
-.donations-table {
+
+.donation-record-table {
   border-collapse: collapse;
   width: 100%;
 }
 
-.table-header {
+.table-header-row {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
   background-color: var(--color-card-bg);
@@ -277,7 +271,7 @@
   border-bottom: 1px solid #e2e8f0;
 }
 
-.table-row {
+.table-data-row {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
   align-items: center;
@@ -286,46 +280,42 @@
   transition: background-color 0.2s ease;
 }
 
-.table-row:hover {
+.table-data-row:hover {
   background-color: #fafafa;
 }
 
-.table-row span {
-  font-size: 0.95rem;
-  color: #4a5568;
-}
-
-.table-row .amount {
+.amount {
   font-weight: 600;
   color: var(--color-accent);
 }
 
-.table-row .status {
+.status-tag {
   font-weight: 500;
   border-radius: 12px;
   padding: 0.25rem 0.75rem;
   font-size: 0.85rem;
 }
 
-.status.completed {
+.status-tag.completed {
   background-color: var(--color-success-bg);
   color: #2f855a;
 }
 
-.status.pending {
+.status-tag.pending {
   background-color: var(--color-warning-bg);
   color: #c05621;
 }
 
-/* Supported Charities - Updated */
-.charities-list {
+
+
+.supported-charity-list {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
   margin-top: 1.5rem;
 }
 
-.supported-charity {
+.supported-charity-block {
   display: grid;
   grid-template-columns: 2fr 1fr;
   align-items: center;
@@ -336,37 +326,37 @@
   transition: box-shadow 0.2s ease;
 }
 
-.supported-charity:hover {
+.supported-charity-block:hover {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-.charity-info h3 {
+.charity-data h3 {
   margin: 0;
   font-size: 1.1rem;
   font-weight: 600;
 }
 
-.charity-category {
+.charity-category-label {
   font-size: 0.9rem;
   color: var(--color-muted);
   margin-top: 0.25rem;
 }
 
-.donation-info {
+.donation-total-data {
   text-align: right;
 }
 
-.total-donated {
+.total-donated-amount {
   font-size: 0.9rem;
   margin-bottom: 0.5rem;
 }
 
-.total-donated span {
+.total-donated-amount span {
   font-weight: 700;
   color: var(--color-accent);
 }
 
-.donate-again-button {
+.repeat-donation-btn {
   background-color: #fff;
   color: var(--color-accent);
   border: 1px solid var(--color-accent);
@@ -376,27 +366,12 @@
   transition: all 0.3s ease;
 }
 
-.donate-again-button:hover {
+.repeat-donation-btn:hover {
   background-color: #ffe6f0;
 }
 
-/* Buttons */
-.view-all-button {
-  background: none;
-  border: none;
-  color: var(--color-accent);
-  font-weight: 500;
-  cursor: pointer;
-  padding: 0.5rem 0;
-  transition: color 0.3s ease;
-}
-
-.view-all-button:hover {
-  color: var(--color-accent-hover);
-}
-
-/* Loading State */
-.loading {
+/* === LOADING STATE === */
+.loading-state {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -404,7 +379,7 @@
   height: 300px;
 }
 
-.loading-spinner {
+.spinner-loader {
   width: 40px;
   height: 40px;
   border: 4px solid #f3f3f3;
@@ -419,28 +394,28 @@
   100% { transform: rotate(360deg); }
 }
 
-/* Responsive Design */
+/* === RESPONSIVE ADJUSTMENTS === */
 @media (max-width: 1024px) {
-  .overview-content {
+  .dashboard-overview-tab {
     grid-template-columns: 1fr;
   }
-  
-  .recommended-charities {
+
+  .charity-suggestions-panel {
     grid-column: 1;
   }
 }
 
 @media (max-width: 768px) {
-  .donations-table {
+  .donation-record-table {
     grid-template-columns: 1fr;
     gap: 0.5rem;
   }
 
-  .table-header {
+  .table-header-row {
     display: none;
   }
 
-  .table-row {
+  .table-data-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
@@ -450,13 +425,13 @@
     margin-bottom: 0.5rem;
   }
 
-  .supported-charity {
+  .supported-charity-block {
     grid-template-columns: 1fr;
     gap: 1rem;
     text-align: left;
   }
 
-  .donation-info {
+  .donation-total-data {
     text-align: left;
   }
 }
