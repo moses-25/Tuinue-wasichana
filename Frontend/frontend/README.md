@@ -38,7 +38,7 @@ tuinue-wasichana-frontend/
 │   │   ├── Button/
 │   │   ├── Navbar/
 │   │   ├── Footer/
-│   │   ├── HeroSection/                            Zaki
+│   │   ├── HeroSection/                            Zakiii
 │   │   ├── ProgramCard/
 │   │   ├── CharityCard/
 │   │   ├── StoryCard/
