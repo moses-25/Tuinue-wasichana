@@ -17,6 +17,7 @@ import Register from './features/auth/Register';
 import AdminDashboard from './Pages/Admin/AdminDashboard';
 import DonorDashboard from './Pages/Dashboards/DonorDashboard';
 import CharityDashboard from './Pages/Dashboards/CharityDashboard';
+import DonationPage from './Pages/Donate';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/donor" element={<DonorDashboard />} />
         <Route path="/org" element={<CharityDashboard />} />
+        <Route path="/donate" element={<DonationPage />} />
       </Routes>
     </Router>
   );
