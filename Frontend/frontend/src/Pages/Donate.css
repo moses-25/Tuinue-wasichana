@@ -263,3 +263,85 @@
     width: 100%;
   }
 }
+
+
+/* Payment Methods */
+.payment-methods {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.payment-option {
+  position: relative;
+}
+
+.payment-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+
+.payment-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  height: 100%;
+  text-align: center;
+}
+
+.payment-option input[type="radio"]:checked + .payment-label {
+  border-color: #a0296a;
+  background-color: rgba(160, 41, 106, 0.05);
+}
+
+.payment-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* PayPal Button */
+.paypal-button {
+  width: 100%;
+  padding: 1rem;
+  background-color: #003087;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.paypal-button:hover {
+  background-color: #002c7b;
+}
+
+.paypal-icon {
+  font-size: 1.25rem;
+}
+
+/* Payment Note */
+.payment-note {
+  color: #718096;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+/* Responsive Payment Methods */
+@media (max-width: 768px) {
+  .payment-methods {
+    grid-template-columns: 1fr;
+  }
+}

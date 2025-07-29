@@ -112,6 +112,7 @@ const AdminDashboard = () => {
   return (
     <>
       <Navbar />
+
       <div className="admin-dashboard">
         <div className="dashboard-header">
           <h1 className="dashboard-title">Admin Dashboard</h1>

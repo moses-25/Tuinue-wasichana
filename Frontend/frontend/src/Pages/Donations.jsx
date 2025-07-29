@@ -9,6 +9,7 @@ const Donations = () => {
   return (
     <>
       <Navbar />
+
       <div className="donation-page-container">
         <div className="donation-page-header">
           <h1>Make a Donation</h1>

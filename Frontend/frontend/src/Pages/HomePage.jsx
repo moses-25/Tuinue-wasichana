@@ -35,7 +35,8 @@ const HomePage = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar isAuthenticated={true} userRole="donor" />
+
       <HeroSection />
 
       {/* How You Can Help Section */}
@@ -50,7 +51,7 @@ const HomePage = () => {
               <div className="step-number">1</div>
               <h3>Choose Your Impact</h3>
               <p>Select exactly how you want to help - education, nutrition, or safety. Every option directly benefits a girl in need.</p>
-              <Link to="/causes" className="step-link">View Causes →</Link>
+              <Link to="/charity" className="step-link">View Causes →</Link>
             </div>
             
             {/* Step 2 */}
@@ -100,7 +101,7 @@ const HomePage = () => {
                 <div className="charity-impact">
                   <span className="impact-icon"></span> {charity.impact}
                 </div>
-                <Link to={`/charities/${charity.id}`} className="charity-button">
+                <Link to="/donate" className="charity-button">
                   Support This Cause
                 </Link>
               </div>

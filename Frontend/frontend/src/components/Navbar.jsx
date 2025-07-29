@@ -2,32 +2,45 @@ import { Link } from 'react-router-dom';
 import { 
   FiHome, 
   FiDollarSign, 
-  FiBookOpen, 
   FiBookmark, 
-  FiInfo, 
   FiMessageSquare,
   FiUser,
   FiLogIn,
   FiLogOut,
-  FiPieChart // Added dashboard icon
+  FiPieChart 
 } from 'react-icons/fi';
 import { useState, useEffect } from 'react';
 import './Navbar.css';
 
-const Navbar = ({ isAuthenticated }) => {
+const Navbar = ({ isAuthenticated, userRole }) => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 10;
-      if (isScrolled !== scrolled) {
-        setScrolled(isScrolled);
-      }
+      setScrolled(window.scrollY > 10);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [scrolled]);
+  }, []);
+
+  useEffect(() => {
+    console.log("User isAuthenticated:", isAuthenticated);
+    console.log("User role:", userRole);
+  }, [isAuthenticated, userRole]);
+
+  const getDashboardPath = () => {
+    switch (userRole) {
+      case 'admin':
+        return '/admin-dashboard';
+      case 'donor':
+        return '/donor-dashboard';
+      case 'charity':
+        return '/org-dashboard';
+      default:
+        return '/dashboard';
+    }
+  };
 
   return (
     <nav className={`navbar-container ${scrolled ? 'scrolled' : ''}`}>
@@ -56,9 +69,8 @@ const Navbar = ({ isAuthenticated }) => {
           <span>Contact</span>
         </Link>
 
-        {/* Added Dashboard Link */}
-        {isAuthenticated && (
-          <Link to="/dashboard" className="nav-link">
+        {isAuthenticated && userRole && (
+          <Link to={getDashboardPath()} className="nav-link">
             <FiPieChart className="nav-icon" />
             <span>Dashboard</span>
           </Link>
@@ -70,7 +82,7 @@ const Navbar = ({ isAuthenticated }) => {
               <FiUser className="nav-icon" />
               <span>Profile</span>
             </Link>
-            <Link to="/logout" className="nav-link">
+            <Link to="/log" className="nav-link">
               <FiLogOut className="nav-icon" />
               <span>Logout</span>
             </Link>

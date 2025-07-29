@@ -188,7 +188,7 @@ const Charities = () => {
                     <Link to={`/charities/${charity.id}`} className="learn-more-button">
                       Learn More
                     </Link>
-                    <Link to={`/don/${charity.id}`} className="donate-button">
+                    <Link to="/donate" className="donate-button">
                       Donate
                     </Link>
                   </div>

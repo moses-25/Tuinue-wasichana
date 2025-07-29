@@ -35,12 +35,12 @@ function App() {
         <Route path="/Charity" element={<Charities />} />
         <Route path="/don" element={<Donations />} />
         <Route path="/stories" element={<Stories />} />
+        <Route path="/donate" element={<DonationPage />} />
         <Route path="/log" element={<Login2 />} />
         <Route path ="/reg" element={<Register />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/donor" element={<DonorDashboard />} />
         <Route path="/org" element={<CharityDashboard />} />
-        <Route path="/donate" element={<DonationPage />} />
       </Routes>
     </Router>
   );
