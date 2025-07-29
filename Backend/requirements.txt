@@ -1,0 +1,4 @@
+psycopg2-binary==2.9.10
+python-dotenv==1.0.1
+SQLAlchemy==1.4.47
+Flask-SQLAlchemy==2.5.1
