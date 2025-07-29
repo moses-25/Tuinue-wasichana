@@ -515,6 +515,7 @@
   border-radius: 6px;
   font-size: 1rem;
   transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 
 .cd-form-input:focus {

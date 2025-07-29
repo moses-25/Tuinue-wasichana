@@ -5,14 +5,14 @@
   align-items: center;
   min-height: 100vh;
   padding: 2rem;
-  background-color: #f8f9fa;
+  background-color: #ffffff;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .donate-card {
   width: 100%;
   max-width: 800px;
-  background: white;
+  background: #fff9fb;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   overflow: hidden;
@@ -178,6 +178,7 @@
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 
 .form-group input:focus {
@@ -287,7 +288,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  padding: 0.2rem;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
   cursor: pointer;
@@ -301,9 +302,13 @@
   background-color: rgba(160, 41, 106, 0.05);
 }
 
-.payment-icon {
-  font-size: 1.5rem;
+.payment-logo {
+  height: 40px;
   margin-bottom: 0.5rem;
+}
+
+.payment-logo.mpesa-logo {
+  height: 50px;
 }
 
 /* PayPal Button */
@@ -314,21 +319,24 @@
   color: white;
   border: none;
   border-radius: 8px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   transition: background-color 0.2s;
+  transition: 1s ease;
 }
 
 .paypal-button:hover {
+  font-weight: 600;
+  scale: 1.02;
   background-color: #002c7b;
 }
 
 .paypal-icon {
-  font-size: 1.25rem;
+  height: 24px;
 }
 
 /* Payment Note */

@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import './Donate.css';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
+import visaLogo from '../assets/images/visa.svg';
+import mpesaLogo from '../assets/images/mpesa.svg';
+import paypalLogo from '../assets/images/paypal.svg';
 
 const DonationPage = () => {
   const [donationType, setDonationType] = useState('one-time');
@@ -186,8 +189,7 @@ const DonationPage = () => {
                   onChange={() => setPaymentMethod('visa')}
                 />
                 <label htmlFor="visa" className="payment-label">
-                  <span className="payment-icon">💳</span>
-                  <span>Credit/Debit Card</span>
+                  <img src={visaLogo} alt="Visa" className="payment-logo" />
                 </label>
               </div>
               <div className="payment-option">
@@ -199,8 +201,7 @@ const DonationPage = () => {
                   onChange={() => setPaymentMethod('mpesa')}
                 />
                 <label htmlFor="mpesa" className="payment-label">
-                  <span className="payment-icon">📱</span>
-                  <span>M-Pesa</span>
+                  <img src={mpesaLogo} alt="M-Pesa" className="payment-logo mpesa-logo" />
                 </label>
               </div>
               <div className="payment-option">
@@ -212,8 +213,7 @@ const DonationPage = () => {
                   onChange={() => setPaymentMethod('paypal')}
                 />
                 <label htmlFor="paypal" className="payment-label">
-                  <span className="payment-icon">🔵</span>
-                  <span>PayPal</span>
+                  <img src={paypalLogo} alt="PayPal" className="payment-logo" />
                 </label>
               </div>
             </div>
@@ -282,7 +282,7 @@ const DonationPage = () => {
           {paymentMethod === 'paypal' && (
             <div className="donate-section">
               <button type="button" className="paypal-button">
-                <span className="paypal-icon">🔵</span>
+                <span className="paypal-icon"></span>
                 Continue with PayPal
               </button>
               <p className="payment-note">
@@ -294,7 +294,7 @@ const DonationPage = () => {
           {/* Submit Section */}
           <div className="submit-section">
             <div className="security-badges">
-              <span>🔒 Secure Payment</span>
+              <span>Secure Payment</span>
               <span>⇨ SSL Encrypted</span>
             </div>
             <button type="submit" className="submit-btn">
