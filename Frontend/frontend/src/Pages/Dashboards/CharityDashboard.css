@@ -612,3 +612,73 @@
     font-size: 0.9rem;
   }
 }
+.cd-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.cd-section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--cd-text-dark);
+}
+
+.cd-add-button {
+  background-color: var(--cd-primary);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.cd-add-button:hover {
+  background-color: #ff02ab;
+}
+
+.cd-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.cd-table th,
+.cd-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--cd-border);
+}
+
+.cd-table th {
+  background-color: var(--cd-bg-light);
+  font-weight: 600;
+  color: var(--cd-text-medium);
+}
+
+.cd-table tbody tr:hover {
+  background-color: var(--cd-bg-light);
+}
+
+.cd-action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: var(--cd-text-light);
+  transition: color 0.2s ease;
+}
+
+.cd-action-btn:hover {
+  color: var(--cd-primary);
+}

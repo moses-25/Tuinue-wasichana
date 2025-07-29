@@ -1,4 +1,4 @@
-import { FiPlus } from 'react-icons/fi';
+import { FiPlus, FiEdit, FiTrash2 } from 'react-icons/fi';
 import '../Pages/Dashboards/CharityDashboard.css';
 
 const CharityList = ({ charities, onAddCharity, onEditCharity, onDeleteCharity }) => {
@@ -16,6 +16,35 @@ const CharityList = ({ charities, onAddCharity, onEditCharity, onDeleteCharity }
           Add Charity
         </button>
       </div>
+      <table className="cd-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Goal</th>
+            <th>Location</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {charities.map(charity => (
+            <tr key={charity.id}>
+              <td>{charity.name}</td>
+              <td>{charity.category}</td>
+              <td>${charity.goalAmount}</td>
+              <td>{charity.location}</td>
+              <td>
+                <button onClick={() => onEditCharity(charity)} className="cd-action-btn">
+                  <FiEdit />
+                </button>
+                <button onClick={() => onDeleteCharity(charity.id)} className="cd-action-btn">
+                  <FiTrash2 />
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

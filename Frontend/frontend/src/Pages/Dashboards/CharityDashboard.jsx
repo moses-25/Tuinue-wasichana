@@ -16,6 +16,7 @@ const CharityDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingCharity, setEditingCharity] = useState(null);
+  const [newCharityAdded, setNewCharityAdded] = useState(false);
 
   useEffect(() => {
     // Simulate API call
@@ -57,6 +58,7 @@ const CharityDashboard = () => {
     fetchData();
   }, []);
 
+  // Update stats when charities change
   const stats = [
     {
       title: 'Total Raised',
@@ -69,8 +71,8 @@ const CharityDashboard = () => {
       title: 'Active Campaigns',
       value: charities.length,
       icon: 'campaign',
-      trend: 'neutral',
-      change: '+2'
+      trend: charities.length > 2 ? 'up' : 'neutral',
+      change: charities.length > 2 ? '+2' : '0'
     },
     {
       title: 'Total Donations',
@@ -94,19 +96,29 @@ const CharityDashboard = () => {
 
   const handleSaveCharity = (charityData) => {
     if (editingCharity) {
+      // Update existing charity
       setCharities(charities.map(c => 
         c.id === editingCharity.id ? { ...charityData, id: editingCharity.id } : c
       ));
     } else {
+      // Add new charity with dynamic ID
       const newCharity = {
-        id: Math.max(...charities.map(c => c.id)) + 1,
+        id: Math.max(0, ...charities.map(c => c.id)) + 1, // Ensure minimum ID is 1
         ...charityData,
         raisedAmount: 0,
-        imageUrl: '/images/default-charity.jpg'
+        imageUrl: charityData.imageUrl || '/images/default-charity.jpg',
+        createdAt: new Date().toISOString()
       };
-      setCharities([...charities, newCharity]);
+      
+      setCharities([newCharity, ...charities]); // Add new charity at the beginning
+      setNewCharityAdded(true); // Trigger UI feedback
+      
+      // Reset the feedback after 3 seconds
+      setTimeout(() => setNewCharityAdded(false), 3000);
     }
+    
     setIsModalOpen(false);
+    setEditingCharity(null);
   };
 
   if (loading) {
@@ -120,57 +132,74 @@ const CharityDashboard = () => {
 
   return (
     <>
-    <Navbar />
-    <div className="cd-container">
-      <div className="cd-header">
-        <h1 className="cd-title">Charity Dashboard</h1>
-        <p className="cd-subtitle">Manage your charitable campaigns and donations</p>
-      </div>
+      <Navbar />
+      <div className="cd-container">
+        <div className="cd-header">
+          <h1 className="cd-title">Charity Dashboard</h1>
+          <p className="cd-subtitle">Manage your charitable campaigns and donations</p>
+          
+          {/* Success message when new charity is added */}
+          {newCharityAdded && (
+            <div className="cd-success-message">
+              New charity added successfully!
+            </div>
+          )}
+        </div>
 
-      <CharityStats stats={stats} />
-      
-      <CharityTabs 
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
-        tabs={[
-          { id: 'charities', label: 'My Charities', icon: 'heart' },
-          { id: 'donations', label: 'Donations', icon: 'dollar' },
-          { id: 'analytics', label: 'Analytics', icon: 'chart' }
-        ]}
-      />
-      
-      <div className="cd-content">
-        {activeTab === 'charities' && (
-          <CharityList
-            charities={charities}
-            onAddCharity={() => setIsModalOpen(true)}
-            onEditCharity={(charity) => {
-              setEditingCharity(charity);
-              setIsModalOpen(true);
-            }}
-            onDeleteCharity={(id) => {
-              setCharities(charities.filter(c => c.id !== id));
-            }}
-          />
-        )}
+        <CharityStats stats={stats} />
         
-        {activeTab === 'donations' && (
-          <DonationList donations={donations} charities={charities} />
-        )}
+        <CharityTabs 
+          activeTab={activeTab}
+          onTabChange={(tab) => {
+            setActiveTab(tab);
+            setNewCharityAdded(false); // Reset feedback when changing tabs
+          }}
+          tabs={[
+            { id: 'charities', label: 'My Charities', icon: 'heart' },
+            { id: 'donations', label: 'Donations', icon: 'dollar' },
+            { id: 'analytics', label: 'Analytics', icon: 'chart' }
+          ]}
+        />
         
-        {activeTab === 'analytics' && (
-          <AnalyticsPanel donations={donations} charities={charities} />
-        )}
+        <div className="cd-content">
+          {activeTab === 'charities' && (
+            <CharityList
+              charities={charities}
+              onAddCharity={() => {
+                setEditingCharity(null);
+                setIsModalOpen(true);
+              }}
+              onEditCharity={(charity) => {
+                setEditingCharity(charity);
+                setIsModalOpen(true);
+              }}
+              onDeleteCharity={(id) => {
+                setCharities(charities.filter(c => c.id !== id));
+              }}
+              newCharityAdded={newCharityAdded}
+            />
+          )}
+          
+          {activeTab === 'donations' && (
+            <DonationList donations={donations} charities={charities} />
+          )}
+          
+          {activeTab === 'analytics' && (
+            <AnalyticsPanel donations={donations} charities={charities} />
+          )}
+        </div>
+        
+        <CharityFormModal
+          isOpen={isModalOpen}
+          onClose={() => {
+            setIsModalOpen(false);
+            setEditingCharity(null);
+          }}
+          onSave={handleSaveCharity}
+          charity={editingCharity}
+        />
       </div>
-      
-      <CharityFormModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onSave={handleSaveCharity}
-        charity={editingCharity}
-      />
-    </div>
-    <Footer />
+      <Footer />
     </>
   );
 };
