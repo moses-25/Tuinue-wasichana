@@ -10,7 +10,7 @@ const FAQ = () => {
       question: "How do I create an account?",
       answer: (
         <>
-          Click on the <Link to="/login?mode=register">Register Here</Link> button on the login page 
+          Click <Link to="/reg" className="faq-link">Register Here</Link> button on the login page 
           and fill in your details to create an account.
         </>
       )
@@ -28,11 +28,10 @@ const FAQ = () => {
       question: "How can I support the Tuinue Wasichana project?",
       answer: (
         <>
-          You can support us through <Link to="/cha" className="faq-link">donations</Link>, 
-          <Link to="/prog" className="faq-link"> volunteering</Link>, or spreading awareness 
-          about our <Link to="/prog" className="faq-link">programs</Link>. 
+          You can support us through <Link to="/charity" className="faq-link">donations</Link> or spreading awareness 
+          about our Organisation.
           <div className="faq-cta">
-            Ready to help? <Link to="/cha" className="faq-link cta-link">Donate here!</Link>
+            Ready to help? <Link to="/charity" className="faq-link cta-link">Donate here!</Link>
           </div>
         </>
       )
