@@ -2,31 +2,45 @@ import { Link } from 'react-router-dom';
 import { 
   FiHome, 
   FiDollarSign, 
-  FiBookOpen, 
   FiBookmark, 
-  FiInfo, 
   FiMessageSquare,
   FiUser,
   FiLogIn,
-  FiLogOut
+  FiLogOut,
+  FiPieChart 
 } from 'react-icons/fi';
 import { useState, useEffect } from 'react';
 import './Navbar.css';
 
-const Navbar = ({ isAuthenticated }) => {
+const Navbar = ({ isAuthenticated, userRole }) => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 10;
-      if (isScrolled !== scrolled) {
-        setScrolled(isScrolled);
-      }
+      setScrolled(window.scrollY > 10);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [scrolled]);
+  }, []);
+
+  useEffect(() => {
+    console.log("User isAuthenticated:", isAuthenticated);
+    console.log("User role:", userRole);
+  }, [isAuthenticated, userRole]);
+
+  const getDashboardPath = () => {
+    switch (userRole) {
+      case 'admin':
+        return '/admin-dashboard';
+      case 'donor':
+        return '/donor-dashboard';
+      case 'charity':
+        return '/org-dashboard';
+      default:
+        return '/dashboard';
+    }
+  };
 
   return (
     <nav className={`navbar-container ${scrolled ? 'scrolled' : ''}`}>
@@ -45,12 +59,7 @@ const Navbar = ({ isAuthenticated }) => {
           <span>Charities</span>
         </Link>
         
-        <Link to="/prog" className="nav-link">
-          <FiBookOpen className="nav-icon" />
-          <span>Programs</span>
-        </Link>
-        
-        <Link to="/story" className="nav-link">
+        <Link to="/stories" className="nav-link">
           <FiBookmark className="nav-icon" />
           <span>Stories</span>
         </Link>
@@ -59,6 +68,13 @@ const Navbar = ({ isAuthenticated }) => {
           <FiMessageSquare className="nav-icon" />
           <span>Contact</span>
         </Link>
+
+        {isAuthenticated && userRole && (
+          <Link to={getDashboardPath()} className="nav-link">
+            <FiPieChart className="nav-icon" />
+            <span>Dashboard</span>
+          </Link>
+        )}
         
         {isAuthenticated ? (
           <>
@@ -66,15 +82,15 @@ const Navbar = ({ isAuthenticated }) => {
               <FiUser className="nav-icon" />
               <span>Profile</span>
             </Link>
-            <Link to="/logout" className="nav-link">
+            <Link to="/log" className="nav-link">
               <FiLogOut className="nav-icon" />
               <span>Logout</span>
             </Link>
           </>
         ) : (
-          <Link to="/login" className="nav-link">
+          <Link to="/log" className="nav-link">
             <FiLogIn className="nav-icon" />
-            <span>Login</span>
+            <span>Login/Signup</span>
           </Link>
         )}
       </div>

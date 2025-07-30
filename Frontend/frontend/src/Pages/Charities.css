@@ -79,6 +79,7 @@
 }
 
 .charity-card:hover {
+  cursor: pointer;
   transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
@@ -252,3 +253,116 @@
     flex-direction: column;
   }
 }
+
+
+/* drop down thingy*/
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.filter-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+.filter-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #555;
+}
+
+/* Input field styling */
+.filter-group input {
+  width: 95%;
+  padding: 0.8rem 0.5rem;
+  border: 1px solid #f0c0d0;
+  border-radius: 5px; 
+  background-color: #fff9fa; 
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.filter-group input:focus {
+  outline: none;
+  border-color: #ff85a2; 
+  box-shadow: 0 0 0 2px rgba(255, 133, 162, 0.2); 
+}
+
+/* Dropdown (select) styling */
+.filter-group select {
+  cursor: pointer;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #f0c0d0;
+  border-radius: 5px;
+  background-color: #fff9fa; 
+  font-size: 1rem;
+  color: #555;
+  appearance: none; 
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff85a2'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.filter-group select:focus {
+  outline: none;
+  border-color: #ff85a2; 
+  box-shadow: 0 0 0 2px rgba(255, 133, 162, 0.2);
+}
+
+
+
+/* Dropdown options styling */
+.filter-group select option {
+  cursor: pointer !important; 
+  border-radius: 12px;
+  padding: 0.5rem;
+  background-color: #ffe5eb;
+  color: #000000;
+}
+
+/* Hover effect for options */
+.filter-group select option:hover {
+  cursor: pointer;
+  background-color: #c27385 !important;
+}
+
+/* For modern browsers that support :focus-visible */
+.filter-group select:focus-visible {
+  outline: none;
+  border-color: #ff85a2;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .filter-group {
+    min-width: 100%;
+  }
+}
+
+.filter-button {
+  background-color: #ff85a2;
+  color: white;
+  border-radius: 1px;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.filter-button:hover {
+  background-color: #e6728f;
+}
+
+
