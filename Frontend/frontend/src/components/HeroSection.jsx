@@ -11,8 +11,8 @@ const HeroSection = () => {
           <h1>Empower a Girl, Transform a Nation</h1>
           <h2>With Tuinue Wasichana, every donation helps break the cycle of poverty through education</h2>
           <div className="hero-cta">
-            <Link to="/donate" className="cta-button primary">Donate Now</Link>
-            <Link to="/programs" className="cta-button secondary">Learn About Our Programs</Link>
+            <Link to="/charity" className="cta-button primary">Donate Now</Link>
+            <Link to="/stories" className="cta-button secondary">See The Positively Impacted Ladies</Link>
           </div>
         </div>
         <div className="hero-image">

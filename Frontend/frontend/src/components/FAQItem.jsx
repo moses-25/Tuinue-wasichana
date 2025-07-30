@@ -10,7 +10,7 @@ const FAQ = () => {
       question: "How do I create an account?",
       answer: (
         <>
-          Click on the <Link to="/register" className="faq-link">Sign Up</Link> button on the login page 
+          Click <Link to="/reg" className="faq-link">Register Here</Link> button on the login page 
           and fill in your details to create an account.
         </>
       )
@@ -28,24 +28,23 @@ const FAQ = () => {
       question: "How can I support the Tuinue Wasichana project?",
       answer: (
         <>
-          You can support us through <Link to="/donate" className="faq-link">donations</Link>, 
-          <Link to="/volunteer" className="faq-link"> volunteering</Link>, or spreading awareness 
-          about our <Link to="/programs" className="faq-link">programs</Link>. 
+          You can support us through <Link to="/charity" className="faq-link">donations</Link> or spreading awareness 
+          about our Organisation.
           <div className="faq-cta">
-            Ready to help? <Link to="/donate" className="faq-link cta-link">Donate here!</Link>
+            Ready to help? <Link to="/charity" className="faq-link cta-link">Donate here!</Link>
           </div>
         </>
       )
     },
     {
       question: "Are there any age restrictions for participants?",
-      answer: "Our programs are designed for girls aged 12-24, but we have some initiatives for younger girls too."
+      answer: "Our programs are designed for girls aged 0-25, but we have some initiatives for other older ages too."
     },
     {
       question: "How do I contact your support team?",
       answer: (
         <>
-          You can reach us through the <Link to="/contact" className="faq-link">contact form</Link> 
+          You can reach us through the <Link to="/cont" className="faq-link">contact form</Link> 
           on our website or email us at support@tuinuewasichana.org
         </>
       )
