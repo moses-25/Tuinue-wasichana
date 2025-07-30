@@ -1,6 +1,7 @@
 
 
 
+import { useState } from 'react';
 import { FiCheck, FiX, FiAlertCircle, FiClock } from 'react-icons/fi';
 
 const CharityApprovalList = () => {

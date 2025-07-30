@@ -1,4 +1,4 @@
-import { FiDollarSign, FiTrash2 } from 'react-icons/fi';
+import { FiDollarSign, FiTrash } from 'react-icons/fi';
 
 const DonationsTable = ({ donations, onDelete }) => {
   return (
@@ -36,7 +36,7 @@ const DonationsTable = ({ donations, onDelete }) => {
                   className="delete-btn"
                   onClick={() => onDelete(donation.id)}
                 >
-                  <FiTrash2 /> Delete
+                  <FiTrash /> Delete
                 </button>
               </td>
             </tr>

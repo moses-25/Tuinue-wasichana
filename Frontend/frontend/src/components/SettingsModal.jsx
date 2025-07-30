@@ -3,7 +3,7 @@
 
 import { FiX, FiUsers, FiHeart, FiDollarSign } from 'react-icons/fi';
 
-const SettingsModal = ({ onClose, stats, users, charities, donations }) => {
+const SettingsModal = ({ onClose, stats, charities, donations }) => {
   return (
     <div className="settings-modal-overlay">
       <div className="settings-modal">

@@ -1,6 +1,7 @@
 
 
 
+import { useState } from 'react';
 import { FiX, FiSave, FiLock, FiMail, FiBell } from 'react-icons/fi';
 
 const AdminSettings = ({ onClose }) => {

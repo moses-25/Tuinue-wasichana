@@ -1,6 +1,7 @@
 
 
 
+import { useState } from 'react';
 import { FiCheck, FiX, FiAlertTriangle, FiUser, FiShield } from 'react-icons/fi';
 
 const PermissionRequests = () => {

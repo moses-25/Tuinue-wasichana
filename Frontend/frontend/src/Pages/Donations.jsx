@@ -4,6 +4,47 @@ import Footer from '../components/Footer';
 import './Donations.css';
 
 const Donations = () => {
+  const [donationType, setDonationType] = useState('one-time');
+  const [monthlyAmount, setMonthlyAmount] = useState(20);
+  const [customAmount, setCustomAmount] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState('');
+  const [mpesaNumber, setMpesaNumber] = useState('');
+  const [paypalEmail, setPaypalEmail] = useState('');
+  const [cardNumber, setCardNumber] = useState('');
+  const [expiryDate, setExpiryDate] = useState('');
+  const [cvv, setCvv] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [isAnonymous, setIsAnonymous] = useState(false);
+  const [impact] = useState(null);
+
+  const formatCardNumber = (value) => {
+    const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+    const matches = v.match(/\d{4,16}/g);
+    const match = (matches && matches[0]) || '';
+    const parts = [];
+    for (let i = 0, len = match.length; i < len; i += 4) {
+      parts.push(match.substring(i, i + 4));
+    }
+    if (parts.length) {
+      return parts.join(' ');
+    }
+    return value;
+  };
+
+  const formatExpiryDate = (value) => {
+    const v = value.replace(/[^0-9]/gi, '');
+    if (v.length >= 3) {
+      return `${v.slice(0, 2)}/${v.slice(2, 4)}`;
+    }
+    return v;
+  };
+
+  const handleDonationSubmit = (e) => {
+    e.preventDefault();
+    // Handle donation submission logic here
+  };
   // ... (keep all your existing state and functions) ...
 
   return (
