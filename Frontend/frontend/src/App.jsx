@@ -11,9 +11,9 @@ import HomePage from './Pages/HomePage';
 import ImpactNote from './components/ImpactNote';
 import Charities from './Pages/Charities';
 import Donations from './Pages/Donations';
-<<<<<<< HEAD
+
 import Contact from './Pages/Contact';
-=======
+
 import Stories from './Pages/Stories';
 import Login2 from './features/auth/Login2';
 import Register from './features/auth/Register';
@@ -21,7 +21,6 @@ import AdminDashboard from './Pages/Admin/AdminDashboard';
 import DonorDashboard from './Pages/Dashboards/DonorDashboard';
 import CharityDashboard from './Pages/Dashboards/CharityDashboard';
 import DonationPage from './Pages/Donate';
->>>>>>> 74ef8590fde1d17ec802bbd2e357c970e6276dde
 
 function App() {
   return (
@@ -38,9 +37,9 @@ function App() {
         <Route path="/note" element={<ImpactNote />} />
         <Route path="/Charity" element={<Charities />} />
         <Route path="/don" element={<Donations />} />
-<<<<<<< HEAD
+
         <Route path="/contact" element={<Contact />} />
-=======
+
         <Route path="/stories" element={<Stories />} />
         <Route path="/donate" element={<DonationPage />} />
         <Route path="/log" element={<Login2 />} />
@@ -48,7 +47,7 @@ function App() {
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/donor" element={<DonorDashboard />} />
         <Route path="/org" element={<CharityDashboard />} />
->>>>>>> 74ef8590fde1d17ec802bbd2e357c970e6276dde
+
       </Routes>
     </Router>
   );
