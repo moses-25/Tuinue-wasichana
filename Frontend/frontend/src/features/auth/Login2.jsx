@@ -38,18 +38,18 @@ const Login = () => {
 
     setLoading(true);
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500)); // Mocking login delay
+      await new Promise(resolve => setTimeout(resolve, 1500)); 
 
-      // 🔐 Mock role check based on email
+      //  these arem ock role check based on email
       let role = '';
       switch (formData.email) {
-        case 'admin@example.com':
+        case 'admin@gmail.com':
           role = 'admin';
           break;
-        case 'donor@example.com':
+        case 'donor@gmail.com':
           role = 'donor';
           break;
-        case 'charity@example.com':
+        case 'charity@gmail.com':
           role = 'charity';
           break;
         default:
@@ -61,10 +61,10 @@ const Login = () => {
       const loggedInUser = { email: formData.email, role };
       localStorage.setItem('user', JSON.stringify(loggedInUser));
 
-      // 🔁 Redirect to the right dashboard
-      if (role === 'admin') navigate('/admin-dashboard');
-      if (role === 'donor') navigate('/donor-dashboard');
-      if (role === 'charity') navigate('/charity-dashboard');
+      // the redirect to the right dashboard
+      if (role === 'admin') navigate('/admin');
+      if (role === 'donor') navigate('/donor');
+      if (role === 'charity') navigate('/org');
 
     } catch (error) {
       console.error('Login error:', error);
