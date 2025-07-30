@@ -68,7 +68,11 @@ class CharityApply(Resource):
         db.session.add(new_application)
         db.session.commit()
 
-        return new_application, 201
+        return {
+            'success': True,
+            'charity': new_application.to_dict(),
+            'message': 'Charity application submitted successfully.'
+        }, 201
 
 @charity_ns.route('/applications')
 class CharityApplicationList(Resource):
@@ -77,7 +81,11 @@ class CharityApplicationList(Resource):
     @roles_required('admin')
     def get(self):
         applications = CharityApplication.query.all()
-        return applications
+        return {
+            'success': True,
+            'applications': [app.to_dict() for app in applications],
+            'message': 'Charity applications retrieved successfully.'
+        }, 200
 
 @charity_ns.route('/applications/<int:application_id>/approve')
 class CharityApplicationApprove(Resource):
@@ -111,7 +119,11 @@ class CharityApplicationApprove(Resource):
             user.role = 'charity'
             db.session.commit()
 
-        return application
+        return {
+            'success': True,
+            'application': application.to_dict(),
+            'message': 'Charity application approved.'
+        }, 200
 
 @charity_ns.route('/applications/<int:application_id>/reject')
 class CharityApplicationReject(Resource):
@@ -131,7 +143,11 @@ class CharityApplicationReject(Resource):
         application.reviewed_at = datetime.utcnow()
         db.session.commit()
 
-        return application
+        return {
+            'success': True,
+            'application': application.to_dict(),
+            'message': 'Charity application rejected.'
+        }, 200
 
 @charity_ns.route('/admin/charities')
 class AdminCharityList(Resource):
@@ -141,7 +157,12 @@ class AdminCharityList(Resource):
     @roles_required('admin')
     def get(self):
         status = request.args.get('status')
-        return CharityController.get_all_charities(status).json # .json to extract data from jsonify response
+        charities = CharityController.get_all_charities(status).json
+        return {
+            'success': True,
+            'charities': charities,
+            'message': 'Charities retrieved successfully.'
+        }, 200
 
 @charity_ns.route('/admin/charities/<int:charity_id>')
 class AdminCharity(Resource):
@@ -150,7 +171,11 @@ class AdminCharity(Resource):
     @charity_ns.response(404, 'Charity not found')
     @roles_required('admin')
     def delete(self, charity_id):
-        return CharityController.delete_charity(charity_id)
+        result = CharityController.delete_charity(charity_id)
+        return {
+            'success': result[1] == 200,
+            'message': result[0].get_json().get('message', 'Charity deleted.'),
+        }, result[1]
 
 @charity_ns.route('/admin/charities/<int:charity_id>/approve')
 class AdminCharityApprove(Resource):
@@ -166,7 +191,11 @@ class AdminCharityApprove(Resource):
         charity.status = 'approved'
         db.session.commit()
         
-        return jsonify({'message': 'Charity approved successfully', 'charity': charity.to_dict()}), 200
+        return {
+            'success': True,
+            'charity': charity.to_dict(),
+            'message': 'Charity approved successfully.'
+        }, 200
 
 # Public endpoints for donors
 @charity_ns.route('/')
@@ -176,7 +205,11 @@ class CharityList(Resource):
     def get(self):
         """Get all approved charities for donors to view"""
         charities = Charity.query.filter_by(status='approved').all()
-        return charities
+        return {
+            'success': True,
+            'charities': [charity.to_dict() for charity in charities],
+            'message': 'Charities retrieved successfully.'
+        }, 200
 
 @charity_ns.route('/<int:charity_id>')
 class CharityDetail(Resource):
@@ -187,7 +220,11 @@ class CharityDetail(Resource):
         charity = Charity.query.get(charity_id)
         if not charity:
             charity_ns.abort(404, message='Charity not found')
-        return charity
+        return {
+            'success': True,
+            'charity': charity.to_dict(),
+            'message': 'Charity details retrieved successfully.'
+        }, 200
 
 # Charity dashboard endpoints
 @charity_ns.route('/my-charity/donors')

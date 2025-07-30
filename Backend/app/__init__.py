@@ -13,6 +13,7 @@ from app.routes.inventory_routes import inventory_ns
 from app.routes.payment_routes import payment_ns
 from app.routes.admin_routes import admin_ns
 from app.routes.health_routes import health_ns
+from app.routes.auth_routes import auth_ns
 from config.config import Config
 
 migrate = Migrate()
@@ -36,6 +37,7 @@ def create_app():
     # and integrate them with Flask-RESTX later if needed.
 
     # Register blueprints
+    api.add_namespace(auth_ns, path='/auth')
     api.add_namespace(user_ns, path='/users')
     api.add_namespace(charity_ns, path='/charities')
     api.add_namespace(donation_ns, path='/donations')

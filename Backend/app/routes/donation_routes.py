@@ -6,17 +6,22 @@ from app.models.payment import Payment
 from app.models.user import User
 from app.models.charity import Charity
 from app.middlewares.auth_middleware import roles_required
-from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import get_jwt_identity, jwt_required
+from datetime import datetime
+
+# M-Pesa integration stub (replace with actual service)
+def initiate_mpesa_stk_push(phone_number, amount, charity_id):
+    # Simulate transaction
+    return {'transactionId': 'MPESA123456', 'message': 'STK Push initiated'}
 
 donation_ns = Namespace('donations', description='Donation related operations')
 
 donation_request_model = donation_ns.model('DonationRequest', {
-    'charity_id': fields.Integer(required=True, description='ID of the charity to donate to'),
+    'charityId': fields.Integer(required=True, description='ID of the charity to donate to'),
     'amount': fields.Float(required=True, description='Amount of donation'),
-    'recurring': fields.Boolean(description='Is this a recurring donation?', default=False),
-    'is_anonymous': fields.Boolean(description='Donate anonymously?', default=False),
-    'payment_method': fields.String(required=True, description='Payment method (e.g., mpesa)'),
-    'transaction_id': fields.String(required=True, description='Transaction ID from payment gateway')
+    'paymentMethod': fields.String(required=True, description='Payment method (e.g., mpesa, paypal, card)'),
+    'phoneNumber': fields.String(description='Phone number for M-Pesa'),
+    'is_anonymous': fields.Boolean(description='Donate anonymously?', default=False)
 })
 
 donation_response_model = donation_ns.model('DonationResponse', {
@@ -30,124 +35,98 @@ donation_response_model = donation_ns.model('DonationResponse', {
     'timestamp': fields.DateTime
 })
 
-@donation_ns.route('/donate')
-class Donate(Resource):
-    @donation_ns.doc('make_donation')
+@donation_ns.route('/')
+class MakeDonation(Resource):
     @donation_ns.expect(donation_request_model)
-    @donation_ns.marshal_with(donation_response_model, code=201)
-    @roles_required('donor', 'admin')
+    @jwt_required()
     def post(self):
-        user_id = get_jwt_identity()
         data = request.get_json()
-
-        charity_id = data.get('charity_id')
+        user_id = get_jwt_identity()
+        charity_id = data.get('charityId')
         amount = data.get('amount')
-        recurring = data.get('recurring', False)
+        payment_method = data.get('paymentMethod')
+        phone_number = data.get('phoneNumber')
         is_anonymous = data.get('is_anonymous', False)
-        payment_method = data.get('payment_method')
-        transaction_id = data.get('transaction_id')
-
-        if not all([charity_id, amount, payment_method, transaction_id]):
-            donation_ns.abort(400, message='Missing required donation details')
-
+        if not all([charity_id, amount, payment_method]):
+            return {'success': False, 'error': 'Missing required donation details'}, 400
         charity = Charity.query.get(charity_id)
         if not charity:
-            donation_ns.abort(404, message='Charity not found')
-
+            return {'success': False, 'error': 'Charity not found'}, 404
         try:
             amount = float(amount)
             if amount <= 0:
-                donation_ns.abort(400, message='Amount must be positive')
+                return {'success': False, 'error': 'Amount must be positive'}, 400
         except ValueError:
-            donation_ns.abort(400, message='Invalid amount')
-
+            return {'success': False, 'error': 'Invalid amount'}, 400
         new_donation = Donation(
             user_id=user_id,
             charity_id=charity_id,
             amount=amount,
-            recurring=recurring,
+            recurring=False,
             is_anonymous=is_anonymous,
             status='pending'
         )
         db.session.add(new_donation)
         db.session.flush()
-
+        # Simulate payment
         new_payment = Payment(
             donation_id=new_donation.id,
             method=payment_method,
-            transaction_id=transaction_id,
+            transaction_id='SIMULATED',
             status='success'
         )
         db.session.add(new_payment)
         db.session.commit()
-
         new_donation.status = 'complete'
         db.session.commit()
+        return {
+            'success': True,
+            'donation': new_donation.to_dict(),
+            'message': 'Donation successful.'
+        }, 201
 
-        return new_donation, 201
-
-@donation_ns.route('/my-donations')
-class MyDonations(Resource):
-    @donation_ns.doc('get_my_donations')
-    @donation_ns.marshal_list_with(donation_response_model)
-    @roles_required('donor', 'admin')
+@donation_ns.route('/history')
+class DonationHistory(Resource):
+    @jwt_required()
     def get(self):
         user_id = get_jwt_identity()
         donations = Donation.query.filter_by(user_id=user_id).all()
-        return donations
-
-@donation_ns.route('/recurring')
-class RecurringDonation(Resource):
-    @donation_ns.doc('setup_recurring_donation')
-    @donation_ns.expect(donation_request_model)
-    @roles_required('donor', 'admin')
-    def post(self):
-        """Set up a recurring donation with reminder scheduling"""
-        user_id = get_jwt_identity()
-        data = request.get_json()
-
-        charity_id = data.get('charity_id')
-        amount = data.get('amount')
-        is_anonymous = data.get('is_anonymous', False)
-
-        if not all([charity_id, amount]):
-            donation_ns.abort(400, message='Missing required donation details')
-
-        charity = Charity.query.get(charity_id)
-        if not charity:
-            donation_ns.abort(404, message='Charity not found')
-
-        try:
-            amount = float(amount)
-            if amount <= 0:
-                donation_ns.abort(400, message='Amount must be positive')
-        except ValueError:
-            donation_ns.abort(400, message='Invalid amount')
-
-        # Create the initial donation record
-        new_donation = Donation(
-            user_id=user_id,
-            charity_id=charity_id,
-            amount=amount,
-            recurring=True,
-            is_anonymous=is_anonymous,
-            status='pending'
-        )
-        db.session.add(new_donation)
-        db.session.flush()
-
-        # Schedule monthly reminder using simplified service
-        from app.services.reminder_service import ReminderService
-        
-        reminder = ReminderService.create_reminder(
-            user_id=user_id,
-            charity_id=charity_id,
-            amount=amount,
-            days_from_now=30
-        )
-
         return {
-            'message': 'Recurring donation set up successfully',
-            'donation': new_donation.to_dict(),
-            'next_reminder': reminder.scheduled_time.isoformat() if reminder else None
-        }, 201
+            'success': True,
+            'donations': [d.to_dict() for d in donations],
+            'message': 'Donation history retrieved.'
+        }, 200
+
+@donation_ns.route('/mpesa/initiate')
+class MpesaInitiate(Resource):
+    @jwt_required()
+    def post(self):
+        data = request.get_json()
+        phone_number = data.get('phoneNumber')
+        amount = data.get('amount')
+        charity_id = data.get('charityId')
+        if not all([phone_number, amount, charity_id]):
+            return {'success': False, 'error': 'Missing required details'}, 400
+        result = initiate_mpesa_stk_push(phone_number, amount, charity_id)
+        return {
+            'success': True,
+            'transactionId': result['transactionId'],
+            'message': result['message']
+        }, 200
+
+@donation_ns.route('/mpesa/callback')
+class MpesaCallback(Resource):
+    def post(self):
+        # Simulate callback handling
+        return {'success': True, 'message': 'Callback received.'}, 200
+
+@donation_ns.route('/mpesa/status/<string:transactionId>')
+class MpesaStatus(Resource):
+    def get(self, transactionId):
+        # Simulate status check
+        return {
+            'success': True,
+            'status': 'success',
+            'donation': {},
+            'message': 'Payment status retrieved.'
+        }, 200
