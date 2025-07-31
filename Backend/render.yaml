@@ -1,0 +1,73 @@
+services:
+  # Web Service (Flask API)
+  - type: web
+    name: tuinue-wasichana-api
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT app:app
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: FLASK_APP
+        value: app.py
+      - key: DATABASE_URL
+        fromDatabase:
+          name: tuinue-wasichana-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: tuinue-wasichana-redis
+          property: connectionString
+      - key: CELERY_BROKER_URL
+        fromService:
+          type: redis
+          name: tuinue-wasichana-redis
+          property: connectionString
+      - key: CELERY_RESULT_BACKEND
+        fromService:
+          type: redis
+          name: tuinue-wasichana-redis
+          property: connectionString
+
+  # Background Worker (Celery)
+  - type: worker
+    name: tuinue-wasichana-worker
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: celery -A celery_app worker --loglevel=info
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: tuinue-wasichana-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: tuinue-wasichana-redis
+          property: connectionString
+      - key: CELERY_BROKER_URL
+        fromService:
+          type: redis
+          name: tuinue-wasichana-redis
+          property: connectionString
+      - key: CELERY_RESULT_BACKEND
+        fromService:
+          type: redis
+          name: tuinue-wasichana-redis
+          property: connectionString
+
+  # Redis Service
+  - type: redis
+    name: tuinue-wasichana-redis
+    ipAllowList: []
+
+# Database
+databases:
+  - name: tuinue-wasichana-db
+    databaseName: tuinue_wasichana
+    user: tuinue_user
