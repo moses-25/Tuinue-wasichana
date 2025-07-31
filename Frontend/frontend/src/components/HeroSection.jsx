@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import './HeroSection.css';
-import heroImg from '../assets/images/Image 2.jpg'; 
-
+import heroimg from'../assets/images/hero.jpg';
 
 const HeroSection = () => {
   return (
@@ -17,7 +16,7 @@ const HeroSection = () => {
         </div>
         <div className="hero-image">
             <img 
-            src={heroImg} 
+            src={heroimg} 
             alt="Empowered girl smiling"
             className="hero-img"
             />
