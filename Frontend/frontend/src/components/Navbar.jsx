@@ -14,23 +14,27 @@ import './Navbar.css';
 
 const Navbar = ({ isAuthenticated, userRole }) => {
   const [scrolled, setScrolled] = useState(false);
+  const [role, setRole] = useState(userRole || null);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
     };
-
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
-    console.log("User isAuthenticated:", isAuthenticated);
-    console.log("User role:", userRole);
-  }, [isAuthenticated, userRole]);
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (storedUser?.role && !userRole) {
+      setRole(storedUser.role);
+    } else if (userRole) {
+      setRole(userRole);
+    }
+  }, [userRole]);
 
   const getDashboardPath = () => {
-    switch (userRole) {
+    switch (role) {
       case 'admin':
         return '/admin-dashboard';
       case 'donor':
@@ -69,7 +73,7 @@ const Navbar = ({ isAuthenticated, userRole }) => {
           <span>Contact</span>
         </Link>
 
-        {isAuthenticated && userRole && (
+        {isAuthenticated && role && (
           <Link to={getDashboardPath()} className="nav-link">
             <FiPieChart className="nav-icon" />
             <span>Dashboard</span>

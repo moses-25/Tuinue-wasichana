@@ -18,6 +18,7 @@ import AdminDashboard from './Pages/Admin/AdminDashboard';
 import DonorDashboard from './Pages/Dashboards/DonorDashboard';
 import CharityDashboard from './Pages/Dashboards/CharityDashboard';
 import DonationPage from './Pages/Donate';
+import DashboardRedirect from './components/DashboardRedirect';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/donor" element={<DonorDashboard />} />
         <Route path="/org" element={<CharityDashboard />} />
+        <Route path="/dashboard" element={<DashboardRedirect />} />
       </Routes>
     </Router>
   );

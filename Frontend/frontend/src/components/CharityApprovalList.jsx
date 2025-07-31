@@ -1,16 +1,28 @@
 
 
 
+import { useState, useEffect } from 'react';
 import { FiCheck, FiX, FiAlertCircle, FiClock } from 'react-icons/fi';
 
 const CharityApprovalList = () => {
-  const [charities, setCharities] = useState([
-    { id: 1, name: 'Animal Rescue', email: 'contact@animalrescue.org', status: 'pending', submitted: '2023-05-10' },
-    { id: 2, name: 'Community Kitchen', email: 'info@communitykitchen.org', status: 'pending', submitted: '2023-05-08' },
-    { id: 3, name: 'Green Earth', email: 'support@greenearth.org', status: 'pending', submitted: '2023-05-05' },
-    { id: 4, name: 'Tech for Good', email: 'hello@techforgood.org', status: 'rejected', submitted: '2023-05-01' },
-    { id: 5, name: 'Books for All', email: 'admin@booksforall.org', status: 'approved', submitted: '2023-04-28' }
-  ]);
+  const [charities, setCharities] = useState([]);
+
+  useEffect(() => {
+    const fetchCharities = async () => {
+      try {
+        const response = await fetch('/api/charityApplications');
+        if (response.ok) {
+          const data = await response.json();
+          setCharities(data);
+        } else {
+          console.error('Failed to fetch charity applications');
+        }
+      } catch (error) {
+        console.error('Error fetching charity applications:', error);
+      }
+    };
+    fetchCharities();
+  }, []);
 
   const handleApprove = (id) => {
     setCharities(charities.map(charity => 

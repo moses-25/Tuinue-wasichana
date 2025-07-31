@@ -7,7 +7,8 @@ const CharityFormModal = ({ isOpen, onClose, onSave, charity }) => {
     category: 'Education',
     goalAmount: '',
     location: '',
-    description: ''
+    description: '',
+    status: 'pending'
   });
 
   useEffect(() => {
@@ -17,7 +18,8 @@ const CharityFormModal = ({ isOpen, onClose, onSave, charity }) => {
         category: charity.category,
         goalAmount: charity.goalAmount.toString(),
         location: charity.location,
-        description: charity.description
+        description: charity.description,
+        status: charity.status
       });
     } else {
       setFormData({
@@ -25,7 +27,8 @@ const CharityFormModal = ({ isOpen, onClose, onSave, charity }) => {
         category: 'Education',
         goalAmount: '',
         location: '',
-        description: ''
+        description: '',
+        status: 'pending'
       });
     }
   }, [charity]);
@@ -37,10 +40,14 @@ const CharityFormModal = ({ isOpen, onClose, onSave, charity }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave({
+    const existingCharities = JSON.parse(localStorage.getItem('charities')) || [];
+    const newCharity = {
       ...formData,
+      id: Date.now(),
       goalAmount: Number(formData.goalAmount)
-    });
+    };
+    localStorage.setItem('charities', JSON.stringify([...existingCharities, newCharity]));
+    onSave(newCharity);
   };
 
   if (!isOpen) return null;

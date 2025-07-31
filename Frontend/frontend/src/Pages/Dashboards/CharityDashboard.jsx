@@ -18,6 +18,20 @@ const CharityDashboard = () => {
   const [editingCharity, setEditingCharity] = useState(null);
   const [newCharityAdded, setNewCharityAdded] = useState(false);
 
+  const fetchCharities = async () => {
+    try {
+      const response = await fetch('/api/charityApplications');
+      if (response.ok) {
+        const data = await response.json();
+        setCharities(data);
+      } else {
+        console.error('Failed to fetch charity applications');
+      }
+    } catch (error) {
+      console.error('Error fetching charity applications:', error);
+    }
+  };
+
   useEffect(() => {
     // Simulate API call
     const fetchData = async () => {
@@ -29,28 +43,7 @@ const CharityDashboard = () => {
         { id: 3, donor: 'Anonymous', amount: 75, date: '2023-06-05', status: 'pending', charityId: 2 }
       ]);
       
-      setCharities([
-        { 
-          id: 1, 
-          name: 'Education Fund', 
-          category: 'Education', 
-          goalAmount: 5000, 
-          raisedAmount: 1200,
-          location: 'New York, USA',
-          description: 'Providing scholarships to underprivileged students',
-          imageUrl: '/images/education-fund.jpg'
-        },
-        { 
-          id: 2, 
-          name: 'Medical Aid', 
-          category: 'Health', 
-          goalAmount: 10000, 
-          raisedAmount: 3500,
-          location: 'Global',
-          description: 'Medical supplies for disaster areas',
-          imageUrl: '/images/medical-aid.jpg'
-        }
-      ]);
+      fetchCharities();
       
       setLoading(false);
     };
@@ -62,7 +55,7 @@ const CharityDashboard = () => {
   const stats = [
     {
       title: 'Total Raised',
-      value: `$${charities.reduce((sum, c) => sum + c.raisedAmount, 0)}`,
+      value: `${charities.reduce((sum, c) => sum + c.raisedAmount, 0)}`,
       icon: 'dollar',
       trend: 'up',
       change: '12%'
@@ -94,27 +87,30 @@ const CharityDashboard = () => {
 }
   ];
 
-  const handleSaveCharity = (charityData) => {
+  const handleSaveCharity = async (charityData) => {
     if (editingCharity) {
       // Update existing charity
-      setCharities(charities.map(c => 
-        c.id === editingCharity.id ? { ...charityData, id: editingCharity.id } : c
-      ));
+      // This part needs to be implemented with a proper API call
     } else {
-      // Add new charity with dynamic ID
-      const newCharity = {
-        id: Math.max(0, ...charities.map(c => c.id)) + 1, // Ensure minimum ID is 1
-        ...charityData,
-        raisedAmount: 0,
-        imageUrl: charityData.imageUrl || '/images/default-charity.jpg',
-        createdAt: new Date().toISOString()
-      };
-      
-      setCharities([newCharity, ...charities]); // Add new charity at the beginning
-      setNewCharityAdded(true); // Trigger UI feedback
-      
-      // Reset the feedback after 3 seconds
-      setTimeout(() => setNewCharityAdded(false), 3000);
+      // Add new charity
+      try {
+        const response = await fetch('/api/charities/apply', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(charityData)
+        });
+        if (response.ok) {
+          setNewCharityAdded(true);
+          fetchCharities(); // Refetch charities to update the list
+          setTimeout(() => setNewCharityAdded(false), 3000);
+        } else {
+          console.error('Failed to submit charity application');
+        }
+      } catch (error) {
+        console.error('Error submitting charity application:', error);
+      }
     }
     
     setIsModalOpen(false);
