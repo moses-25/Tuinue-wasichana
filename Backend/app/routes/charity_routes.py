@@ -43,7 +43,7 @@ class CharityApply(Resource):
     @roles_required('donor')
     def post(self):
         user_id = get_jwt_identity()
-        user = User.query.get(user_id)
+        user = User.query.get(int(user_id))
 
         if user.role != 'donor':
             charity_ns.abort(403, message='Only users with donor role can apply for charity')
@@ -55,12 +55,12 @@ class CharityApply(Resource):
         if not all([organization_name, mission]):
             charity_ns.abort(400, message='Missing organization name or mission')
 
-        existing_application = CharityApplication.query.filter_by(user_id=user_id).first()
+        existing_application = CharityApplication.query.filter_by(user_id=int(user_id)).first()
         if existing_application:
             charity_ns.abort(409, message=f'You have already submitted a charity application. Current status: {existing_application.status}')
 
         new_application = CharityApplication(
-            user_id=user_id,
+            user_id=int(user_id),
             organization_name=organization_name,
             mission=mission
         )
@@ -234,7 +234,7 @@ class CharityDonors(Resource):
     def get(self):
         """Get donors for the current charity"""
         user_id = get_jwt_identity()
-        charity = Charity.query.filter_by(owner_id=user_id).first()
+        charity = Charity.query.filter_by(owner_id=int(user_id)).first()
         
         if not charity:
             charity_ns.abort(404, message='Charity not found for current user')
@@ -259,7 +259,7 @@ class CharityDonations(Resource):
     def get(self):
         """Get donations received by the current charity"""
         user_id = get_jwt_identity()
-        charity = Charity.query.filter_by(owner_id=user_id).first()
+        charity = Charity.query.filter_by(owner_id=int(user_id)).first()
         
         if not charity:
             charity_ns.abort(404, message='Charity not found for current user')

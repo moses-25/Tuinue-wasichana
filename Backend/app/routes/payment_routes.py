@@ -55,7 +55,7 @@ class MpesaPayment(Resource):
         
         # Create pending donation
         donation = Donation(
-            user_id=user_id,
+            user_id=int(user_id),
             charity_id=charity_id,
             amount=amount,
             recurring=recurring,
