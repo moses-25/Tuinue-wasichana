@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi';
+import { useAuth } from '../../contexts/AuthContext';
 import './Login.css';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
@@ -13,7 +14,29 @@ const Login = () => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate(); // 👈 added navigation
+  const navigate = useNavigate();
+  const { login, isAuthenticated, user } = useAuth();
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      const dashboardPath = getDashboardPath(user.role);
+      navigate(dashboardPath);
+    }
+  }, [isAuthenticated, user, navigate]);
+
+  const getDashboardPath = (role) => {
+    switch (role) {
+      case 'admin':
+        return '/admin';
+      case 'donor':
+        return '/home';
+      case 'charity':
+        return '/home';
+      default:
+        return '/home';
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,35 +60,17 @@ const Login = () => {
     if (!validateForm()) return;
 
     setLoading(true);
+    setErrors({});
+
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500)); 
-
-      //  these arem ock role check based on email
-      let role = '';
-      switch (formData.email) {
-        case 'admin@gmail.com':
-          role = 'admin';
-          break;
-        case 'donor@gmail.com':
-          role = 'donor';
-          break;
-        case 'charity@gmail.com':
-          role = 'charity';
-          break;
-        default:
-          setErrors({ form: 'Invalid credentials for demo. Try using one of the sample emails.' });
-          setLoading(false);
-          return;
+      const result = await login(formData.email, formData.password);
+      
+      if (result.success) {
+        // Navigation will be handled by the useEffect hook
+        console.log('Login successful:', result.user);
+      } else {
+        setErrors({ form: result.error || 'Login failed' });
       }
-
-      const loggedInUser = { email: formData.email, role };
-      localStorage.setItem('user', JSON.stringify(loggedInUser));
-
-      // the redirect to the right dashboard
-      if (role === 'admin') navigate('/admin');
-      if (role === 'donor') navigate('/donor');
-      if (role === 'charity') navigate('/org');
-
     } catch (error) {
       console.error('Login error:', error);
       setErrors({ form: error.message || 'An error occurred during login' });

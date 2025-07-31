@@ -1,9 +1,6 @@
 import { FiAward, FiBook, FiUser } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import './StoryCard.css';
-import AminaImg from '../assets/images/Amina.jpg'; 
-import GraceImg from '../assets/images/Grace.jpg';
-import AdhiImg from '../assets/images/Adhi.jpg';
 
 const SuccessStories = () => {
   const stories = [
@@ -14,7 +11,7 @@ const SuccessStories = () => {
       story: "Tuinue Wasichana paid my school fees through high school. Today I'm the first female engineer in my family, mentoring 5 girls in STEM.",
       achievement: "First in family to attend university",
       year: "2018 Graduate",
-      image: AminaImg // will find a better picture when i do
+      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&h=300&fit=crop&crop=face"
     },
     {
       id: 2,
@@ -23,7 +20,7 @@ const SuccessStories = () => {
       story: "The mentorship program helped me believe I could become a doctor. I'm now in my 3rd year of medical school with a full scholarship.",
       achievement: "KCSE A- student",
       year: "2020 Graduate",
-      image: GraceImg // will find something better as whell or interchangeable!
+      image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300&h=300&fit=crop&crop=face"
     },
     {
       id: 3,
@@ -32,7 +29,7 @@ const SuccessStories = () => {
       story: "The STEM scholarship changed my life. I now run an NGO that has trained over 200 girls in coding and robotics.",
       achievement: "Young Innovator Award 2022",
       year: "2016 Graduate",
-      image: AdhiImg // interchangeable as well
+      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop&crop=face"
     }
   ];
 

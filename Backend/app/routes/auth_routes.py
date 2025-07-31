@@ -39,7 +39,7 @@ class Login(Resource):
             return {'success': False, 'error': 'Missing email or password'}, 400
         user = User.query.filter_by(email=email).first()
         if user and user.check_password(password):
-            token = create_access_token(identity=user.id, additional_claims={'role': user.role})
+            token = create_access_token(identity=str(user.id), additional_claims={'role': user.role})
             user_data = user.to_dict()
             return {
                 'success': True,
@@ -73,7 +73,7 @@ class Register(Resource):
         user.set_password(password)
         db.session.add(user)
         db.session.commit()
-        token = create_access_token(identity=user.id, additional_claims={'role': user.role})
+        token = create_access_token(identity=str(user.id), additional_claims={'role': user.role})
         user_data = user.to_dict()
         return {
             'success': True,
@@ -87,7 +87,7 @@ class Profile(Resource):
     @jwt_required()
     def get(self):
         user_id = get_jwt_identity()
-        user = User.query.get(user_id)
+        user = User.query.get(int(user_id))
         if not user:
             return {'success': False, 'error': 'User not found'}, 404
         user_data = user.to_dict()

@@ -663,3 +663,77 @@
   background-color: #e53e3e;
   color: white;
 }
+/* Loading and Error States for Admin Dashboard */
+.admin-dashboard.loading-state,
+.admin-dashboard.error-state,
+.admin-dashboard.access-denied {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  padding: 2rem;
+}
+
+.admin-dashboard .spinner-loader {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #e91e63;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.admin-dashboard.loading-state p,
+.admin-dashboard.error-state p,
+.admin-dashboard.access-denied p {
+  color: #6c757d;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.admin-dashboard.error-state h2,
+.admin-dashboard.access-denied h2 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.admin-dashboard .retry-btn,
+.admin-dashboard .login-btn {
+  background: linear-gradient(135deg, #e91e63 0%, #ad1457 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.admin-dashboard .retry-btn:hover,
+.admin-dashboard .login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(233, 30, 99, 0.3);
+}
+
+/* Responsive design for admin states */
+@media (max-width: 768px) {
+  .admin-dashboard.loading-state,
+  .admin-dashboard.error-state,
+  .admin-dashboard.access-denied {
+    padding: 1rem;
+    min-height: 50vh;
+  }
+  
+  .admin-dashboard .spinner-loader {
+    width: 40px;
+    height: 40px;
+  }
+}

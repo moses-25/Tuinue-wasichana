@@ -352,4 +352,75 @@
   .payment-methods {
     grid-template-columns: 1fr;
   }
+}/* Ch
+arity Selection Styles */
+.charity-select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.charity-select:focus {
+  outline: none;
+  border-color: #e91e63;
+  box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+}
+
+.selected-charity-info {
+  margin-top: 12px;
+  padding: 12px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Loading state for submit button */
+.submit-btn.loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.submit-btn.loading::after {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error and success states */
+.error-state, .loading-state {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.error-state button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #e91e63;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.error-state button:hover {
+  background: #ad1457;
 }

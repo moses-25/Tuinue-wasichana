@@ -59,7 +59,7 @@ class MakeDonation(Resource):
         except ValueError:
             return {'success': False, 'error': 'Invalid amount'}, 400
         new_donation = Donation(
-            user_id=user_id,
+            user_id=int(user_id),
             charity_id=charity_id,
             amount=amount,
             recurring=False,
@@ -90,7 +90,7 @@ class DonationHistory(Resource):
     @jwt_required()
     def get(self):
         user_id = get_jwt_identity()
-        donations = Donation.query.filter_by(user_id=user_id).all()
+        donations = Donation.query.filter_by(user_id=int(user_id)).all()
         return {
             'success': True,
             'donations': [d.to_dict() for d in donations],

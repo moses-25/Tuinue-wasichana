@@ -683,3 +683,100 @@
 .cd-action-btn:hover {
   color: var(--cd-primary);
 }
+/* Access denied and error states */
+.cd-access-denied,
+.cd-error {
+  text-align: center;
+  padding: 4rem 2rem;
+  max-width: 600px;
+  margin: 2rem auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cd-access-denied h2,
+.cd-error h2 {
+  color: #2c3e50;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.cd-access-denied p,
+.cd-error p {
+  color: #6c757d;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.cd-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cd-apply-btn,
+.cd-home-btn,
+.cd-retry-btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.cd-apply-btn {
+  background: linear-gradient(135deg, #e91e63 0%, #ad1457 100%);
+  color: white;
+}
+
+.cd-home-btn {
+  background: #f8f9fa;
+  color: #2c3e50;
+  border: 2px solid #e9ecef;
+}
+
+.cd-retry-btn {
+  background: linear-gradient(135deg, #e91e63 0%, #ad1457 100%);
+  color: white;
+}
+
+.cd-apply-btn:hover,
+.cd-retry-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(233, 30, 99, 0.3);
+  text-decoration: none;
+  color: white;
+}
+
+.cd-home-btn:hover {
+  background: #e9ecef;
+  text-decoration: none;
+  color: #2c3e50;
+}
+
+/* Responsive design for access states */
+@media (max-width: 768px) {
+  .cd-access-denied,
+  .cd-error {
+    margin: 1rem;
+    padding: 2rem 1rem;
+  }
+  
+  .cd-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .cd-apply-btn,
+  .cd-home-btn,
+  .cd-retry-btn {
+    width: 100%;
+    max-width: 250px;
+  }
+}

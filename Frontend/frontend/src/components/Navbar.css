@@ -91,4 +91,37 @@
   .nav-icon {
     font-size: 1.3rem;
   }
+}/* L
+ogout button styling to match nav links */
+.logout-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.logout-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}/* App
+ly as Charity navigation link styling */
+.apply-charity-nav {
+  background: linear-gradient(135deg, #e91e63 0%, #ad1457 100%);
+  color: white !important;
+  border-radius: 6px;
+  margin: 0 4px;
+}
+
+.apply-charity-nav:hover {
+  background: linear-gradient(135deg, #ad1457 0%, #880e4f 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3);
+}
+
+.apply-charity-nav .nav-icon {
+  color: white;
+}
+
+.apply-charity-nav span {
+  color: white;
 }

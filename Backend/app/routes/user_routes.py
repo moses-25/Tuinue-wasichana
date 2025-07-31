@@ -25,7 +25,7 @@ class UserDetail(Resource):
     def get(self, user_id):
         current_user_id = get_jwt_identity()
         user = User.query.get(user_id)
-        if not user or (user.id != current_user_id and not User.query.get(current_user_id).role == 'admin'):
+        if not user or (user.id != int(current_user_id) and not User.query.get(int(current_user_id)).role == 'admin'):
             return {'success': False, 'error': 'User not found or unauthorized.'}, 404
         return {
             'success': True,
@@ -36,7 +36,7 @@ class UserDetail(Resource):
     def put(self, user_id):
         current_user_id = get_jwt_identity()
         user = User.query.get(user_id)
-        if not user or (user.id != current_user_id and not User.query.get(current_user_id).role == 'admin'):
+        if not user or (user.id != int(current_user_id) and not User.query.get(int(current_user_id)).role == 'admin'):
             return {'success': False, 'error': 'User not found or unauthorized.'}, 404
         data = request.get_json()
         user.name = data.get('name', user.name)

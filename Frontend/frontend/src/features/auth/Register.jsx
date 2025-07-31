@@ -1,12 +1,36 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { FiUser, FiMail, FiLock, FiEye, FiEyeOff, FiBriefcase, FiHeart } from 'react-icons/fi';
+import { useAuth } from '../../contexts/AuthContext';
 import './Register.css';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 
 const Register = () => {
-  const [accountType, setAccountType] = useState('donor'); // 'donor' or 'charity'
+  const navigate = useNavigate();
+  const { register, isAuthenticated, user } = useAuth();
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      const dashboardPath = getDashboardPath(user.role);
+      navigate(dashboardPath);
+    }
+  }, [isAuthenticated, user, navigate]);
+
+  const getDashboardPath = (role) => {
+    switch (role) {
+      case 'admin':
+        return '/admin';
+      case 'donor':
+        return '/home';
+      case 'charity':
+        return '/home';
+      default:
+        return '/home';
+    }
+  };
+  const [accountType] = useState('donor'); // Only donor registration on this page
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -38,12 +62,8 @@ const Register = () => {
       newErrors.confirmPassword = 'Passwords do not match';
     }
     
-    if (accountType === 'donor') {
-      if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
-      if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required';
-    } else {
-      if (!formData.charityName.trim()) newErrors.charityName = 'Charity name is required';
-    }
+    if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
+    if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required';
     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -54,23 +74,28 @@ const Register = () => {
     if (!validateForm()) return;
     
     setLoading(true);
+    setErrors({});
+
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      alert(accountType === 'donor' 
-        ? 'Donor account created successfully!' 
-        : 'Charity application submitted for review!');
+      // Prepare donor registration data
+      const registrationData = {
+        email: formData.email,
+        password: formData.password,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+      };
+
+      const result = await register(registrationData);
       
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-        charityName: ''
-      });
+      if (result.success) {
+        // Navigation will be handled by the useEffect hook
+        console.log('Registration successful:', result.user);
+      } else {
+        setErrors({ form: result.error || 'Registration failed' });
+      }
     } catch (error) {
       console.error('Registration error:', error);
-      setErrors({ form: error.message || 'An error occurred' });
+      setErrors({ form: error.message || 'An error occurred during registration' });
     } finally {
       setLoading(false);
     }
@@ -81,78 +106,47 @@ const Register = () => {
       <Navbar />
       <div className="register-container">
         <div className="register-card">
-          <h2>Create an account</h2>
+          <h2>Create a Donor Account</h2>
           <p className="register-subtitle">
-            Choose your account type to get started
+            Join our community and start supporting girls' education today
           </p>
 
-          <div className="account-type-selector">
-            <button
-              type="button"
-              className={`type-option ${accountType === 'donor' ? 'active' : ''}`}
-              onClick={() => setAccountType('donor')}
-            >
-              <FiHeart className="type-icon" />
-              <span>Donor</span>
-            </button>
-            <button
-              type="button"
-              className={`type-option ${accountType === 'charity' ? 'active' : ''}`}
-              onClick={() => setAccountType('charity')}
-            >
-              <FiBriefcase className="type-icon" />
-              <span>Charity</span>
-            </button>
+          <div className="charity-application-notice">
+            <p>
+              <FiBriefcase className="notice-icon" />
+              Are you a charity organization? 
+              <Link to="/apply-charity" className="charity-apply-link">
+                Apply as a Charity →
+              </Link>
+            </p>
           </div>
 
-          {accountType === 'charity' && (
-            <div className="charity-notice">
-              <p>Charity applications are reviewed by our administrators before approval.</p>
-            </div>
-          )}
-
           <form onSubmit={handleSubmit}>
-            {accountType === 'donor' ? (
-              <div className="name-fields">
-                <div className={`input-group ${errors.firstName ? 'error' : ''}`}>
-                  <div className="input-icon">
-                    <FiUser />
-                  </div>
-                  <input
-                    type="text"
-                    name="firstName"
-                    placeholder="First name"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                  />
-                  {errors.firstName && <span className="error-message">{errors.firstName}</span>}
-                </div>
-                <div className={`input-group ${errors.lastName ? 'error' : ''}`}>
-                  <input
-                    type="text"
-                    name="lastName"
-                    placeholder="Last name"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                  />
-                  {errors.lastName && <span className="error-message">{errors.lastName}</span>}
-                </div>
-              </div>
-            ) : (
-              <div className={`input-group ${errors.charityName ? 'error' : ''}`}>
+            <div className="name-fields">
+              <div className={`input-group ${errors.firstName ? 'error' : ''}`}>
                 <div className="input-icon">
-                  <FiBriefcase />
+                  <FiUser />
                 </div>
                 <input
                   type="text"
-                  name="charityName"
-                  placeholder="Charity name"
-                  value={formData.charityName}
+                  name="firstName"
+                  placeholder="First name"
+                  value={formData.firstName}
                   onChange={handleChange}
                 />
-                {errors.charityName && <span className="error-message">{errors.charityName}</span>}
+                {errors.firstName && <span className="error-message">{errors.firstName}</span>}
               </div>
-            )}
+              <div className={`input-group ${errors.lastName ? 'error' : ''}`}>
+                <input
+                  type="text"
+                  name="lastName"
+                  placeholder="Last name"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                />
+                {errors.lastName && <span className="error-message">{errors.lastName}</span>}
+              </div>
+            </div>
 
             <div className={`input-group ${errors.email ? 'error' : ''}`}>
               <div className="input-icon">
@@ -219,13 +213,11 @@ const Register = () => {
             >
               {loading ? (
                 <span className="loading-text">
-                  {accountType === 'donor' ? 'Creating account' : 'Applying'}
+                  Creating account
                   <span className="loading-dots">...</span>
                 </span>
-              ) : accountType === 'donor' ? (
-                'Create donor account'
               ) : (
-                'Apply as a charity'
+                'Create Donor Account'
               )}
             </button>
 

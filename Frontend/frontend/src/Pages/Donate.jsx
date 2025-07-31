@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../contexts/AuthContext';
+import { donationAPI, charityAPI } from '../services/api';
 import './Donate.css';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
@@ -7,6 +9,11 @@ import mpesaLogo from '../assets/images/mpesa.svg';
 import paypalLogo from '../assets/images/paypal.svg';
 
 const DonationPage = () => {
+  const { isAuthenticated, user } = useAuth();
+  const [charities, setCharities] = useState([]);
+  const [selectedCharity, setSelectedCharity] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [donationType, setDonationType] = useState('one-time');
   const [amount, setAmount] = useState('25');
   const [customAmount, setCustomAmount] = useState('');
@@ -40,17 +47,113 @@ const DonationPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const donationData = {
-      type: donationType,
-      amount: amount || customAmount,
-      isAnonymous,
-      paymentMethod,
-      ...formData
+  // Fetch charities on component mount and handle pre-selected charity
+  useEffect(() => {
+    const fetchCharities = async () => {
+      try {
+        const response = await charityAPI.getCharities();
+        if (response.success) {
+          setCharities(response.charities || []);
+          
+          // Check if charity is pre-selected via URL parameter
+          const urlParams = new URLSearchParams(window.location.search);
+          const preSelectedCharityId = urlParams.get('charity');
+          
+          if (preSelectedCharityId && response.charities) {
+            const foundCharity = response.charities.find(c => c.id.toString() === preSelectedCharityId);
+            if (foundCharity) {
+              setSelectedCharity(preSelectedCharityId);
+            } else if (response.charities.length > 0) {
+              setSelectedCharity(response.charities[0].id.toString());
+            }
+          } else if (response.charities && response.charities.length > 0) {
+            setSelectedCharity(response.charities[0].id.toString());
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching charities:', error);
+      }
     };
-    console.log('Donation submitted:', donationData);
-    // Add your donation processing logic here
+
+    fetchCharities();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!isAuthenticated) {
+      alert('Please login to make a donation');
+      return;
+    }
+
+    if (!selectedCharity) {
+      alert('Please select a charity to donate to');
+      return;
+    }
+
+    setLoading(true);
+    setSuccess(false);
+
+    try {
+      const donationAmount = parseFloat(amount || customAmount);
+      
+      if (!donationAmount || donationAmount <= 0) {
+        alert('Please enter a valid donation amount');
+        return;
+      }
+
+      const donationData = {
+        charityId: parseInt(selectedCharity),
+        amount: donationAmount,
+        paymentMethod: paymentMethod,
+        is_anonymous: isAnonymous,
+        phoneNumber: paymentMethod === 'mpesa' ? formData.phone : undefined
+      };
+
+      let result;
+      
+      if (paymentMethod === 'mpesa') {
+        // For M-Pesa, initiate STK push first
+        result = await donationAPI.initiateMpesaPayment({
+          phoneNumber: formData.phone,
+          amount: donationAmount,
+          charityId: parseInt(selectedCharity)
+        });
+        
+        if (result.success) {
+          alert('M-Pesa payment request sent to your phone. Please complete the payment.');
+          // You might want to poll for payment status here
+        }
+      } else {
+        // For other payment methods, process donation directly
+        result = await donationAPI.makeDonation(donationData);
+      }
+
+      if (result.success) {
+        setSuccess(true);
+        // Reset form
+        setAmount('25');
+        setCustomAmount('');
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          cardNumber: '',
+          expiry: '',
+          cvv: ''
+        });
+        
+        alert('Thank you for your donation! Your contribution will make a difference.');
+      } else {
+        alert(result.error || 'Donation failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Donation error:', error);
+      alert('An error occurred while processing your donation. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -67,6 +170,31 @@ const DonationPage = () => {
         </div>
 
         <form className="donate-form" onSubmit={handleSubmit}>
+          {/* Charity Selection */}
+          <div className="donate-section">
+            <h2 className="section-title">Select Charity</h2>
+            <div className="form-group">
+              <select
+                value={selectedCharity}
+                onChange={(e) => setSelectedCharity(e.target.value)}
+                required
+                className="charity-select"
+              >
+                <option value="">Choose a charity to support</option>
+                {charities.map((charity) => (
+                  <option key={charity.id} value={charity.id}>
+                    {charity.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            {selectedCharity && (
+              <div className="selected-charity-info">
+                {charities.find(c => c.id.toString() === selectedCharity)?.description}
+              </div>
+            )}
+          </div>
+
           {/* Donation Type */}
           <div className="donate-section">
             <h2 className="section-title">Donation Type</h2>
@@ -297,8 +425,8 @@ const DonationPage = () => {
               <span>Secure Payment</span>
               <span>⇨ SSL Encrypted</span>
             </div>
-            <button type="submit" className="submit-btn">
-              Donate ${amount || customAmount || '25'} Now
+            <button type="submit" className={`submit-btn ${loading ? 'loading' : ''}`} disabled={loading}>
+              {loading ? 'Processing...' : `Donate $${amount || customAmount || '25'} Now`}
             </button>
           </div>
         </form>

@@ -35,7 +35,7 @@ class StoryList(Resource):
     @roles_required('charity')
     def post(self):
         user_id = get_jwt_identity()
-        charity = Charity.query.filter_by(owner_id=user_id).first()
+        charity = Charity.query.filter_by(owner_id=int(user_id)).first()
         if not charity:
             return {'success': False, 'error': 'Charity not found for this user'}, 404
         data = request.get_json()
@@ -65,7 +65,7 @@ class Story(Resource):
     @roles_required('charity')
     def put(self, story_id):
         user_id = get_jwt_identity()
-        charity = Charity.query.filter_by(owner_id=user_id).first()
+        charity = Charity.query.filter_by(owner_id=int(user_id)).first()
         if not charity:
             return {'success': False, 'error': 'Charity not found for this user'}, 404
         story = StoryController.get_story_by_id(story_id)
@@ -85,7 +85,7 @@ class Story(Resource):
     @roles_required('charity')
     def delete(self, story_id):
         user_id = get_jwt_identity()
-        charity = Charity.query.filter_by(owner_id=user_id).first()
+        charity = Charity.query.filter_by(owner_id=int(user_id)).first()
         if not charity:
             return {'success': False, 'error': 'Charity not found for this user'}, 404
         story = StoryController.get_story_by_id(story_id)

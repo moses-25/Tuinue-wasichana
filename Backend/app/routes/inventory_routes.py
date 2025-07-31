@@ -35,7 +35,7 @@ class InventoryList(Resource):
     @roles_required('charity', 'admin')
     def get(self, charity_id):
         user_id = get_jwt_identity()
-        user_charity = Charity.query.filter_by(owner_id=user_id).first()
+        user_charity = Charity.query.filter_by(owner_id=int(user_id)).first()
 
         if user_charity and user_charity.id != charity_id:
             inventory_ns.abort(403, message='Unauthorized to view this inventory')
@@ -48,7 +48,7 @@ class InventoryList(Resource):
     @roles_required('charity')
     def post(self, charity_id):
         user_id = get_jwt_identity()
-        user_charity = Charity.query.filter_by(owner_id=user_id).first()
+        user_charity = Charity.query.filter_by(owner_id=int(user_id)).first()
 
         if not user_charity or user_charity.id != charity_id:
             inventory_ns.abort(403, message='Unauthorized to add inventory to this charity')
@@ -67,7 +67,7 @@ class Inventory(Resource):
     @roles_required('charity', 'admin')
     def get(self, item_id):
         user_id = get_jwt_identity()
-        user_charity = Charity.query.filter_by(owner_id=user_id).first()
+        user_charity = Charity.query.filter_by(owner_id=int(user_id)).first()
         item_response = InventoryController.get_inventory_item_by_id(item_id)
         if item_response[1] != 200:
             inventory_ns.abort(item_response[1], message=item_response[0].json['message'])
@@ -84,7 +84,7 @@ class Inventory(Resource):
     @roles_required('charity')
     def put(self, item_id):
         user_id = get_jwt_identity()
-        user_charity = Charity.query.filter_by(owner_id=user_id).first()
+        user_charity = Charity.query.filter_by(owner_id=int(user_id)).first()
         item_response = InventoryController.get_inventory_item_by_id(item_id)
         if item_response[1] != 200:
             inventory_ns.abort(item_response[1], message=item_response[0].json['message'])
@@ -104,7 +104,7 @@ class Inventory(Resource):
     @roles_required('charity')
     def delete(self, item_id):
         user_id = get_jwt_identity()
-        user_charity = Charity.query.filter_by(owner_id=user_id).first()
+        user_charity = Charity.query.filter_by(owner_id=int(user_id)).first()
         item_response = InventoryController.get_inventory_item_by_id(item_id)
         if item_response[1] != 200:
             inventory_ns.abort(item_response[1], message=item_response[0].json['message'])

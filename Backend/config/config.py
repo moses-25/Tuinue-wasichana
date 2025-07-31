@@ -45,10 +45,17 @@ class Config:
     FLASK_ENV = os.getenv('FLASK_ENV', 'development')
     DEBUG = FLASK_ENV == 'development'
     
-    # Free plan optimizations
-    SQLALCHEMY_ENGINE_OPTIONS = {
-        'pool_pre_ping': True,
-        'pool_recycle': 300,
-        'pool_size': 5,  # Reduced for free plan
-        'max_overflow': 0,  # No overflow for free plan
-    }
+    # Database engine options (conditional based on database type)
+    if DATABASE_URL and not DATABASE_URL.startswith('sqlite'):
+        # PostgreSQL/MySQL settings
+        SQLALCHEMY_ENGINE_OPTIONS = {
+            'pool_pre_ping': True,
+            'pool_recycle': 300,
+            'pool_size': 5,  # Reduced for free plan
+            'max_overflow': 0,  # No overflow for free plan
+        }
+    else:
+        # SQLite settings (no pooling)
+        SQLALCHEMY_ENGINE_OPTIONS = {
+            'pool_pre_ping': True,
+        }
