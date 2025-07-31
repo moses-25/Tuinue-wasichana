@@ -3,7 +3,7 @@ services:
   - type: web
     name: tuinue-wasichana-api
     env: python
-    buildCommand: pip install -r requirements.txt
+    buildCommand: pip install -r requirements.txt && python deploy.py
     startCommand: gunicorn --bind 0.0.0.0:$PORT app:app
     envVars:
       - key: FLASK_ENV
@@ -33,6 +33,15 @@ services:
           type: redis
           name: tuinue-wasichana-redis
           property: connectionString
+      # Admin user configuration
+      - key: ADMIN_NAME
+        value: "Tuinue Wasichana Admin"
+      - key: ADMIN_EMAIL
+        value: "admin@tuinuewasichana.org"
+      - key: ADMIN_PASSWORD
+        value: "TuinueAdmin2024!"
+      - key: CREATE_ADMIN_ON_DEPLOY
+        value: "true"
 
   # Background Worker (Celery)
   - type: worker
