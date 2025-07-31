@@ -4,6 +4,7 @@ import HeroSection from "../components/HeroSection";
 import Footer from '../components/Footer';
 import FAQ from '../components/FAQItem';
 import ImpactNote from '../components/ImpactNote';
+
 import './HomePage.css';
 
 
@@ -35,7 +36,7 @@ const HomePage = () => {
 
   return (
     <>
-      <Navbar isAuthenticated={true} userRole="donor" />
+      <Navbar />
 
       <HeroSection />
 

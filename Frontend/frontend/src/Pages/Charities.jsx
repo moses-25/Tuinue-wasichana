@@ -1,73 +1,74 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { charityAPI } from '../services/api';
+import { useAuth } from '../contexts/AuthContext';
 import Navbar from "../components/Navbar";
 import Footer from '../components/Footer';
 import './Charities.css';
 
 const Charities = () => {
-  // this is mock data
-  const allCharities = [
-    {
-      id: 1,
-      name: "Girls Sanitary Health Initiative",
-      description: "Providing sanitary products and education to girls in rural Kenya",
-      location: "Kenya",
-      category: "Health",
-      raised: 12500,
-      donors: 107,
-      goal: 20000
-    },
-    {
-      id: 2,
-      name: "Clean Water for Schools",
-      description: "Building clean water facilities in girls' schools across Tanzania",
-      location: "Tanzania",
-      category: "Infrastructure",
-      raised: 8700,
-      donors: 124,
-      goal: 15000
-    },
-    {
-      id: 3,
-      name: "Menstrual Education Program",
-      description: "Teaching proper menstrual hygiene to adolescent girls in Uganda",
-      location: "Uganda",
-      category: "Education",
-      raised: 5300,
-      donors: 96,
-      goal: 10000
-    },
-    {
-      id: 4,
-      name: "School Pad Initiative",
-      description: "Providing reusable sanitary pads to schoolgirls in Rwanda",
-      location: "Rwanda",
-      category: "Health",
-      raised: 9800,
-      donors: 142,
-      goal: 15000
-    },
-    {
-      id: 5,
-      name: "Girls' Hygiene Education",
-      description: "Educating girls about menstrual health and hygiene practices",
-      location: "Ethiopia",
-      category: "Education",
-      raised: 6700,
-      donors: 88,
-      goal: 12000
-    },
-    {
-      id: 6,
-      name: "Sanitation Facilities Project",
-      description: "Building proper sanitation facilities in girls' schools",
-      location: "Malawi",
-      category: "Infrastructure",
-      raised: 11200,
-      donors: 156,
-      goal: 20000
-    }
-  ];
+  const [allCharities, setAllCharities] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch charities from backend
+  useEffect(() => {
+    const fetchCharities = async () => {
+      try {
+        setLoading(true);
+        const response = await charityAPI.getCharities();
+        
+        if (response.success) {
+          setAllCharities(response.charities || []);
+          setError(null); // Clear any previous errors
+        } else {
+          setError('Failed to load charities');
+        }
+      } catch (err) {
+        console.error('Error fetching charities:', err);
+        setError('Failed to connect to server');
+        
+        // Fallback to mock data if API fails
+        const mockCharities = [
+          {
+            id: 1,
+            name: "Girls Sanitary Health Initiative",
+            description: "Providing sanitary products and education to girls in rural Kenya",
+            location: "Kenya",
+            category: "Health",
+            raised: 12500,
+            donors: 107,
+            goal: 20000
+          },
+          {
+            id: 2,
+            name: "Clean Water for Schools",
+            description: "Building clean water facilities in girls' schools across Tanzania",
+            location: "Tanzania",
+            category: "Infrastructure",
+            raised: 8700,
+            donors: 124,
+            goal: 15000
+          },
+          {
+            id: 3,
+            name: "Menstrual Education Program",
+            description: "Teaching proper menstrual hygiene to adolescent girls in Uganda",
+            location: "Uganda",
+            category: "Education",
+            raised: 5300,
+            donors: 96,
+            goal: 10000
+          }
+        ];
+        setAllCharities(mockCharities);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCharities();
+  }, []);
 
   // this here is for the filters
   const [filters, setFilters] = useState({
@@ -106,8 +107,17 @@ const Charities = () => {
           <div className="page-divider"></div>
 
           <section className="browse-section">
-            <h2>Browse Charities</h2>
-            <p className="charity-subtitle">Find and support charities working to improve menstrual health and education for girls</p>
+            <div className="browse-header">
+              <div className="browse-text">
+                <h2>Browse Charities</h2>
+                <p className="charity-subtitle">Find and support charities working to improve menstrual health and education for girls</p>
+              </div>
+              <div className="browse-actions">
+                <Link to="/apply-charity" className="apply-charity-btn">
+                  Apply as a Charity
+                </Link>
+              </div>
+            </div>
             
             <div className="filters">
               <div className="filter-group">
@@ -151,8 +161,46 @@ const Charities = () => {
 
           <div className="page-divider"></div>
           
+          {/* Loading State */}
+          {loading && (
+            <div className="loading-state">
+              <p>Loading charities...</p>
+            </div>
+          )}
+
+          {/* Error State */}
+          {error && (
+            <div className="error-state">
+              <p>{error}</p>
+              <button onClick={() => window.location.reload()}>Try Again</button>
+            </div>
+          )}
+          
+          {/* No Charities State */}
+          {!loading && !error && allCharities.length === 0 && (
+            <div className="empty-state">
+              <h3>No charities available yet</h3>
+              <p>Be the first to make a difference! Apply to register your charity and start helping girls in need.</p>
+              <Link to="/apply-charity" className="apply-charity-btn">
+                Apply as a Charity
+              </Link>
+            </div>
+          )}
+
+          {/* No Filtered Results */}
+          {!loading && !error && allCharities.length > 0 && filteredCharities.length === 0 && (
+            <div className="empty-state">
+              <h3>No charities match your search</h3>
+              <p>Try adjusting your filters or search terms to find charities.</p>
+              <button onClick={() => setFilters({ search: '', category: 'All Categories', location: 'All Locations' })} className="clear-filters-btn">
+                Clear Filters
+              </button>
+            </div>
+          )}
+          
           {/* Charities Grid */}
-          <div className="charities-grid">
+          {!loading && !error && filteredCharities.length > 0 && (
+            <div className="charities-grid">
             {filteredCharities.map(charity => (
               <div key={charity.id} className="charity-card">
                 <div className="charity-header">
@@ -196,6 +244,7 @@ const Charities = () => {
               </div>
             ))}
           </div>
+          )}
         </div>
       </main>
       

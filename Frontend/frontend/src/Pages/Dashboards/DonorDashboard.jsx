@@ -1,37 +1,116 @@
 // DonorDashboard.jsx
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   FiPieChart, FiDollarSign, FiHeart, FiUsers,
   FiCalendar, FiCreditCard, FiBarChart2, FiAward
 } from 'react-icons/fi';
+import { useAuth } from '../../contexts/AuthContext';
+import { donationAPI, charityAPI } from '../../services/api';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import './DonorDashboard.css';
 
 const DonorDashboard = () => {
+  const { user, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('overview');
   const [donations, setDonations] = useState([]);
   const [charities, setCharities] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      await new Promise(res => setTimeout(res, 1000));
-      setDonations([
-        { id: 1, charity: 'Education Fund', amount: 100, date: '2023-06-15', status: 'completed' },
-        { id: 2, charity: 'Medical Aid', amount: 50, date: '2023-06-10', status: 'completed' },
-        { id: 3, charity: 'Animal Rescue', amount: 75, date: '2023-06-05', status: 'pending' }
-      ]);
-      setCharities([
-        { id: 1, name: 'Education Fund', category: 'Education', donated: 100 },
-        { id: 2, name: 'Medical Aid', category: 'Health', donated: 50 },
-        { id: 3, name: 'Animal Rescue', category: 'Animals', donated: 75 },
-        { id: 4, name: 'Clean Water', category: 'Environment', donated: 0 }
-      ]);
+    // Don't redirect immediately - wait for auth to load
+    if (isAuthenticated === false) {
+      navigate('/');
+      return;
+    }
+    
+    // If user is authenticated but not a donor, show access denied instead of redirecting
+    if (isAuthenticated && user && user.role !== 'donor') {
       setLoading(false);
+      return;
+    }
+    
+    // Only fetch data if user is authenticated and is a donor
+    if (!isAuthenticated || !user || user.role !== 'donor') {
+      return;
+    }
+
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        // Initialize variables
+        let transformedDonations = [];
+        
+        // Fetch donation history from backend
+        try {
+          const donationsResponse = await donationAPI.getDonationHistory();
+          if (donationsResponse && donationsResponse.success && donationsResponse.donations) {
+            // Transform backend data to match component expectations
+            transformedDonations = donationsResponse.donations.map(donation => ({
+              id: donation.id,
+              charity: donation.charity_name || `Charity ${donation.charity_id}`,
+              charity_id: donation.charity_id,
+              amount: parseFloat(donation.amount),
+              date: donation.timestamp || donation.created_at,
+              status: donation.status === 'complete' ? 'completed' : donation.status
+            }));
+            setDonations(transformedDonations);
+          } else {
+            console.log('No donations found or API returned unexpected format');
+            setDonations([]);
+          }
+        } catch (donationError) {
+          console.error('Error fetching donations:', donationError);
+          setDonations([]);
+        }
+
+        // Fetch all charities to show recommendations
+        try {
+          const charitiesResponse = await charityAPI.getCharities();
+          if (charitiesResponse && charitiesResponse.success && charitiesResponse.charities) {
+            // Calculate donated amounts per charity using the transformed donations
+            const charitiesWithDonations = charitiesResponse.charities.map(charity => {
+              const donatedAmount = transformedDonations
+                .filter(d => d.charity_id === charity.id && d.status === 'completed')
+                .reduce((sum, d) => sum + parseFloat(d.amount), 0);
+              
+              return {
+                id: charity.id,
+                name: charity.name,
+                category: charity.category || 'General',
+                donated: donatedAmount,
+                description: charity.description
+              };
+            });
+            setCharities(charitiesWithDonations);
+          } else {
+            console.log('No charities found or API returned unexpected format');
+            setCharities([]);
+          }
+        } catch (charityError) {
+          console.error('Error fetching charities:', charityError);
+          setCharities([]);
+        }
+
+      } catch (err) {
+        console.error('Error fetching donor data:', err);
+        setError('Failed to load dashboard data');
+        
+        // Fallback to empty arrays instead of mock data
+        setDonations([]);
+        setCharities([]);
+      } finally {
+        setLoading(false);
+      }
     };
+
     fetchData();
-  }, []);
+  }, [isAuthenticated, user, navigate]);
 
   const stats = [
     {
@@ -64,12 +143,55 @@ const DonorDashboard = () => {
     }
   ];
 
+  // Handle navigation to donation page
+  const handleDonateNow = (charityId) => {
+    navigate(`/donate?charity=${charityId}`);
+  };
+
   if (loading) {
     return (
-      <div className="dashboard-main loading-state">
-        <div className="spinner-loader"></div>
-        <p>Loading your dashboard...</p>
-      </div>
+      <>
+        <Navbar />
+        <div className="dashboard-main loading-state">
+          <div className="spinner-loader"></div>
+          <p>Loading your dashboard...</p>
+        </div>
+        <Footer />
+      </>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <>
+        <Navbar />
+        <div className="dashboard-main error-state">
+          <h2>Unable to Load Dashboard</h2>
+          <p>{error}</p>
+          <button onClick={() => window.location.reload()} className="retry-btn">
+            Try Again
+          </button>
+        </div>
+        <Footer />
+      </>
+    );
+  }
+
+  // Show access denied for non-donors
+  if (!isAuthenticated || user?.role !== 'donor') {
+    return (
+      <>
+        <Navbar />
+        <div className="dashboard-main access-denied">
+          <h2>Donor Dashboard Access</h2>
+          <p>You need to be logged in as a donor to access this dashboard.</p>
+          <button onClick={() => navigate('/')} className="login-btn">
+            Go to Login
+          </button>
+        </div>
+        <Footer />
+      </>
     );
   }
 
@@ -123,24 +245,41 @@ const DonorDashboard = () => {
             <div className="dashboard-overview-tab">
               <div className="recent-donations-panel">
                 <h2><FiDollarSign className="section-icon" /> Recent Donations</h2>
-                <div className="donation-card-collection">
-                  {donations.slice(0, 3).map(d => (
-                    <div key={d.id} className="donation-entry-card">
-                      <div className="entry-details">
-                        <h3>{d.charity}</h3>
-                        <p className={`donation-status-tag ${d.status}`}>{d.status}</p>
-                      </div>
-                      <div className="entry-meta">
-                        <p className="donation-amount">${d.amount}</p>
-                        <p className="donation-date">
-                          <FiCalendar className="icon" />
-                          {new Date(d.date).toLocaleDateString()}
-                        </p>
-                      </div>
+                {donations.length > 0 ? (
+                  <>
+                    <div className="donation-card-collection">
+                      {donations.slice(0, 3).map(d => (
+                        <div key={d.id} className="donation-entry-card">
+                          <div className="entry-details">
+                            <h3>{d.charity}</h3>
+                            <p className={`donation-status-tag ${d.status}`}>{d.status}</p>
+                          </div>
+                          <div className="entry-meta">
+                            <p className="donation-amount">${d.amount}</p>
+                            <p className="donation-date">
+                              <FiCalendar className="icon" />
+                              {new Date(d.date).toLocaleDateString()}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-                <button className="donation-list-expand-btn">View All Donations →</button>
+                    <button 
+                      className="donation-list-expand-btn"
+                      onClick={() => setActiveTab('donations')}
+                    >
+                      View All Donations →
+                    </button>
+                  </>
+                ) : (
+                  <div className="empty-donations">
+                    <h3>No donations yet</h3>
+                    <p>Start making a difference by supporting a charity today!</p>
+                    <a href="/charity" className="empty-state-btn">
+                      Browse Charities
+                    </a>
+                  </div>
+                )}
               </div>
 
               <div className="charity-suggestions-panel">
@@ -150,7 +289,10 @@ const DonorDashboard = () => {
                     <div key={c.id} className="charity-suggestion-card">
                       <h3>{c.name}</h3>
                       <p className="charity-category-label">{c.category}</p>
-                      <button className="primary-donation-cta">
+                      <button 
+                        className="primary-donation-cta"
+                        onClick={() => handleDonateNow(c.id)}
+                      >
                         <FiCreditCard className="icon" />
                         Donate Now
                       </button>
@@ -164,42 +306,67 @@ const DonorDashboard = () => {
           {activeTab === 'donations' && (
             <div className="donation-history-tab">
               <h2><FiDollarSign className="section-icon" /> My Donation History</h2>
-              <div className="donation-record-table">
-                <div className="table-header-row">
-                  <span>Charity</span>
-                  <span>Amount</span>
-                  <span>Date</span>
-                  <span>Status</span>
-                </div>
-                {donations.map(d => (
-                  <div key={d.id} className="table-data-row">
-                    <span>{d.charity}</span>
-                    <span className="amount">${d.amount}</span>
-                    <span>{new Date(d.date).toLocaleDateString()}</span>
-                    <span className={`status-tag ${d.status}`}>{d.status}</span>
+              {donations.length > 0 ? (
+                <div className="donation-record-table">
+                  <div className="table-header-row">
+                    <span>Charity</span>
+                    <span>Amount</span>
+                    <span>Date</span>
+                    <span>Status</span>
                   </div>
-                ))}
-              </div>
+                  {donations.map(d => (
+                    <div key={d.id} className="table-data-row">
+                      <span>{d.charity}</span>
+                      <span className="amount">${d.amount}</span>
+                      <span>{new Date(d.date).toLocaleDateString()}</span>
+                      <span className={`status-tag ${d.status}`}>{d.status}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="empty-donations">
+                  <h3>No donation history</h3>
+                  <p>Your donation history will appear here once you make your first donation.</p>
+                  <a href="/charity" className="empty-state-btn">
+                    Make Your First Donation
+                  </a>
+                </div>
+              )}
             </div>
           )}
 
           {activeTab === 'charities' && (
             <div className="charity-support-tab">
               <h2><FiHeart className="section-icon" /> Charities I Support</h2>
-              <div className="supported-charity-list">
-                {charities.filter(c => c.donated > 0).map(c => (
-                  <div key={c.id} className="supported-charity-block">
-                    <div className="charity-data">
-                      <h3>{c.name}</h3>
-                      <p className="charity-category-label">{c.category}</p>
+              {charities.filter(c => c.donated > 0).length > 0 ? (
+                <div className="supported-charity-list">
+                  {charities.filter(c => c.donated > 0).map(c => (
+                    <div key={c.id} className="supported-charity-block">
+                      <div className="charity-data">
+                        <h3>{c.name}</h3>
+                        <p className="charity-category-label">{c.category}</p>
+                      </div>
+                      <div className="donation-total-data">
+                        <p className="total-donated-amount">Total donated: <span>${c.donated}</span></p>
+                        <button 
+                          className="repeat-donation-btn"
+                          onClick={() => handleDonateNow(c.id)}
+                        >
+                          Donate Again
+                        </button>
+                      </div>
                     </div>
-                    <div className="donation-total-data">
-                      <p className="total-donated-amount">Total donated: <span>${c.donated}</span></p>
-                      <button className="repeat-donation-btn">Donate Again</button>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="empty-charities">
+                  <h3>No supported charities yet</h3>
+                  <p>Once you make donations, the charities you support will appear here.</p>
+                  <a href="/charity" className="empty-state-btn">
+                    Find Charities to Support
+                  </a>
+                </div>
+              )}
             </div>
           )}
         </div>

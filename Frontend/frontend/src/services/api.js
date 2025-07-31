@@ -1,49 +1,227 @@
-// src/services/api.js
-// Centralized API service for backend integration
-// Uses axios for HTTP requests
+// API Configuration
+const API_BASE_URL = '/api/v1';
 
-import axios from 'axios';
+// Helper function to get auth token
+const getAuthToken = () => {
+  return localStorage.getItem('authToken');
+};
 
-// Set base URL from environment variable or fallback
-const BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://';
-
-const api = axios.create({
-  baseURL: BASE_URL,
-  headers: {
+// Helper function to create headers
+const createHeaders = (includeAuth = true) => {
+  const headers = {
     'Content-Type': 'application/json',
-  },
-});
-
-// Request interceptor (e.g., for auth tokens)
-api.interceptors.request.use(
-  (config) => {
-    // Example: Add auth token if available
-    const token = localStorage.getItem('token');
+  };
+  
+  if (includeAuth) {
+    const token = getAuthToken();
     if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
+      headers['Authorization'] = `Bearer ${token}`;
     }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
-
-// Response interceptor (for error handling)
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    // Handle errors globally
-    // Example: Redirect to login on 401
-    if (error.response && error.response.status === 401) {
-      // window.location.href = '/login';
-    }
-    return Promise.reject(error);
   }
-);
+  
+  return headers;
+};
 
-// Example API methods
-export const get = (url, config) => api.get(url, config);
-export const post = (url, data, config) => api.post(url, data, config);
-export const put = (url, data, config) => api.put(url, data, config);
-export const del = (url, config) => api.delete(url, config);
+// Generic API request function
+const apiRequest = async (endpoint, options = {}) => {
+  const url = `${API_BASE_URL}${endpoint}`;
+  const config = {
+    headers: createHeaders(options.includeAuth !== false),
+    ...options,
+  };
 
-export default api;
+  try {
+    const response = await fetch(url, config);
+    const data = await response.json();
+    
+    if (!response.ok) {
+      throw new Error(data.message || data.error || 'API request failed');
+    }
+    
+    return data;
+  } catch (error) {
+    console.error('API Request Error:', error);
+    throw error;
+  }
+};
+
+// Authentication API
+export const authAPI = {
+  login: async (email, password) => {
+    return apiRequest('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+      includeAuth: false,
+    });
+  },
+
+  register: async (userData) => {
+    return apiRequest('/auth/register', {
+      method: 'POST',
+      body: JSON.stringify(userData),
+      includeAuth: false,
+    });
+  },
+
+  getProfile: async () => {
+    return apiRequest('/auth/profile');
+  },
+
+  logout: () => {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('userData');
+  },
+};
+
+// Charity API
+export const charityAPI = {
+  // Get all approved charities (public)
+  getCharities: async () => {
+    return apiRequest('/charities/', { includeAuth: false });
+  },
+
+  // Get specific charity details
+  getCharityDetails: async (charityId) => {
+    return apiRequest(`/charities/${charityId}`, { includeAuth: false });
+  },
+
+  // Apply for charity status (donor only)
+  applyForCharity: async (applicationData) => {
+    return apiRequest('/charities/apply', {
+      method: 'POST',
+      body: JSON.stringify(applicationData),
+    });
+  },
+
+  // Admin: Get all charity applications
+  getCharityApplications: async () => {
+    return apiRequest('/charities/applications');
+  },
+
+  // Admin: Approve charity application
+  approveCharityApplication: async (applicationId) => {
+    return apiRequest(`/charities/applications/${applicationId}/approve`, {
+      method: 'POST',
+    });
+  },
+
+  // Admin: Reject charity application
+  rejectCharityApplication: async (applicationId) => {
+    return apiRequest(`/charities/applications/${applicationId}/reject`, {
+      method: 'POST',
+    });
+  },
+
+  // Admin: Get all charities
+  getAllCharities: async (status = null) => {
+    const query = status ? `?status=${status}` : '';
+    return apiRequest(`/charities/admin/charities${query}`);
+  },
+
+  // Admin: Delete charity
+  deleteCharity: async (charityId) => {
+    return apiRequest(`/charities/admin/charities/${charityId}`, {
+      method: 'DELETE',
+    });
+  },
+
+  // Charity: Get my donors
+  getMyDonors: async () => {
+    return apiRequest('/charities/my-charity/donors');
+  },
+
+  // Charity: Get my donations
+  getMyDonations: async () => {
+    return apiRequest('/charities/my-charity/donations');
+  },
+};
+
+// Donation API
+export const donationAPI = {
+  // Make a donation
+  makeDonation: async (donationData) => {
+    return apiRequest('/donations/', {
+      method: 'POST',
+      body: JSON.stringify(donationData),
+    });
+  },
+
+  // Get donation history
+  getDonationHistory: async () => {
+    return apiRequest('/donations/history');
+  },
+
+  // Initiate M-Pesa payment
+  initiateMpesaPayment: async (paymentData) => {
+    return apiRequest('/donations/mpesa/initiate', {
+      method: 'POST',
+      body: JSON.stringify(paymentData),
+    });
+  },
+
+  // Check M-Pesa payment status
+  checkMpesaStatus: async (transactionId) => {
+    return apiRequest(`/donations/mpesa/status/${transactionId}`);
+  },
+};
+
+// Stories API (assuming it exists based on routes)
+export const storiesAPI = {
+  getStories: async () => {
+    return apiRequest('/stories/', { includeAuth: false });
+  },
+
+  createStory: async (storyData) => {
+    return apiRequest('/stories/', {
+      method: 'POST',
+      body: JSON.stringify(storyData),
+    });
+  },
+
+  getStoriesByCharity: async (charityId) => {
+    return apiRequest(`/stories/charity/${charityId}`, { includeAuth: false });
+  },
+};
+
+// Health check
+export const healthAPI = {
+  checkHealth: async () => {
+    return apiRequest('/health', { includeAuth: false });
+  },
+};
+
+// Utility functions
+export const apiUtils = {
+  // Store auth data
+  storeAuthData: (token, user) => {
+    localStorage.setItem('authToken', token);
+    localStorage.setItem('userRole', user.role);
+    localStorage.setItem('userData', JSON.stringify(user));
+  },
+
+  // Get stored user data
+  getStoredUserData: () => {
+    const userData = localStorage.getItem('userData');
+    return userData ? JSON.parse(userData) : null;
+  },
+
+  // Check if user is authenticated
+  isAuthenticated: () => {
+    return !!getAuthToken();
+  },
+
+  // Get user role
+  getUserRole: () => {
+    return localStorage.getItem('userRole');
+  },
+};
+
+export default {
+  authAPI,
+  charityAPI,
+  donationAPI,
+  storiesAPI,
+  healthAPI,
+  apiUtils,
+};

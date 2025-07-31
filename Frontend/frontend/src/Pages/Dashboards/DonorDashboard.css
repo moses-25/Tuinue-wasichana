@@ -435,3 +435,246 @@
     text-align: left;
   }
 }
+/* Error and access states */
+.error-state,
+.access-denied {
+  text-align: center;
+  padding: 4rem 2rem;
+  max-width: 600px;
+  margin: 2rem auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.error-state h2,
+.access-denied h2 {
+  color: #2c3e50;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.error-state p,
+.access-denied p {
+  color: #6c757d;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.retry-btn,
+.login-btn {
+  background: linear-gradient(135deg, #e91e63 0%, #ad1457 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.retry-btn:hover,
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(233, 30, 99, 0.3);
+}
+
+/* Empty states */
+.empty-donations,
+.empty-charities {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: #6c757d;
+}
+
+.empty-donations h3,
+.empty-charities h3 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.empty-donations p,
+.empty-charities p {
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.empty-state-btn {
+  background: linear-gradient(135deg, #e91e63 0%, #ad1457 100%);
+  color: white;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.empty-state-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(233, 30, 99, 0.3);
+  text-decoration: none;
+  color: white;
+}
+
+/* Loading state improvements */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  color: #6c757d;
+}
+
+.spinner-loader {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #e91e63;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive design for error states */
+@media (max-width: 768px) {
+  .error-state,
+  .access-denied {
+    margin: 1rem;
+    padding: 2rem 1rem;
+  }
+  
+  .error-state h2,
+  .access-denied h2 {
+    font-size: 1.5rem;
+  }
+}/* Loadin
+g and Error States */
+.loading-state,
+.error-state,
+.access-denied {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  padding: 2rem;
+}
+
+.spinner-loader {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #e91e63;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-state p,
+.error-state p,
+.access-denied p {
+  color: #6c757d;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.error-state h2,
+.access-denied h2 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.retry-btn,
+.login-btn {
+  background: linear-gradient(135deg, #e91e63 0%, #ad1457 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.retry-btn:hover,
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(233, 30, 99, 0.3);
+}
+
+/* Empty state styles */
+.empty-donations,
+.empty-charities {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  margin: 1rem 0;
+}
+
+.empty-donations h3,
+.empty-charities h3 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.empty-donations p,
+.empty-charities p {
+  color: #6c757d;
+  margin-bottom: 2rem;
+}
+
+.empty-state-btn {
+  background: linear-gradient(135deg, #e91e63 0%, #ad1457 100%);
+  color: white;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block;
+}
+
+.empty-state-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(233, 30, 99, 0.3);
+  text-decoration: none;
+  color: white;
+}
+
+/* Fix for charity links */
+.charity-card-grid a,
+.supported-charity-list a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .loading-state,
+  .error-state,
+  .access-denied {
+    padding: 1rem;
+    min-height: 50vh;
+  }
+  
+  .spinner-loader {
+    width: 40px;
+    height: 40px;
+  }
+}

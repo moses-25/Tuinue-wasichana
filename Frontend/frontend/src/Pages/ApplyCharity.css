@@ -1,0 +1,278 @@
+.apply-charity-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 2rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.apply-charity-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 3rem;
+  max-width: 800px;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.apply-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.apply-header h1 {
+  color: #2c3e50;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.apply-subtitle {
+  color: #6c757d;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.application-info {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-left: 4px solid #e91e63;
+}
+
+.application-info h3 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.application-info ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.application-info li {
+  padding: 0.5rem 0;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.application-info li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #e91e63;
+  font-weight: bold;
+}
+
+.apply-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.form-icon {
+  color: #e91e63;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding: 12px 16px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #e91e63;
+  box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+}
+
+.form-group.error input,
+.form-group.error textarea,
+.form-group.error select {
+  border-color: #dc3545;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.char-count {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin-top: 0.25rem;
+  text-align: right;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.form-submit {
+  margin-top: 1rem;
+}
+
+.submit-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #e91e63 0%, #ad1457 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(233, 30, 99, 0.3);
+}
+
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.submit-btn.loading::after {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.application-note {
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 2rem;
+  color: #856404;
+}
+
+.login-btn {
+  background: #e91e63;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+.login-btn:hover {
+  background: #ad1457;
+}
+
+/* Browse section header styles for Charities page */
+.browse-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.browse-text h2 {
+  margin: 0 0 0.5rem 0;
+}
+
+.browse-text .charity-subtitle {
+  margin: 0;
+}
+
+.browse-actions {
+  flex-shrink: 0;
+  margin-left: 2rem;
+}
+
+.apply-charity-btn {
+  background: linear-gradient(135deg, #e91e63 0%, #ad1457 100%);
+  color: white;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block;
+}
+
+.apply-charity-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(233, 30, 99, 0.3);
+  text-decoration: none;
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .apply-charity-card {
+    padding: 2rem 1.5rem;
+    margin-top: 1rem;
+  }
+  
+  .apply-header h1 {
+    font-size: 2rem;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .browse-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .browse-actions {
+    margin-left: 0;
+    align-self: stretch;
+  }
+  
+  .apply-charity-btn {
+    width: 100%;
+    text-align: center;
+  }
+}

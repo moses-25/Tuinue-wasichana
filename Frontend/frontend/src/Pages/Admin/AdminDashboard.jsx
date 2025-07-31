@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   FiUsers, FiHeart, FiDollarSign, FiShield, FiSettings, 
   FiCheck, FiX, FiTrash2 
 } from 'react-icons/fi';
+import { useAuth } from '../../contexts/AuthContext';
+import { charityAPI } from '../../services/api';
 import StatsGrid from '../../components/StatsGrid';
 import RecentActivities from '../../components/RecentActivities';
 import QuickActions from '../../components/QuickActions';
@@ -16,50 +19,115 @@ import Footer from '../../components/Footer';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
+  const { user, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('overview');
   const [showSettings, setShowSettings] = useState(false);
-  const [charities, setCharities] = useState([]);
+  const [charityApplications, setCharityApplications] = useState([]);
   const [users, setUsers] = useState([]);
   const [donations, setDonations] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const mockCharities = [
-      { id: 1, name: 'Save the Children', email: 'info@savethechildren.org', status: 'pending', createdAt: '2023-05-01' },
-      { id: 2, name: 'Local Food Bank', email: 'contact@foodbank.org', status: 'approved', createdAt: '2023-04-28' },
-      { id: 3, name: 'Animal Rescue', email: 'help@animalrescue.org', status: 'pending', createdAt: '2023-05-05' },
-      { id: 4, name: 'Medical Aid', email: 'support@medicalaid.org', status: 'rejected', createdAt: '2023-04-20' }
-    ];
+    // Check if user is admin
+    if (!isAuthenticated || user?.role !== 'admin') {
+      navigate('/');
+      return;
+    }
 
-    const mockUsers = [
-      { id: 1, name: 'John Doe', email: 'john@example.com', role: 'donor', joined: '2023-04-15' },
-      { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'donor', joined: '2023-04-20' },
-      { id: 3, name: 'Admin User', email: 'admin@example.com', role: 'admin', joined: '2023-01-10' }
-    ];
+    const fetchAdminData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
 
-    const mockDonations = [
-      { id: 1, donor: 'John Doe', charity: 'Local Food Bank', amount: 100, date: '2023-05-15', status: 'completed' },
-      { id: 2, donor: 'Jane Smith', charity: 'Save the Children', amount: 50, date: '2023-05-14', status: 'pending' }
-    ];
+        // Fetch charity applications from backend
+        const applicationsResponse = await charityAPI.getCharityApplications();
+        if (applicationsResponse.success) {
+          // Transform backend data to match component expectations
+          const transformedApplications = applicationsResponse.applications.map(app => ({
+            id: app.id,
+            name: app.organization_name,
+            email: `user${app.user_id}@example.com`, // Backend doesn't provide email, using placeholder
+            status: app.status,
+            createdAt: app.submitted_at,
+            mission: app.mission,
+            user_id: app.user_id
+          }));
+          setCharityApplications(transformedApplications);
+        }
 
-    setCharities(mockCharities);
-    setUsers(mockUsers);
-    setDonations(mockDonations);
-  }, []);
+        // Mock data for users and donations (you can replace with real API calls later)
+        const mockUsers = [
+          { id: 1, name: 'John Doe', email: 'john@example.com', role: 'donor', joined: '2023-04-15' },
+          { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'donor', joined: '2023-04-20' },
+          { id: 3, name: 'Admin User', email: 'admin@example.com', role: 'admin', joined: '2023-01-10' }
+        ];
 
-  const approveCharity = (charityId) => {
-    setCharities(charities.map(charity => 
-      charity.id === charityId ? { ...charity, status: 'approved' } : charity
-    ));
+        const mockDonations = [
+          { id: 1, donor: 'John Doe', charity: 'Local Food Bank', amount: 100, date: '2023-05-15', status: 'completed' },
+          { id: 2, donor: 'Jane Smith', charity: 'Save the Children', amount: 50, date: '2023-05-14', status: 'pending' }
+        ];
+
+        setUsers(mockUsers);
+        setDonations(mockDonations);
+
+      } catch (err) {
+        console.error('Error fetching admin data:', err);
+        setError('Failed to load admin data');
+        
+        // Fallback to empty arrays
+        setCharityApplications([]);
+        setUsers([]);
+        setDonations([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAdminData();
+  }, [isAuthenticated, user, navigate]);
+
+  const approveCharity = async (applicationId) => {
+    try {
+      const result = await charityAPI.approveCharityApplication(applicationId);
+      if (result.success) {
+        // Update local state
+        setCharityApplications(charityApplications.map(app => 
+          app.id === applicationId ? { ...app, status: 'approved' } : app
+        ));
+        alert('Charity application approved successfully!');
+      } else {
+        alert('Failed to approve charity application');
+      }
+    } catch (error) {
+      console.error('Error approving charity:', error);
+      alert('Error approving charity application');
+    }
   };
 
-  const rejectCharity = (charityId) => {
-    setCharities(charities.map(charity => 
-      charity.id === charityId ? { ...charity, status: 'rejected' } : charity
-    ));
+  const rejectCharity = async (applicationId) => {
+    try {
+      const result = await charityAPI.rejectCharityApplication(applicationId);
+      if (result.success) {
+        // Update local state
+        setCharityApplications(charityApplications.map(app => 
+          app.id === applicationId ? { ...app, status: 'rejected' } : app
+        ));
+        alert('Charity application rejected successfully!');
+      } else {
+        alert('Failed to reject charity application');
+      }
+    } catch (error) {
+      console.error('Error rejecting charity:', error);
+      alert('Error rejecting charity application');
+    }
   };
 
-  const deleteCharity = (charityId) => {
-    setCharities(charities.filter(charity => charity.id !== charityId));
+  const deleteCharity = (applicationId) => {
+    if (confirm('Are you sure you want to delete this charity application?')) {
+      setCharityApplications(charityApplications.filter(app => app.id !== applicationId));
+    }
   };
 
   const deleteDonation = (donationId) => {
@@ -70,7 +138,7 @@ const AdminDashboard = () => {
     { title: 'Total Users', value: users.length, icon: <FiUsers size={24} />, color: '#a0296a', change: '+12%' },
     { 
       title: 'Pending Charities', 
-      value: charities.filter(c => c.status === 'pending').length, 
+      value: charityApplications.filter(c => c.status === 'pending').length, 
       icon: <FiHeart size={24} />, 
       color: '#df017b', 
       change: '+5%' 
@@ -92,9 +160,9 @@ const AdminDashboard = () => {
   ];
 
   const activities = [
-    ...charities.filter(c => c.status === 'pending').map(c => ({
+    ...charityApplications.filter(c => c.status === 'pending').map(c => ({
       id: c.id,
-      action: 'New charity registration',
+      action: 'New charity application',
       user: c.name,
       time: new Date(c.createdAt).toLocaleDateString(),
       status: c.status
@@ -108,6 +176,54 @@ const AdminDashboard = () => {
       amount: `$${d.amount}`
     }))
   ].sort((a, b) => new Date(b.time) - new Date(a.time)).slice(0, 5);
+
+  // Show loading state
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <div className="admin-dashboard loading-state">
+          <div className="spinner-loader"></div>
+          <p>Loading admin dashboard...</p>
+        </div>
+        <Footer />
+      </>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <>
+        <Navbar />
+        <div className="admin-dashboard error-state">
+          <h2>Unable to Load Dashboard</h2>
+          <p>{error}</p>
+          <button onClick={() => window.location.reload()} className="retry-btn">
+            Try Again
+          </button>
+        </div>
+        <Footer />
+      </>
+    );
+  }
+
+  // Show access denied for non-admins
+  if (!isAuthenticated || user?.role !== 'admin') {
+    return (
+      <>
+        <Navbar />
+        <div className="admin-dashboard access-denied">
+          <h2>Admin Dashboard Access</h2>
+          <p>You need to be logged in as an administrator to access this dashboard.</p>
+          <button onClick={() => navigate('/')} className="login-btn">
+            Go to Login
+          </button>
+        </div>
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
@@ -181,7 +297,7 @@ const AdminDashboard = () => {
           {activeTab === 'charities' && (
             <div className="full-width-section">
               <CharitiesTable 
-                charities={charities}
+                charities={charityApplications}
                 onApprove={approveCharity}
                 onReject={rejectCharity}
                 onDelete={deleteCharity}
@@ -204,7 +320,7 @@ const AdminDashboard = () => {
             onClose={() => setShowSettings(false)}
             stats={stats}
             users={users}
-            charities={charities}
+            charities={charityApplications}
             donations={donations}
           />
         )}

@@ -302,4 +302,53 @@
         flex-direction: column;
         gap: 16px;
     }
+}/*
+ Charity application notice styles */
+.charity-application-notice {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: 2px solid #e91e63;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.charity-application-notice p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.notice-icon {
+  color: #e91e63;
+  font-size: 1.2rem;
+}
+
+.charity-apply-link {
+  color: #e91e63;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.charity-apply-link:hover {
+  color: #ad1457;
+  text-decoration: underline;
+}
+
+/* Responsive design for charity notice */
+@media (max-width: 768px) {
+  .charity-application-notice p {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .charity-apply-link {
+    margin-left: 0;
+  }
 }

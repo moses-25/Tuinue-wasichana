@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
+import { charityAPI } from '../../services/api';
 import CharityStats from '../../components/CharityStats';
 import CharityTabs from '../../components/CharityTabs';
 import CharityList from '../../components/CharityList';
@@ -10,6 +12,7 @@ import Footer from '../../components/Footer';
 import './CharityDashboard.css';
 
 const CharityDashboard = () => {
+  const { user, isAuthenticated } = useAuth();
   const [activeTab, setActiveTab] = useState('charities');
   const [donations, setDonations] = useState([]);
   const [charities, setCharities] = useState([]);
@@ -17,46 +20,58 @@ const CharityDashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingCharity, setEditingCharity] = useState(null);
   const [newCharityAdded, setNewCharityAdded] = useState(false);
+  const [error, setError] = useState(null);
+  const [applicationStatus, setApplicationStatus] = useState(null);
 
   useEffect(() => {
-    // Simulate API call
-    const fetchData = async () => {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      setDonations([
-        { id: 1, donor: 'John Smith', amount: 100, date: '2023-06-15', status: 'completed', charityId: 1 },
-        { id: 2, donor: 'Sarah Johnson', amount: 50, date: '2023-06-10', status: 'completed', charityId: 1 },
-        { id: 3, donor: 'Anonymous', amount: 75, date: '2023-06-05', status: 'pending', charityId: 2 }
-      ]);
-      
-      setCharities([
-        { 
-          id: 1, 
-          name: 'Education Fund', 
-          category: 'Education', 
-          goalAmount: 5000, 
-          raisedAmount: 1200,
-          location: 'New York, USA',
-          description: 'Providing scholarships to underprivileged students',
-          imageUrl: '/images/education-fund.jpg'
-        },
-        { 
-          id: 2, 
-          name: 'Medical Aid', 
-          category: 'Health', 
-          goalAmount: 10000, 
-          raisedAmount: 3500,
-          location: 'Global',
-          description: 'Medical supplies for disaster areas',
-          imageUrl: '/images/medical-aid.jpg'
-        }
-      ]);
-      
+    if (!isAuthenticated || user?.role !== 'charity') {
       setLoading(false);
+      return;
+    }
+
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        // Fetch charity's donations
+        const donationsResponse = await charityAPI.getMyDonations();
+        if (donationsResponse && Array.isArray(donationsResponse)) {
+          setDonations(donationsResponse);
+        }
+
+        // For now, we'll show a message about charity application status
+        // since the backend creates charity records through the application process
+        setApplicationStatus('approved'); // Assuming user is already approved charity
+        
+        // Mock charity data for now since the backend structure might be different
+        setCharities([
+          { 
+            id: 1, 
+            name: user.name || 'My Charity', 
+            category: 'Education', 
+            goalAmount: 10000, 
+            raisedAmount: donationsResponse?.reduce((sum, d) => sum + parseFloat(d.amount || 0), 0) || 0,
+            location: 'Kenya',
+            description: 'Empowering girls through education and support',
+            imageUrl: '/images/default-charity.jpg'
+          }
+        ]);
+
+      } catch (err) {
+        console.error('Error fetching charity data:', err);
+        setError('Failed to load charity data');
+        
+        // Fallback data
+        setCharities([]);
+        setDonations([]);
+      } finally {
+        setLoading(false);
+      }
     };
-    
+
     fetchData();
-  }, []);
+  }, [isAuthenticated, user]);
 
   // Update stats when charities change
   const stats = [
@@ -127,6 +142,49 @@ const CharityDashboard = () => {
         <div className="cd-spinner"></div>
         <p>Loading dashboard...</p>
       </div>
+    );
+  }
+
+  // Show message for non-charity users
+  if (!isAuthenticated || user?.role !== 'charity') {
+    return (
+      <>
+        <Navbar />
+        <div className="cd-container">
+          <div className="cd-access-denied">
+            <h2>Charity Dashboard Access</h2>
+            <p>You need to be approved as a charity to access this dashboard.</p>
+            <div className="cd-actions">
+              <a href="/apply-charity" className="cd-apply-btn">
+                Apply as a Charity
+              </a>
+              <a href="/home" className="cd-home-btn">
+                Go to Homepage
+              </a>
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <>
+        <Navbar />
+        <div className="cd-container">
+          <div className="cd-error">
+            <h2>Error Loading Dashboard</h2>
+            <p>{error}</p>
+            <button onClick={() => window.location.reload()} className="cd-retry-btn">
+              Try Again
+            </button>
+          </div>
+        </div>
+        <Footer />
+      </>
     );
   }
 
