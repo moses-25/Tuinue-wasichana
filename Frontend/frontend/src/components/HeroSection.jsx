@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import './HeroSection.css'; 
+import './HeroSection.css';
+import heroImg from '../assets/images/Image 2.jpg'; 
 
 
 const HeroSection = () => {
@@ -16,7 +17,7 @@ const HeroSection = () => {
         </div>
         <div className="hero-image">
             <img 
-            src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&h=400&fit=crop" 
+            src={heroImg} 
             alt="Empowered girl smiling"
             className="hero-img"
             />
