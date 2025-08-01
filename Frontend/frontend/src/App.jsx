@@ -10,7 +10,6 @@ import ProgramCards from './components/ProgramCard';
 import StoryCard from './components/StoryCard';
 import './components/CharityCard.css';
 import HomePage from './Pages/HomePage';
-import ImpactNote from './components/ImpactNote';
 import Charities from './Pages/Charities';
 import Donations from './Pages/Donations';
 import Stories from './Pages/Stories';
@@ -39,7 +38,6 @@ function App() {
           <Route path="/cha" element={<CharityCards />} />
           <Route path="/prog" element={<ProgramCards />} />
           <Route path="/story" element={<StoryCard />} />
-          <Route path="/note" element={<ImpactNote />} />
           <Route path="/Charity" element={<Charities />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/don" element={<Donations />} />
