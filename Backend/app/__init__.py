@@ -26,12 +26,17 @@ def create_app():
     # Initialize CORS
     cors_origins = app.config.get('CORS_ORIGINS', ['http://localhost:5173', 'http://localhost:5174'])
     if isinstance(cors_origins, str):
-        cors_origins = cors_origins.split(',')
+        # Split comma-separated origins and strip whitespace
+        cors_origins = [origin.strip() for origin in cors_origins.split(',')]
+    
+    # Log CORS origins for debugging
+    app.logger.info(f"CORS Origins configured: {cors_origins}")
     
     CORS(app, 
          origins=cors_origins,
-         allow_headers=['Content-Type', 'Authorization'],
-         methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'])
+         allow_headers=['Content-Type', 'Authorization', 'X-Requested-With'],
+         methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+         supports_credentials=True)
 
     db.init_app(app)
     JWTManager(app)

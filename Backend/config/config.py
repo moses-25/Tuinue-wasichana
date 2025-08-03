@@ -45,8 +45,8 @@ class Config:
     FLASK_ENV = os.getenv('FLASK_ENV', 'development')
     DEBUG = FLASK_ENV == 'development'
     
-    # CORS Settings
-    CORS_ORIGINS = os.getenv('CORS_ORIGINS', 'http://localhost:5173,http://localhost:5174').split(',')
+    # CORS Settings - Environment variable with fallback for development
+    CORS_ORIGINS = os.getenv('CORS_ORIGINS', 'http://localhost:5173,http://localhost:5174')
     
     # Database engine options (conditional based on database type)
     if DATABASE_URL and not DATABASE_URL.startswith('sqlite'):
