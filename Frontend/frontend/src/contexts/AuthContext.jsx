@@ -15,6 +15,27 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [hasCharity, setHasCharity] = useState(false);
+  const [charityData, setCharityData] = useState(null);
+
+  // Check if user owns a charity
+  const checkCharityOwnership = async () => {
+    try {
+      const { charityAPI } = await import('../services/api');
+      const response = await charityAPI.getMyCharity();
+      if (response.success && response.has_charity) {
+        setHasCharity(true);
+        setCharityData(response.charity);
+      } else {
+        setHasCharity(false);
+        setCharityData(null);
+      }
+    } catch (error) {
+      // User doesn't own a charity or error occurred
+      setHasCharity(false);
+      setCharityData(null);
+    }
+  };
 
   // Initialize auth state on app load
   useEffect(() => {
@@ -25,6 +46,9 @@ export const AuthProvider = ({ children }) => {
           if (userData) {
             setUser(userData);
             setIsAuthenticated(true);
+            
+            // Check charity ownership
+            await checkCharityOwnership();
             
             // Try to verify token, but don't logout if it fails
             // This allows users to stay logged in even if the backend is temporarily unavailable
@@ -70,6 +94,9 @@ export const AuthProvider = ({ children }) => {
         setUser(userData);
         setIsAuthenticated(true);
         
+        // Check charity ownership after login
+        await checkCharityOwnership();
+        
         return { success: true, user: userData };
       } else {
         throw new Error(response.error || 'Login failed');
@@ -114,6 +141,8 @@ export const AuthProvider = ({ children }) => {
     apiUtils.logout();
     setUser(null);
     setIsAuthenticated(false);
+    setHasCharity(false);
+    setCharityData(null);
   };
 
   // Add a method to manually logout (for when user clicks logout button)
@@ -130,6 +159,9 @@ export const AuthProvider = ({ children }) => {
     user,
     isAuthenticated,
     loading,
+    hasCharity,
+    charityData,
+    checkCharityOwnership,
     login,
     register,
     logout,

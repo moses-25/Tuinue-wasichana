@@ -10,7 +10,7 @@ import './ApplyCharity.css';
 
 const ApplyCharity = () => {
   const navigate = useNavigate();
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, checkCharityOwnership } = useAuth();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     organizationName: '',
@@ -112,6 +112,7 @@ const ApplyCharity = () => {
           duration: 6000,
           position: 'top-center',
         });
+        
         // Clear form
         setFormData({
           organizationName: '',
@@ -124,8 +125,14 @@ const ApplyCharity = () => {
           category: '',
           goal: 10000
         });
+        
+        // Refresh charity ownership status (in case they already had an approved charity)
+        if (checkCharityOwnership) {
+          checkCharityOwnership();
+        }
+        
         // Navigate after a short delay to let user see the success message
-        setTimeout(() => navigate('/charity'), 2000);
+        setTimeout(() => navigate('/profile'), 2000);
       } else {
         toast.error(result.error || 'Failed to submit application. Please try again.', {
           duration: 5000,

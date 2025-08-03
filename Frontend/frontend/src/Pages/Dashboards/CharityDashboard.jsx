@@ -12,7 +12,7 @@ import Footer from '../../components/Footer';
 import './CharityDashboard.css';
 
 const CharityDashboard = () => {
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, hasCharity, charityData } = useAuth();
   const [activeTab, setActiveTab] = useState('charities');
   const [donations, setDonations] = useState([]);
   const [charities, setCharities] = useState([]);
@@ -24,7 +24,7 @@ const CharityDashboard = () => {
   const [applicationStatus, setApplicationStatus] = useState(null);
 
   useEffect(() => {
-    if (!isAuthenticated || user?.role !== 'charity') {
+    if (!isAuthenticated || !hasCharity) {
       setLoading(false);
       return;
     }
@@ -145,8 +145,8 @@ const CharityDashboard = () => {
     );
   }
 
-  // Show message for non-charity users
-  if (!isAuthenticated || user?.role !== 'charity') {
+  // Show message for users who don't own a charity
+  if (!isAuthenticated || !hasCharity) {
     return (
       <>
         <Navbar />

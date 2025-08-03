@@ -47,13 +47,14 @@ class CharityApply(Resource):
     @charity_ns.doc('apply_for_charity')
     @charity_ns.expect(charity_application_model)
     @charity_ns.marshal_with(charity_application_response_model, code=201)
-    @roles_required('donor')
+    @roles_required('donor', 'charity')
     def post(self):
         user_id = get_jwt_identity()
         user = User.query.get(int(user_id))
 
-        if user.role != 'donor':
-            charity_ns.abort(403, message='Only users with donor role can apply for charity')
+        # Allow both donors and existing charity owners to apply for new charities
+        if user.role not in ['donor', 'charity']:
+            charity_ns.abort(403, message='Only donors or charity owners can apply for charity status')
 
         data = request.get_json()
         organization_name = data.get('organization_name')
@@ -129,10 +130,8 @@ class CharityApplicationApprove(Resource):
         db.session.add(new_charity)
         db.session.commit()
 
-        user = User.query.get(application.user_id)
-        if user:
-            user.role = 'charity'
-            db.session.commit()
+        # Don't change user role - keep them as donor so they can still donate
+        # They can manage charities through charity ownership, not role change
 
         return {
             'success': True,
@@ -245,14 +244,14 @@ class CharityDetail(Resource):
 @charity_ns.route('/my-charity/donors')
 class CharityDonors(Resource):
     @charity_ns.doc('get_charity_donors')
-    @roles_required('charity')
+    @roles_required('donor', 'charity')
     def get(self):
         """Get donors for the current charity"""
         user_id = get_jwt_identity()
         charity = Charity.query.filter_by(owner_id=int(user_id)).first()
         
         if not charity:
-            charity_ns.abort(404, message='Charity not found for current user')
+            charity_ns.abort(404, message='You do not own any charity. Please apply for charity status first.')
         
         # Get unique donors who donated to this charity
         donors = db.session.query(User).join(Donation).filter(
@@ -270,15 +269,38 @@ class CharityDonors(Resource):
 @charity_ns.route('/my-charity/donations')
 class CharityDonations(Resource):
     @charity_ns.doc('get_charity_donations')
-    @roles_required('charity')
+    @roles_required('donor', 'charity')
     def get(self):
         """Get donations received by the current charity"""
         user_id = get_jwt_identity()
         charity = Charity.query.filter_by(owner_id=int(user_id)).first()
         
         if not charity:
-            charity_ns.abort(404, message='Charity not found for current user')
+            charity_ns.abort(404, message='You do not own any charity. Please apply for charity status first.')
         
         donations = Donation.query.filter_by(charity_id=charity.id).all()
         return jsonify([donation.to_dict() for donation in donations])
+
+@charity_ns.route('/my-charity')
+class MyCharity(Resource):
+    @charity_ns.doc('get_my_charity')
+    @roles_required('donor', 'charity')
+    def get(self):
+        """Get current user's charity information"""
+        user_id = get_jwt_identity()
+        charity = Charity.query.filter_by(owner_id=int(user_id)).first()
+        
+        if not charity:
+            return {
+                'success': False,
+                'has_charity': False,
+                'message': 'You do not own any charity'
+            }, 404
+        
+        return {
+            'success': True,
+            'has_charity': True,
+            'charity': charity.to_dict(),
+            'message': 'Charity information retrieved successfully'
+        }, 200
 

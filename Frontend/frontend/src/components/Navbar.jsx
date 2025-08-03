@@ -14,7 +14,7 @@ import { useAuth } from '../contexts/AuthContext';
 import './Navbar.css';
 
 const Navbar = () => {
-  const { user, isAuthenticated, forceLogout } = useAuth();
+  const { user, isAuthenticated, forceLogout, hasCharity } = useAuth();
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
 
@@ -37,7 +37,8 @@ const Navbar = () => {
       case 'admin':
         return '/admin';
       case 'donor':
-        return '/donor';
+        // If donor owns a charity, show charity dashboard, otherwise donor dashboard
+        return hasCharity ? '/org' : '/donor';
       case 'charity':
         return '/org';
       default:

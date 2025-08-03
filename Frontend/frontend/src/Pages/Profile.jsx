@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 import './Profile.css';
 
 const Profile = () => {
-  const { user, isAuthenticated, updateUser } = useAuth();
+  const { user, isAuthenticated, updateUser, hasCharity, charityData } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -275,29 +275,55 @@ const Profile = () => {
               </div>
             </div>
 
-            {user?.role === 'charity' && (
+            {hasCharity && charityData && (
               <div className="profile-section">
                 <h3>Charity Information</h3>
+                <div className="profile-info">
+                  <div className="info-item">
+                    <span className="info-label">Organization:</span>
+                    <span className="info-value">{charityData.name}</span>
+                  </div>
+                  <div className="info-item">
+                    <span className="info-label">Category:</span>
+                    <span className="info-value">{charityData.category}</span>
+                  </div>
+                  <div className="info-item">
+                    <span className="info-label">Location:</span>
+                    <span className="info-value">{charityData.location}</span>
+                  </div>
+                  <div className="info-item">
+                    <span className="info-label">Goal:</span>
+                    <span className="info-value">${charityData.goal?.toLocaleString()}</span>
+                  </div>
+                  <div className="info-item">
+                    <span className="info-label">Status:</span>
+                    <span className="info-value">{charityData.status}</span>
+                  </div>
+                </div>
                 <div className="charity-info">
                   <p>
-                    As a charity organization, you can manage your campaigns and 
-                    view donations through your <a href="/org">charity dashboard</a>.
+                    Manage your charity campaigns and view donations through your 
+                    <a href="/org"> charity dashboard</a>.
                   </p>
                 </div>
               </div>
             )}
 
-            {user?.role === 'donor' && (
-              <div className="profile-section">
-                <h3>Donor Information</h3>
-                <div className="donor-info">
+            <div className="profile-section">
+              <h3>Donor Information</h3>
+              <div className="donor-info">
+                <p>
+                  Thank you for supporting our cause! View your donation history 
+                  and impact through your <a href="/donor">donor dashboard</a>.
+                </p>
+                {!hasCharity && (
                   <p>
-                    Thank you for supporting our cause! View your donation history 
-                    and impact through your <a href="/donor">donor dashboard</a>.
+                    Want to start your own charity? 
+                    <a href="/apply-charity"> Apply to become a charity</a> and start receiving donations.
                   </p>
-                </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
         </div>
       </div>

@@ -184,6 +184,11 @@ export const charityAPI = {
   getMyDonations: async () => {
     return apiRequest('/charities/my-charity/donations');
   },
+
+  // Check if current user owns a charity
+  getMyCharity: async () => {
+    return apiRequest('/charities/my-charity');
+  },
 };
 
 // Donation API
