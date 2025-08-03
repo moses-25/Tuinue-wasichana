@@ -16,14 +16,29 @@ from app.models.reminder import Reminder
 # Create the Flask application instance
 app = create_app()
 
-# Initialize database tables (only in production)
-if os.getenv('FLASK_ENV') == 'production':
-    with app.app_context():
+# Initialize database tables with better error handling
+def init_database():
+    """Initialize database with retry logic"""
+    max_retries = 3
+    for attempt in range(max_retries):
         try:
-            db.create_all()
-            app.logger.info("Database tables created successfully")
+            with app.app_context():
+                db.create_all()
+                app.logger.info("Database tables created successfully")
+                return True
         except Exception as e:
-            app.logger.error(f"Error creating tables: {e}")
+            app.logger.warning(f"Database init attempt {attempt + 1} failed: {e}")
+            if attempt < max_retries - 1:
+                import time
+                time.sleep(5)  # Wait 5 seconds before retry
+            else:
+                app.logger.error(f"Failed to initialize database after {max_retries} attempts")
+                return False
+    return False
+
+# Only initialize database in production or if explicitly requested
+if os.getenv('FLASK_ENV') == 'production' or os.getenv('INIT_DB') == 'true':
+    init_database()
 
 # Health check route (already defined in app/__init__.py, but adding here for redundancy)
 @app.route('/health')

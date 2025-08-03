@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React from 'react';
 import { AuthProvider } from './contexts/AuthContext';
-import BackendTest from './components/BackendTest';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FAQ from './components/FAQItem';
@@ -29,7 +28,6 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <BackendTest />
         <Routes>
         <Route path="/" element={<Login2 />} />
         <Route path="/home" element={<HomePage />} />

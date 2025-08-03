@@ -3,7 +3,7 @@ services:
   - type: web
     name: tuinue-wasichana-api
     env: python
-    buildCommand: pip install -r requirements.txt && python deploy.py
+    buildCommand: "chmod +x build.sh && ./build.sh"
     startCommand: gunicorn --bind 0.0.0.0:$PORT app:app
     envVars:
       - key: FLASK_ENV
@@ -42,6 +42,14 @@ services:
         value: "TuinueAdmin2024!"
       - key: CREATE_ADMIN_ON_DEPLOY
         value: "true"
+      - key: INIT_DB
+        value: "true"
+      - key: CORS_ORIGINS
+        value: "http://localhost:5173,http://localhost:5174"
+      - key: JWT_ACCESS_TOKEN_EXPIRES
+        value: "3600"
+      - key: JWT_REFRESH_TOKEN_EXPIRES
+        value: "2592000"
 
   # Background Worker (Celery)
   - type: worker

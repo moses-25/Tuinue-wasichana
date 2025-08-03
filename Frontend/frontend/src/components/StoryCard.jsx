@@ -7,6 +7,7 @@ import './StoryCard.css';
 const SuccessStories = () => {
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [usingFallback, setUsingFallback] = useState(false);
 
   // Default stories as fallback
   const defaultStories = [
@@ -55,12 +56,15 @@ const SuccessStories = () => {
             image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&h=300&fit=crop&crop=face"
           }));
           setStories(transformedStories);
+          setUsingFallback(false);
         } else {
           setStories(defaultStories);
+          setUsingFallback(true);
         }
       } catch (error) {
         console.error('Error fetching stories:', error);
         setStories(defaultStories);
+        setUsingFallback(true);
       } finally {
         setLoading(false);
       }
@@ -74,6 +78,16 @@ const SuccessStories = () => {
       <div className="section-header">
         <h2>Changed Lives, Brighter Futures</h2>
         <p>Meet the girls who transformed their lives through Tuinue Wasichana</p>
+        {usingFallback && (
+          <div style={{ 
+            fontSize: '0.9rem', 
+            color: '#666', 
+            fontStyle: 'italic',
+            marginTop: '0.5rem'
+          }}>
+            Showing sample stories (server temporarily unavailable)
+          </div>
+        )}
       </div>
 
       <div className="story-cards">
