@@ -42,6 +42,8 @@ class StoryList(Resource):
         title = data.get('title')
         content = data.get('content')
         story = StoryController.create_story(charity.id, title, content)
+        if not story:
+            return {'success': False, 'error': 'Failed to create story'}, 400
         return {
             'success': True,
             'story': story.to_dict(),
@@ -75,6 +77,8 @@ class Story(Resource):
         title = data.get('title')
         content = data.get('content')
         updated_story = StoryController.update_story(story_id, title, content)
+        if not updated_story:
+            return {'success': False, 'error': 'Failed to update story'}, 400
         return {
             'success': True,
             'story': updated_story.to_dict(),
@@ -91,7 +95,9 @@ class Story(Resource):
         story = StoryController.get_story_by_id(story_id)
         if not story or story.charity_id != charity.id:
             return {'success': False, 'error': 'Unauthorized to delete this story'}, 403
-        StoryController.delete_story(story_id)
+        success = StoryController.delete_story(story_id)
+        if not success:
+            return {'success': False, 'error': 'Failed to delete story'}, 400
         return {
             'success': True,
             'message': 'Story deleted successfully.'

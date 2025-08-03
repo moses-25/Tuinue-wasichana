@@ -50,7 +50,7 @@ const AdminDashboard = () => {
           // Transform backend data to match component expectations
           const transformedApplications = applicationsResponse.applications.map(app => ({
             id: app.id,
-            name: app.organization_name,
+            name: app.organization_name, // This maps to charity.name in CharitiesTable
             email: `user${app.user_id}@example.com`, // Backend doesn't provide email, using placeholder
             status: app.status,
             createdAt: app.submitted_at,

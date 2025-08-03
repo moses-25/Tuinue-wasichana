@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { charityAPI } from '../services/api';
@@ -91,23 +92,53 @@ const ApplyCharity = () => {
       const result = await charityAPI.applyForCharity(applicationData);
       
       if (result.success) {
-        alert('Your charity application has been submitted successfully! Our team will review it and get back to you within 5-7 business days.');
-        navigate('/charity');
+        toast.success('🎉 Application submitted successfully! Our team will review it within 5-7 business days.', {
+          duration: 6000,
+          position: 'top-center',
+        });
+        // Clear form
+        setFormData({
+          organizationName: '',
+          mission: '',
+          description: '',
+          contactEmail: '',
+          contactName: '',
+          website: '',
+          location: '',
+          category: ''
+        });
+        // Navigate after a short delay to let user see the success message
+        setTimeout(() => navigate('/charity'), 2000);
       } else {
-        alert(result.error || 'Failed to submit application. Please try again.');
+        toast.error(result.error || 'Failed to submit application. Please try again.', {
+          duration: 5000,
+          position: 'top-center',
+        });
       }
     } catch (error) {
       console.error('Application error:', error);
       
-      // Handle specific error cases
-      if (error.message && error.message.includes('already submitted')) {
-        alert('You have already submitted a charity application. Please check your email for updates or contact support if you need assistance.');
-      } else if (error.message && error.message.includes('409')) {
-        alert('You already have a pending charity application. Please wait for our team to review it or contact support for more information.');
+      // Handle specific error cases with better UX
+      if (error.message && (error.message.includes('already submitted') || error.message.includes('409'))) {
+        toast.info('📋 You already have a charity application on file. Check your email for updates or contact support for assistance.', {
+          duration: 6000,
+          position: 'top-center',
+        });
       } else if (error.message && error.message.includes('403')) {
-        alert('Only users with donor accounts can apply to become charities. Please ensure you are logged in with the correct account.');
+        toast.error('🔒 Only donor accounts can apply to become charities. Please ensure you are logged in with the correct account.', {
+          duration: 5000,
+          position: 'top-center',
+        });
+      } else if (error.message && error.message.includes('401')) {
+        toast.error('🔑 Please log in to submit a charity application.', {
+          duration: 4000,
+          position: 'top-center',
+        });
       } else {
-        alert(`Application submission failed: ${error.message || 'Please try again later.'}`);
+        toast.error(`❌ Application failed: ${error.message || 'Please try again later.'}`, {
+          duration: 5000,
+          position: 'top-center',
+        });
       }
     } finally {
       setLoading(false);
@@ -128,6 +159,7 @@ const ApplyCharity = () => {
           </div>
         </div>
         <Footer />
+        <Toaster />
       </>
     );
   }
@@ -323,6 +355,7 @@ const ApplyCharity = () => {
       </div>
       
       <Footer />
+      <Toaster />
     </>
   );
 };

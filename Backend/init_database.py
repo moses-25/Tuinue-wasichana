@@ -186,14 +186,15 @@ def create_admin_user():
         with app.app_context():
             # Check if admin exists
             admin_email = os.getenv('ADMIN_EMAIL', 'admin@tuinuewasichana.org')
-            admin_password = os.getenv('ADMIN_PASSWORD', 'admin123')
+            admin_password = os.getenv('ADMIN_PASSWORD', 'TuinueAdmin2024!')
+            admin_name = os.getenv('ADMIN_NAME', 'System Administrator')
             admin = User.query.filter_by(email=admin_email).first()
             
             if not admin:
                 # Create admin user with correct field names
                 admin_user = User(
                     email=admin_email,
-                    name='System Administrator',  # Use 'name' instead of first_name/last_name
+                    name=admin_name,  # Use the admin_name from environment
                     role='admin'
                 )
                 # Set password using the model's method if available

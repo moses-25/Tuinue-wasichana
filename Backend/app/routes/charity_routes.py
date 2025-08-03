@@ -5,6 +5,7 @@ from datetime import datetime
 from app.models.charity_application import CharityApplication
 from app.models.charity import Charity
 from app.models.user import User
+from app.models.donation import Donation
 from app.middlewares.auth_middleware import roles_required
 from flask_jwt_extended import get_jwt_identity
 from app.controllers.charity_controller import CharityController
@@ -77,7 +78,6 @@ class CharityApply(Resource):
 @charity_ns.route('/applications')
 class CharityApplicationList(Resource):
     @charity_ns.doc('get_all_applications')
-    @charity_ns.marshal_list_with(charity_application_response_model)
     @roles_required('admin')
     def get(self):
         applications = CharityApplication.query.all()

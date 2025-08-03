@@ -24,5 +24,11 @@ fi
 # Run any additional setup
 echo "🔧 Running additional setup..."
 
+# Create admin user from environment variables if specified
+if [ "$CREATE_ADMIN_ON_DEPLOY" = "true" ]; then
+    echo "👤 Creating admin user from environment variables..."
+    python create_admin_env.py || echo "⚠️ Admin user creation failed, continuing deployment..."
+fi
+
 # Make sure the app can start
 echo "✅ Build completed successfully!"
