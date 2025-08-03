@@ -236,18 +236,30 @@ def main():
     # Try different methods to initialize database
     success = False
     
-    # Method 1: Try SQLAlchemy with app models
-    logger.info("Attempting database initialization with SQLAlchemy...")
-    if create_tables_with_sqlalchemy(database_url):
-        success = True
+    # Method 1: Try automatic migration system
+    logger.info("Attempting database initialization with automatic migrator...")
+    try:
+        from database_migrator import DatabaseMigrator
+        migrator = DatabaseMigrator(database_url)
+        if migrator.run_migrations():
+            success = True
+            logger.info("Automatic migration completed successfully!")
+    except Exception as e:
+        logger.warning(f"Automatic migration failed: {e}")
     
-    # Method 2: Try migrations
+    # Method 2: Try SQLAlchemy with app models (fallback)
+    if not success:
+        logger.info("Attempting database initialization with SQLAlchemy...")
+        if create_tables_with_sqlalchemy(database_url):
+            success = True
+    
+    # Method 3: Try migrations (fallback)
     if not success:
         logger.info("Attempting database initialization with migrations...")
         if run_migrations(database_url):
             success = True
     
-    # Method 3: Try raw SQL
+    # Method 4: Try raw SQL (fallback)
     if not success:
         logger.info("Attempting database initialization with SQL schema...")
         if create_tables_with_sql(database_url):

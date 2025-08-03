@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 import { charityAPI } from '../services/api';
 import { useAuth } from '../contexts/AuthContext';
 import Navbar from "../components/Navbar";
@@ -16,52 +17,42 @@ const Charities = () => {
     const fetchCharities = async () => {
       try {
         setLoading(true);
-        const response = await charityAPI.getCharities();
+        setError(null);
         
-        if (response.success) {
-          setAllCharities(response.charities || []);
-          setError(null); // Clear any previous errors
+        console.log('Fetching charities from API...');
+        const response = await charityAPI.getCharities();
+        console.log('Charities API response:', response);
+        
+        if (response.success && response.charities) {
+          // Transform backend charity data to match frontend expectations
+          const transformedCharities = response.charities.map(charity => ({
+            id: charity.id,
+            name: charity.name,
+            description: charity.description || 'No description available',
+            location: charity.location || 'Unknown',
+            category: charity.category || 'General',
+            raised: charity.raised || 0,
+            donors: charity.donors || 0,
+            goal: charity.goal || 10000,
+            status: charity.status
+          }));
+          
+          console.log('Transformed charities:', transformedCharities);
+          setAllCharities(transformedCharities);
+          
+          if (transformedCharities.length === 0) {
+            toast.info('No approved charities found yet. Check back later!');
+          }
         } else {
-          setError('Failed to load charities');
+          console.log('API response not successful or no charities:', response);
+          setError('No approved charities available yet');
+          setAllCharities([]);
         }
       } catch (err) {
         console.error('Error fetching charities:', err);
         setError('Failed to connect to server');
-        
-        // Fallback to mock data if API fails
-        const mockCharities = [
-          {
-            id: 1,
-            name: "Girls Sanitary Health Initiative",
-            description: "Providing sanitary products and education to girls in rural Kenya",
-            location: "Kenya",
-            category: "Health",
-            raised: 12500,
-            donors: 107,
-            goal: 20000
-          },
-          {
-            id: 2,
-            name: "Clean Water for Schools",
-            description: "Building clean water facilities in girls' schools across Tanzania",
-            location: "Tanzania",
-            category: "Infrastructure",
-            raised: 8700,
-            donors: 124,
-            goal: 15000
-          },
-          {
-            id: 3,
-            name: "Menstrual Education Program",
-            description: "Teaching proper menstrual hygiene to adolescent girls in Uganda",
-            location: "Uganda",
-            category: "Education",
-            raised: 5300,
-            donors: 96,
-            goal: 10000
-          }
-        ];
-        setAllCharities(mockCharities);
+        setAllCharities([]);
+        toast.error('Failed to load charities. Please try again later.');
       } finally {
         setLoading(false);
       }
@@ -101,6 +92,28 @@ const Charities = () => {
   return (
     <>
       <Navbar />
+      <Toaster 
+        position="top-right"
+        toastOptions={{
+          duration: 4000,
+          style: {
+            background: '#363636',
+            color: '#fff',
+          },
+          success: {
+            duration: 3000,
+            theme: {
+              primary: '#4aed88',
+            },
+          },
+          error: {
+            duration: 4000,
+            theme: {
+              primary: '#f56565',
+            },
+          },
+        }}
+      />
       
       <main className="charities-page">
         <div className="container">

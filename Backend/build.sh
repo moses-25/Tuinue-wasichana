@@ -15,8 +15,11 @@ sleep 10
 
 # Initialize database with retries (only if DATABASE_URL is available)
 if [ -n "$DATABASE_URL" ]; then
-    echo "🗄️ Initializing database..."
+    echo "🗄️ Initializing database with automatic migrations..."
     python init_database.py || echo "⚠️ Database initialization failed, continuing deployment..."
+    
+    echo "🔄 Running additional migration checks..."
+    python database_migrator.py || echo "⚠️ Additional migrations failed, continuing deployment..."
 else
     echo "⚠️ DATABASE_URL not available during build, will initialize at startup"
 fi

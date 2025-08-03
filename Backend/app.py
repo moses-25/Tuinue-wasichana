@@ -42,6 +42,19 @@ def init_database():
 # Only initialize database in production or if explicitly requested
 if os.getenv('FLASK_ENV') == 'production' or os.getenv('INIT_DB') == 'true':
     init_database()
+    
+    # Run automatic migrations at startup as backup
+    try:
+        from database_migrator import DatabaseMigrator
+        database_url = os.getenv('DATABASE_URL')
+        if database_url:
+            if database_url.startswith('postgres://'):
+                database_url = database_url.replace('postgres://', 'postgresql://', 1)
+            migrator = DatabaseMigrator(database_url)
+            migrator.run_migrations()
+            app.logger.info("Runtime migrations completed successfully")
+    except Exception as e:
+        app.logger.warning(f"Runtime migrations failed: {e}")
 
 # Health check route (already defined in app/__init__.py, but adding here for redundancy)
 @app.route('/health')

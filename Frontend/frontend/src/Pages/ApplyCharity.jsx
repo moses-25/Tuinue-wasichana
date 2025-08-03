@@ -20,7 +20,8 @@ const ApplyCharity = () => {
     contactName: '',
     website: '',
     location: '',
-    category: ''
+    category: '',
+    goal: 10000
   });
   const [errors, setErrors] = useState({});
 
@@ -52,7 +53,7 @@ const ApplyCharity = () => {
   const validateForm = () => {
     const newErrors = {};
     
-    // Only validate required fields for backend
+    // Validate required fields for backend
     if (!formData.organizationName.trim()) {
       newErrors.organizationName = 'Organization name is required';
     }
@@ -61,6 +62,18 @@ const ApplyCharity = () => {
       newErrors.mission = 'Mission statement is required';
     } else if (formData.mission.length < 50) {
       newErrors.mission = 'Mission statement should be at least 50 characters';
+    }
+
+    if (!formData.location.trim()) {
+      newErrors.location = 'Location is required';
+    }
+
+    if (!formData.category.trim()) {
+      newErrors.category = 'Category is required';
+    }
+
+    if (!formData.goal || formData.goal < 1000) {
+      newErrors.goal = 'Goal must be at least $1,000';
     }
     
     setErrors(newErrors);
@@ -83,10 +96,13 @@ const ApplyCharity = () => {
     setLoading(true);
 
     try {
-      // Backend only accepts organization_name and mission
+      // Send all required fields to backend
       const applicationData = {
         organization_name: formData.organizationName,
-        mission: formData.mission
+        mission: formData.mission,
+        location: formData.location,
+        category: formData.category,
+        goal: parseInt(formData.goal)
       };
 
       const result = await charityAPI.applyForCharity(applicationData);
@@ -105,7 +121,8 @@ const ApplyCharity = () => {
           contactName: '',
           website: '',
           location: '',
-          category: ''
+          category: '',
+          goal: 10000
         });
         // Navigate after a short delay to let user see the success message
         setTimeout(() => navigate('/charity'), 2000);
@@ -331,6 +348,26 @@ const ApplyCharity = () => {
                   <span className="error-message">{errors.category}</span>
                 )}
               </div>
+            </div>
+
+            {/* Fundraising Goal */}
+            <div className={`form-group ${errors.goal ? 'error' : ''}`}>
+              <label>Fundraising Goal (USD) *</label>
+              <input
+                type="number"
+                name="goal"
+                value={formData.goal}
+                onChange={handleChange}
+                placeholder="10000"
+                min="1000"
+                step="100"
+              />
+              <div className="field-help">
+                Set your initial fundraising goal (minimum $1,000)
+              </div>
+              {errors.goal && (
+                <span className="error-message">{errors.goal}</span>
+              )}
             </div>
 
             {/* Submit Button */}

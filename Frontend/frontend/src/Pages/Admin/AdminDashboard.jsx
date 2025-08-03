@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   FiUsers, FiHeart, FiDollarSign, FiShield, FiSettings, 
-  FiCheck, FiX, FiTrash2 
+  FiCheck
 } from 'react-icons/fi';
+import toast, { Toaster } from 'react-hot-toast';
 import { useAuth } from '../../contexts/AuthContext';
 import { charityAPI, usersAPI } from '../../services/api';
 import StatsGrid from '../../components/StatsGrid';
@@ -13,7 +13,7 @@ import QuickActions from '../../components/QuickActions';
 import UsersTable from '../../components/UsersTable';
 import CharitiesTable from '../../components/CharitiesTable';
 import SettingsModal from '../../components/SettingsModal';
-import DonationsTable from '../../components/DonationsTable'; // 💡 New component
+import DonationsTable from '../../components/DonationsTable';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import './AdminDashboard.css';
@@ -115,45 +115,85 @@ const AdminDashboard = () => {
   }, [isAuthenticated, user, navigate]);
 
   const approveCharity = async (applicationId) => {
+    const loadingToast = toast.loading('Approving charity application...');
+    
     try {
       const result = await charityAPI.approveCharityApplication(applicationId);
+      
       if (result.success) {
         // Update local state
         setCharityApplications(charityApplications.map(app => 
           app.id === applicationId ? { ...app, status: 'approved' } : app
         ));
-        alert('Charity application approved successfully!');
+        toast.success('Charity application approved successfully!', { id: loadingToast });
       } else {
-        alert('Failed to approve charity application');
+        toast.error(result.message || 'Failed to approve charity application', { id: loadingToast });
       }
     } catch (error) {
       console.error('Error approving charity:', error);
-      alert('Error approving charity application');
+      toast.error('Error approving charity application', { id: loadingToast });
     }
   };
 
   const rejectCharity = async (applicationId) => {
+    const loadingToast = toast.loading('Rejecting charity application...');
+    
     try {
       const result = await charityAPI.rejectCharityApplication(applicationId);
+      
       if (result.success) {
         // Update local state
         setCharityApplications(charityApplications.map(app => 
           app.id === applicationId ? { ...app, status: 'rejected' } : app
         ));
-        alert('Charity application rejected successfully!');
+        toast.success('Charity application rejected successfully!', { id: loadingToast });
       } else {
-        alert('Failed to reject charity application');
+        toast.error(result.message || 'Failed to reject charity application', { id: loadingToast });
       }
     } catch (error) {
       console.error('Error rejecting charity:', error);
-      alert('Error rejecting charity application');
+      toast.error('Error rejecting charity application', { id: loadingToast });
     }
   };
 
   const deleteCharity = (applicationId) => {
-    if (confirm('Are you sure you want to delete this charity application?')) {
-      setCharityApplications(charityApplications.filter(app => app.id !== applicationId));
-    }
+    toast((t) => (
+      <div>
+        <p>Are you sure you want to delete this charity application?</p>
+        <div style={{ marginTop: '10px', display: 'flex', gap: '10px' }}>
+          <button
+            onClick={() => {
+              setCharityApplications(charityApplications.filter(app => app.id !== applicationId));
+              toast.success('Charity application deleted');
+              toast.dismiss(t.id);
+            }}
+            style={{ 
+              background: '#ef4444', 
+              color: 'white', 
+              border: 'none', 
+              padding: '5px 10px', 
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
+            Delete
+          </button>
+          <button
+            onClick={() => toast.dismiss(t.id)}
+            style={{ 
+              background: '#6b7280', 
+              color: 'white', 
+              border: 'none', 
+              padding: '5px 10px', 
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    ), { duration: 10000 });
   };
 
   const deleteDonation = (donationId) => {
@@ -254,6 +294,28 @@ const AdminDashboard = () => {
   return (
     <>
       <Navbar />
+      <Toaster 
+        position="top-right"
+        toastOptions={{
+          duration: 4000,
+          style: {
+            background: '#363636',
+            color: '#fff',
+          },
+          success: {
+            duration: 3000,
+            theme: {
+              primary: '#4aed88',
+            },
+          },
+          error: {
+            duration: 4000,
+            theme: {
+              primary: '#f56565',
+            },
+          },
+        }}
+      />
 
       <div className="admin-dashboard">
         <div className="dashboard-header">

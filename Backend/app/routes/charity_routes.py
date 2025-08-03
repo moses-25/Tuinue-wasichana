@@ -14,7 +14,10 @@ charity_ns = Namespace('charities', description='Charity related operations')
 
 charity_application_model = charity_ns.model('CharityApplication', {
     'organization_name': fields.String(required=True, description='Organization name'),
-    'mission': fields.String(required=True, description='Mission statement')
+    'mission': fields.String(required=True, description='Mission statement'),
+    'location': fields.String(description='Organization location', default='Kenya'),
+    'category': fields.String(description='Organization category', default='Health'),
+    'goal': fields.Integer(description='Fundraising goal', default=10000)
 })
 
 charity_response_model = charity_ns.model('CharityResponse', {
@@ -31,6 +34,9 @@ charity_application_response_model = charity_ns.model('CharityApplicationRespons
     'user_id': fields.Integer(readOnly=True),
     'organization_name': fields.String,
     'mission': fields.String,
+    'location': fields.String,
+    'category': fields.String,
+    'goal': fields.Integer,
     'status': fields.String,
     'submitted_at': fields.DateTime,
     'reviewed_at': fields.DateTime
@@ -52,6 +58,9 @@ class CharityApply(Resource):
         data = request.get_json()
         organization_name = data.get('organization_name')
         mission = data.get('mission')
+        location = data.get('location', 'Kenya')
+        category = data.get('category', 'Health')
+        goal = data.get('goal', 10000)
 
         if not all([organization_name, mission]):
             charity_ns.abort(400, message='Missing organization name or mission')
@@ -63,7 +72,10 @@ class CharityApply(Resource):
         new_application = CharityApplication(
             user_id=int(user_id),
             organization_name=organization_name,
-            mission=mission
+            mission=mission,
+            location=location,
+            category=category,
+            goal=goal
         )
 
         db.session.add(new_application)
@@ -108,6 +120,9 @@ class CharityApplicationApprove(Resource):
             owner_id=application.user_id,
             name=application.organization_name,
             description=application.mission,
+            location=application.location,
+            category=application.category,
+            goal=application.goal,
             status='approved'
         )
 
