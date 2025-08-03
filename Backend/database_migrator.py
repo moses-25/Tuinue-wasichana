@@ -130,15 +130,17 @@ class DatabaseMigrator:
                 
                 # Add constraints
                 if not col_info['nullable']:
-                    if col_info['default']:
-                        alter_stmt += f" DEFAULT {col_info['default']} NOT NULL"
+                    if col_info['default'] and col_info['default'] != 'None':
+                        default_val = self.extract_default_value(col_info['default'], pg_type)
+                        alter_stmt += f" DEFAULT {default_val} NOT NULL"
                     else:
                         # For NOT NULL columns without default, add a sensible default
                         default_val = self.get_default_value_for_type(pg_type)
                         alter_stmt += f" DEFAULT {default_val} NOT NULL"
                 else:
-                    if col_info['default']:
-                        alter_stmt += f" DEFAULT {col_info['default']}"
+                    if col_info['default'] and col_info['default'] != 'None':
+                        default_val = self.extract_default_value(col_info['default'], pg_type)
+                        alter_stmt += f" DEFAULT {default_val}"
                 
                 statements.append(alter_stmt)
                 logger.info(f"Will add column: {table_name}.{col_name} ({pg_type})")
@@ -169,6 +171,58 @@ class DatabaseMigrator:
         base_type = sqlalchemy_type.split('(')[0].upper()
         return type_mapping.get(base_type, 'TEXT')
     
+    def extract_default_value(self, default_str, pg_type):
+        """Extract actual default value from SQLAlchemy default string"""
+        if not default_str or default_str == 'None':
+            return self.get_default_value_for_type(pg_type)
+        
+        # Handle ColumnDefault wrapper
+        if 'ColumnDefault(' in default_str:
+            # Extract the value inside ColumnDefault(value) or ColumnDefault('value')
+            start_paren = default_str.find('(') + 1
+            end_paren = default_str.rfind(')')
+            
+            if start_paren > 0 and end_paren > start_paren:
+                inner_value = default_str[start_paren:end_paren].strip()
+                
+                # Handle quoted strings: ColumnDefault('Kenya')
+                if inner_value.startswith("'") and inner_value.endswith("'"):
+                    value = inner_value[1:-1]  # Remove quotes
+                    # For string values, wrap in quotes
+                    if 'VARCHAR' in pg_type or 'TEXT' in pg_type:
+                        return f"'{value}'"
+                    else:
+                        return value
+                
+                # Handle numeric values: ColumnDefault(10000)
+                elif inner_value.isdigit() or (inner_value.replace('.', '').replace('-', '').isdigit()):
+                    return inner_value
+                
+                # Handle other values
+                else:
+                    if 'VARCHAR' in pg_type or 'TEXT' in pg_type:
+                        return f"'{inner_value}'"
+                    else:
+                        return inner_value
+        
+        # Handle direct string values
+        if default_str.startswith("'") and default_str.endswith("'"):
+            return default_str
+        
+        # Handle numeric values
+        if default_str.isdigit() or (default_str.replace('.', '').replace('-', '').isdigit()):
+            return default_str
+        
+        # Handle boolean values
+        if default_str.lower() in ['true', 'false']:
+            return default_str.upper()
+        
+        # For string types, ensure quotes
+        if 'VARCHAR' in pg_type or 'TEXT' in pg_type:
+            return f"'{default_str}'"
+        
+        return default_str
+
     def get_default_value_for_type(self, pg_type):
         """Get sensible default values for different types"""
         if 'INTEGER' in pg_type:
