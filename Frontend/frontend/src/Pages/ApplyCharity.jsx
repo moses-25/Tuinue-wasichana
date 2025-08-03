@@ -143,8 +143,8 @@ const ApplyCharity = () => {
       console.error('Application error:', error);
       
       // Handle specific error cases with better UX
-      if (error.message && (error.message.includes('already submitted') || error.message.includes('409'))) {
-        toast.info('📋 You already have a charity application on file. Check your email for updates or contact support for assistance.', {
+      if (error.message && (error.message.includes('pending') || error.message.includes('409'))) {
+        toast.error('📋 You have a pending charity application. Please wait for review before submitting another.', {
           duration: 6000,
           position: 'top-center',
         });

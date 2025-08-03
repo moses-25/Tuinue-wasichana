@@ -66,9 +66,13 @@ class CharityApply(Resource):
         if not all([organization_name, mission]):
             charity_ns.abort(400, message='Missing organization name or mission')
 
-        existing_application = CharityApplication.query.filter_by(user_id=int(user_id)).first()
-        if existing_application:
-            charity_ns.abort(409, message=f'You have already submitted a charity application. Current status: {existing_application.status}')
+        # Check for pending applications only - allow new applications if previous ones were approved/rejected
+        existing_pending_application = CharityApplication.query.filter_by(
+            user_id=int(user_id), 
+            status='pending'
+        ).first()
+        if existing_pending_application:
+            charity_ns.abort(409, message=f'You have a pending charity application. Please wait for review before submitting another.')
 
         new_application = CharityApplication(
             user_id=int(user_id),
@@ -215,7 +219,6 @@ class AdminCharityApprove(Resource):
 @charity_ns.route('/')
 class CharityList(Resource):
     @charity_ns.doc('get_approved_charities')
-    @charity_ns.marshal_list_with(charity_response_model)
     def get(self):
         """Get all approved charities for donors to view"""
         charities = Charity.query.filter_by(status='approved').all()
@@ -228,7 +231,6 @@ class CharityList(Resource):
 @charity_ns.route('/<int:charity_id>')
 class CharityDetail(Resource):
     @charity_ns.doc('get_charity_details')
-    @charity_ns.marshal_with(charity_response_model)
     def get(self, charity_id):
         """Get specific charity details"""
         charity = Charity.query.get(charity_id)
