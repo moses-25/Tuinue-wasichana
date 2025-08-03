@@ -1,5 +1,5 @@
 // API Configuration
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://tuinue-wasichana-api-amem.onrender.com/api/v1';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://tuinue-wasichana-z03y.onrender.com/api/v1';
 
 // Helper function to get auth token
 const getAuthToken = () => {

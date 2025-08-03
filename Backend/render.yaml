@@ -45,7 +45,7 @@ services:
       - key: INIT_DB
         value: "true"
       - key: CORS_ORIGINS
-        value: "http://localhost:5173,http://localhost:5174"
+        value: "http://localhost:5173,http://localhost:5174,https://tuinue-wasichana-z03y.onrender.com"
       - key: JWT_ACCESS_TOKEN_EXPIRES
         value: "3600"
       - key: JWT_REFRESH_TOKEN_EXPIRES

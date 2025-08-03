@@ -55,6 +55,14 @@ def initialize_database(app):
 # Create the Flask application instance for Gunicorn
 application = create_app()
 
+# Setup error handlers to prevent crashes
+try:
+    from health_monitor import setup_error_handlers
+    setup_error_handlers(application)
+    application.logger.info("Error handlers configured successfully")
+except Exception as e:
+    application.logger.warning(f"Could not setup error handlers: {e}")
+
 # Add root routes after app creation
 with application.app_context():
     @application.route('/')
@@ -73,9 +81,11 @@ with application.app_context():
     def health_check():
         return {'status': 'healthy', 'service': 'tuinue-wasichana-api'}, 200
 
-# Initialize database automatically on startup (production)
+# Initialize database automatically on startup (production) with better error handling
 if os.getenv('FLASK_ENV') == 'production' or os.getenv('INIT_DB') == 'true':
     try:
+        application.logger.info("Starting database initialization...")
+        
         # Import the robust initialization
         import sys
         sys.path.append(os.path.dirname(__file__))
@@ -84,10 +94,18 @@ if os.getenv('FLASK_ENV') == 'production' or os.getenv('INIT_DB') == 'true':
         from init_database import main as init_db_main
         init_db_main()
         
+        application.logger.info("Database initialization completed successfully")
+        
     except Exception as e:
         application.logger.warning(f"Robust DB init failed, trying simple init: {e}")
-        # Fallback to simple initialization
-        initialize_database(application)
+        try:
+            # Fallback to simple initialization
+            initialize_database(application)
+            application.logger.info("Simple database initialization completed")
+        except Exception as fallback_error:
+            application.logger.error(f"All database initialization failed: {fallback_error}")
+            # Don't crash the app - let it start without DB
+            application.logger.warning("App starting without database initialization - manual setup may be needed")
 
 # For compatibility, also expose as 'app'
 app = application
