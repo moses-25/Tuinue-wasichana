@@ -22,7 +22,7 @@ const createHeaders = (includeAuth = true) => {
   return headers;
 };
 
-// Generic API request function
+// Generic API request function with automatic token refresh
 const apiRequest = async (endpoint, options = {}) => {
   const url = `${API_BASE_URL}${endpoint}`;
   const config = {
@@ -35,6 +35,55 @@ const apiRequest = async (endpoint, options = {}) => {
     const data = await response.json();
     
     if (!response.ok) {
+      // Check if token expired (401 Unauthorized)
+      if (response.status === 401 && data.message && data.message.includes('expired')) {
+        console.log('Token expired, attempting refresh...');
+        
+        // Try to refresh token
+        const refreshToken = localStorage.getItem('refreshToken');
+        if (refreshToken) {
+          try {
+            const refreshResponse = await fetch(`${API_BASE_URL}/auth/refresh`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${refreshToken}`
+              }
+            });
+            
+            if (refreshResponse.ok) {
+              const refreshData = await refreshResponse.json();
+              // Store new token
+              localStorage.setItem('authToken', refreshData.access_token);
+              
+              // Retry original request with new token
+              const retryConfig = {
+                ...config,
+                headers: {
+                  ...config.headers,
+                  'Authorization': `Bearer ${refreshData.access_token}`
+                }
+              };
+              
+              const retryResponse = await fetch(url, retryConfig);
+              const retryData = await retryResponse.json();
+              
+              if (retryResponse.ok) {
+                return retryData;
+              }
+            }
+          } catch (refreshError) {
+            console.error('Token refresh failed:', refreshError);
+          }
+        }
+        
+        // If refresh failed, redirect to login
+        console.log('Token refresh failed, redirecting to login...');
+        apiUtils.logout();
+        window.location.href = '/login';
+        throw new Error('Session expired. Please login again.');
+      }
+      
       throw new Error(data.message || data.error || 'API request failed');
     }
     
@@ -235,10 +284,21 @@ export const adminAPI = {
 // Utility functions
 export const apiUtils = {
   // Store auth data
-  storeAuthData: (token, user) => {
+  storeAuthData: (token, user, refreshToken = null) => {
     localStorage.setItem('authToken', token);
     localStorage.setItem('userRole', user.role);
     localStorage.setItem('userData', JSON.stringify(user));
+    if (refreshToken) {
+      localStorage.setItem('refreshToken', refreshToken);
+    }
+  },
+
+  // Clear auth data
+  logout: () => {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('userData');
   },
 
   // Get stored user data
