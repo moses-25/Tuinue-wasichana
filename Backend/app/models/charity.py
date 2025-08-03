@@ -31,7 +31,7 @@ class Charity(db.Model):
     def get_donor_count(self):
         """Get count of unique donors"""
         from app.models.donation import Donation
-        count = db.session.query(db.func.count(db.distinct(Donation.donor_id))).filter(
+        count = db.session.query(db.func.count(db.distinct(Donation.user_id))).filter(
             Donation.charity_id == self.id,
             Donation.status == 'complete'
         ).scalar()
