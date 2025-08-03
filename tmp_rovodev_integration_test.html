@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Integration Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+        .loading { background-color: #fff3cd; color: #856404; }
+    </style>
+</head>
+<body>
+    <h1>Tuinue Wasichana - Backend Integration Test</h1>
+    <div id="results"></div>
+
+    <script>
+        const API_BASE_URL = 'https://tuinue-wasichana-api-amem.onrender.com/api/v1';
+        const resultsDiv = document.getElementById('results');
+
+        function addResult(message, type = 'loading') {
+            const div = document.createElement('div');
+            div.className = `test-result ${type}`;
+            div.textContent = message;
+            resultsDiv.appendChild(div);
+            return div;
+        }
+
+        async function testEndpoint(name, url, expectedFields = []) {
+            const resultDiv = addResult(`Testing ${name}...`, 'loading');
+            
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    let message = `✅ ${name}: ${response.status}`;
+                    if (expectedFields.length > 0) {
+                        const hasFields = expectedFields.some(field => data.hasOwnProperty(field));
+                        message += hasFields ? ' (has expected data)' : ' (empty/unexpected format)';
+                    }
+                    resultDiv.textContent = message;
+                    resultDiv.className = 'test-result success';
+                    console.log(`${name} response:`, data);
+                } else {
+                    resultDiv.textContent = `❌ ${name}: ${response.status} - ${data.message || 'Error'}`;
+                    resultDiv.className = 'test-result error';
+                }
+            } catch (error) {
+                resultDiv.textContent = `❌ ${name}: ${error.message}`;
+                resultDiv.className = 'test-result error';
+            }
+        }
+
+        async function runTests() {
+            addResult('Starting backend integration tests...', 'loading');
+            
+            // Test all endpoints
+            await testEndpoint('Health Check', `${API_BASE_URL}/health`, ['status']);
+            await testEndpoint('Charities List', `${API_BASE_URL}/charities/`, ['success', 'charities']);
+            await testEndpoint('Stories List', `${API_BASE_URL}/stories/`, ['success', 'stories']);
+            
+            addResult('Integration tests completed!', 'success');
+        }
+
+        // Run tests when page loads
+        runTests();
+    </script>
+</body>
+</html>

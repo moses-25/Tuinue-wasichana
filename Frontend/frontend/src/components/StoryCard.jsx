@@ -1,9 +1,15 @@
+import { useState, useEffect } from 'react';
 import { FiAward, FiBook, FiUser } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+import { storiesAPI } from '../services/api';
 import './StoryCard.css';
 
 const SuccessStories = () => {
-  const stories = [
+  const [stories, setStories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Default stories as fallback
+  const defaultStories = [
     {
       id: 1,
       name: "Amina Hassan",
@@ -32,6 +38,36 @@ const SuccessStories = () => {
       image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop&crop=face"
     }
   ];
+
+  useEffect(() => {
+    const fetchStories = async () => {
+      try {
+        const response = await storiesAPI.getStories();
+        if (response.success && response.stories && response.stories.length > 0) {
+          // Transform backend stories to match component format
+          const transformedStories = response.stories.map(story => ({
+            id: story.id,
+            name: story.title || "Success Story",
+            role: "Community Member",
+            story: story.content,
+            achievement: "Supported by Tuinue Wasichana",
+            year: new Date(story.created_at).getFullYear() + " Story",
+            image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&h=300&fit=crop&crop=face"
+          }));
+          setStories(transformedStories);
+        } else {
+          setStories(defaultStories);
+        }
+      } catch (error) {
+        console.error('Error fetching stories:', error);
+        setStories(defaultStories);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStories();
+  }, []);
 
   return (
     <section className="stories-section">

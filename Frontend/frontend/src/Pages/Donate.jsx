@@ -47,35 +47,58 @@ const DonationPage = () => {
     }));
   };
 
-  // Fetch charities on component mount and handle pre-selected charity
+  // Fetch charities on component mount
   useEffect(() => {
     const fetchCharities = async () => {
       try {
         const response = await charityAPI.getCharities();
-        if (response.success) {
-          setCharities(response.charities || []);
-          
-          // Check if charity is pre-selected via URL parameter
-          const urlParams = new URLSearchParams(window.location.search);
-          const preSelectedCharityId = urlParams.get('charity');
-          
-          if (preSelectedCharityId && response.charities) {
-            const foundCharity = response.charities.find(c => c.id.toString() === preSelectedCharityId);
-            if (foundCharity) {
-              setSelectedCharity(preSelectedCharityId);
-            } else if (response.charities.length > 0) {
-              setSelectedCharity(response.charities[0].id.toString());
+        if (response.success && response.charities) {
+          setCharities(response.charities);
+        } else {
+          // Fallback charities if API fails
+          setCharities([
+            {
+              id: 1,
+              name: "Girls Education Initiative",
+              description: "Providing scholarships and school supplies for girls",
+              category: "Education"
+            },
+            {
+              id: 2,
+              name: "Safe Spaces Foundation", 
+              description: "Creating safe environments for at-risk girls",
+              category: "Safety"
+            },
+            {
+              id: 3,
+              name: "Nutrition for Her",
+              description: "Ensuring proper nutrition for girls' development",
+              category: "Health"
             }
-          } else if (response.charities && response.charities.length > 0) {
-            setSelectedCharity(response.charities[0].id.toString());
-          }
+          ]);
         }
       } catch (error) {
         console.error('Error fetching charities:', error);
+        // Set fallback charities
+        setCharities([
+          {
+            id: 1,
+            name: "Girls Education Initiative",
+            description: "Providing scholarships and school supplies for girls",
+            category: "Education"
+          }
+        ]);
       }
     };
 
     fetchCharities();
+
+    // Handle pre-selected charity from URL params
+    const urlParams = new URLSearchParams(window.location.search);
+    const charityId = urlParams.get('charity');
+    if (charityId) {
+      setSelectedCharity(charityId);
+    }
   }, []);
 
   const handleSubmit = async (e) => {

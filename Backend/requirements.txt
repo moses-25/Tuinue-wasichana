@@ -36,5 +36,6 @@ vine==5.1.0
 wcwidth==0.2.13
 Werkzeug==2.3.7
 Flask-RESTX==1.1.0
+Flask-CORS==4.0.0
 pytest==8.2.2
 requests==2.31.0

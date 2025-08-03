@@ -6,7 +6,7 @@ import {
   FiCheck, FiX, FiTrash2 
 } from 'react-icons/fi';
 import { useAuth } from '../../contexts/AuthContext';
-import { charityAPI } from '../../services/api';
+import { charityAPI, usersAPI } from '../../services/api';
 import StatsGrid from '../../components/StatsGrid';
 import RecentActivities from '../../components/RecentActivities';
 import QuickActions from '../../components/QuickActions';
@@ -42,7 +42,10 @@ const AdminDashboard = () => {
         setError(null);
 
         // Fetch charity applications from backend
+        console.log('Fetching charity applications...');
         const applicationsResponse = await charityAPI.getCharityApplications();
+        console.log('Applications response:', applicationsResponse);
+        
         if (applicationsResponse.success) {
           // Transform backend data to match component expectations
           const transformedApplications = applicationsResponse.applications.map(app => ({
@@ -54,22 +57,45 @@ const AdminDashboard = () => {
             mission: app.mission,
             user_id: app.user_id
           }));
+          console.log('Transformed applications:', transformedApplications);
           setCharityApplications(transformedApplications);
+        } else {
+          console.log('Applications response not successful:', applicationsResponse);
+          setCharityApplications([]);
         }
 
-        // Mock data for users and donations (you can replace with real API calls later)
-        const mockUsers = [
-          { id: 1, name: 'John Doe', email: 'john@example.com', role: 'donor', joined: '2023-04-15' },
-          { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'donor', joined: '2023-04-20' },
-          { id: 3, name: 'Admin User', email: 'admin@example.com', role: 'admin', joined: '2023-01-10' }
-        ];
+        // Fetch real users from backend
+        console.log('Fetching users...');
+        try {
+          const usersResponse = await usersAPI.getAllUsers();
+          console.log('Users response:', usersResponse);
+          
+          if (usersResponse.success) {
+            // Transform backend user data to match component expectations
+            const transformedUsers = usersResponse.users.map(user => ({
+              id: user.id,
+              name: user.name,
+              email: user.email,
+              role: user.role,
+              joined: user.created_at ? new Date(user.created_at).toLocaleDateString() : 'N/A'
+            }));
+            console.log('Transformed users:', transformedUsers);
+            setUsers(transformedUsers);
+          } else {
+            console.log('Users response not successful:', usersResponse);
+            setUsers([]);
+          }
+        } catch (userError) {
+          console.error('Error fetching users:', userError);
+          setUsers([]);
+        }
 
+        // Mock data for donations (you can replace with real API calls later)
         const mockDonations = [
           { id: 1, donor: 'John Doe', charity: 'Local Food Bank', amount: 100, date: '2023-05-15', status: 'completed' },
           { id: 2, donor: 'Jane Smith', charity: 'Save the Children', amount: 50, date: '2023-05-14', status: 'pending' }
         ];
 
-        setUsers(mockUsers);
         setDonations(mockDonations);
 
       } catch (err) {

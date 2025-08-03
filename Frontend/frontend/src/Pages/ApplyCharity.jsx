@@ -98,7 +98,17 @@ const ApplyCharity = () => {
       }
     } catch (error) {
       console.error('Application error:', error);
-      alert('An error occurred while submitting your application. Please try again.');
+      
+      // Handle specific error cases
+      if (error.message && error.message.includes('already submitted')) {
+        alert('You have already submitted a charity application. Please check your email for updates or contact support if you need assistance.');
+      } else if (error.message && error.message.includes('409')) {
+        alert('You already have a pending charity application. Please wait for our team to review it or contact support for more information.');
+      } else if (error.message && error.message.includes('403')) {
+        alert('Only users with donor accounts can apply to become charities. Please ensure you are logged in with the correct account.');
+      } else {
+        alert(`Application submission failed: ${error.message || 'Please try again later.'}`);
+      }
     } finally {
       setLoading(false);
     }

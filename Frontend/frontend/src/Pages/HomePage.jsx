@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { charityAPI } from '../services/api';
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
 import Footer from '../components/Footer';
@@ -9,8 +11,11 @@ import './HomePage.css';
 
 
 const HomePage = () => {
-  // Featured charities data
-  const featuredCharities = [
+  const [featuredCharities, setFeaturedCharities] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Default featured charities data as fallback
+  const defaultCharities = [
     {
       id: 1,
       name: "Girls Education Initiative",
@@ -33,6 +38,35 @@ const HomePage = () => {
       category: "Health"
     }
   ];
+
+  useEffect(() => {
+    const fetchFeaturedCharities = async () => {
+      try {
+        const response = await charityAPI.getCharities();
+        if (response.success && response.charities && response.charities.length > 0) {
+          // Take first 3 charities as featured
+          const featured = response.charities.slice(0, 3).map(charity => ({
+            id: charity.id,
+            name: charity.name,
+            description: charity.description,
+            impact: `${charity.donors || 0} donors supporting`,
+            category: charity.category || "Community"
+          }));
+          setFeaturedCharities(featured);
+        } else {
+          // Use default charities if API returns empty or fails
+          setFeaturedCharities(defaultCharities);
+        }
+      } catch (error) {
+        console.error('Error fetching featured charities:', error);
+        setFeaturedCharities(defaultCharities);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFeaturedCharities();
+  }, []);
 
   return (
     <>

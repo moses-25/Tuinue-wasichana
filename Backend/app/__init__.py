@@ -3,6 +3,7 @@ from app.services.database import db
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
 from flask_restx import Api, Namespace
+from flask_cors import CORS
 
 from app.routes.user_routes import user_ns
 from app.routes.charity_routes import charity_ns
@@ -21,6 +22,16 @@ migrate = Migrate()
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
+
+    # Initialize CORS
+    cors_origins = app.config.get('CORS_ORIGINS', ['http://localhost:5173', 'http://localhost:5174'])
+    if isinstance(cors_origins, str):
+        cors_origins = cors_origins.split(',')
+    
+    CORS(app, 
+         origins=cors_origins,
+         allow_headers=['Content-Type', 'Authorization'],
+         methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'])
 
     db.init_app(app)
     JWTManager(app)

@@ -1,5 +1,5 @@
 // API Configuration
-const API_BASE_URL = '/api/v1';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://tuinue-wasichana-api-amem.onrender.com/api/v1';
 
 // Helper function to get auth token
 const getAuthToken = () => {
@@ -184,10 +184,51 @@ export const storiesAPI = {
   },
 };
 
+// Users API (Admin only)
+export const usersAPI = {
+  // Admin: Get all users
+  getAllUsers: async () => {
+    return apiRequest('/users/');
+  },
+};
+
 // Health check
 export const healthAPI = {
   checkHealth: async () => {
     return apiRequest('/health', { includeAuth: false });
+  },
+};
+
+// Admin API
+export const adminAPI = {
+  // Get dashboard stats
+  getDashboardStats: async () => {
+    return apiRequest('/admin/dashboard');
+  },
+
+  // Get recent activities
+  getRecentActivities: async () => {
+    return apiRequest('/admin/activities');
+  },
+
+  // Get charity applications (alias for charityAPI.getCharityApplications)
+  getCharityApplications: async () => {
+    return apiRequest('/charities/applications');
+  },
+
+  // Approve charity application
+  approveCharityApplication: async (applicationId) => {
+    return apiRequest(`/admin/charities/${applicationId}/approve`, {
+      method: 'POST',
+    });
+  },
+
+  // Reject charity application
+  rejectCharityApplication: async (applicationId, reason) => {
+    return apiRequest(`/admin/charities/${applicationId}/reject`, {
+      method: 'POST',
+      body: JSON.stringify({ reason }),
+    });
   },
 };
 
@@ -222,6 +263,8 @@ export default {
   charityAPI,
   donationAPI,
   storiesAPI,
+  usersAPI,
   healthAPI,
+  adminAPI,
   apiUtils,
 };
