@@ -16,6 +16,9 @@ from app.models.reminder import Reminder
 # Create the Flask application instance
 app = create_app()
 
+# Also expose as 'application' for WSGI compatibility
+application = app
+
 # Initialize database tables with better error handling
 def init_database():
     """Initialize database with retry logic"""

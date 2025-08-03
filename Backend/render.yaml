@@ -4,7 +4,7 @@ services:
     name: tuinue-wasichana-api
     env: python
     buildCommand: "chmod +x build.sh && ./build.sh"
-    startCommand: gunicorn --bind 0.0.0.0:$PORT app:app
+    startCommand: gunicorn --bind 0.0.0.0:$PORT wsgi:application
     envVars:
       - key: FLASK_ENV
         value: production

@@ -90,7 +90,7 @@ def create_tables_with_sqlalchemy(database_url):
 
 def create_tables_with_sql(database_url):
     """
-    Fallback: Create tables using raw SQL
+    Fallback: Create tables using raw SQL with enum handling
     """
     try:
         engine = create_engine(database_url)
@@ -105,13 +105,32 @@ def create_tables_with_sql(database_url):
             schema_sql = f.read()
         
         with engine.connect() as conn:
-            # Execute schema in transaction
+            # Execute schema with enum handling
             with conn.begin():
                 # Split by semicolon and execute each statement
                 statements = [stmt.strip() for stmt in schema_sql.split(';') if stmt.strip()]
                 for statement in statements:
                     if statement:
-                        conn.execute(text(statement))
+                        try:
+                            # Handle enum creation with IF NOT EXISTS logic
+                            if 'CREATE TYPE' in statement and 'ENUM' in statement:
+                                # Extract enum name
+                                enum_name = statement.split('CREATE TYPE')[1].split('AS')[0].strip()
+                                # Check if enum exists first
+                                check_enum = f"SELECT 1 FROM pg_type WHERE typname = '{enum_name}'"
+                                result = conn.execute(text(check_enum)).fetchone()
+                                if not result:
+                                    conn.execute(text(statement))
+                                    logger.info(f"Created enum type: {enum_name}")
+                                else:
+                                    logger.info(f"Enum type {enum_name} already exists, skipping")
+                            else:
+                                conn.execute(text(statement))
+                        except Exception as stmt_error:
+                            if "already exists" in str(stmt_error):
+                                logger.warning(f"Object already exists, skipping: {stmt_error}")
+                            else:
+                                raise stmt_error
                         
         logger.info("Database tables created using SQL schema!")
         return True

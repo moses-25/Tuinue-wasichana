@@ -1,3 +1,2 @@
-web: gunicorn --bind 0.0.0.0:$PORT app:app
+web: gunicorn --bind 0.0.0.0:$PORT wsgi:application
 worker: celery -A celery_app worker --loglevel=info
-release: python deploy.py
