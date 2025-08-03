@@ -16,6 +16,11 @@
     padding: 40px;
     width: 100%;
     max-width: 450px;
+    box-sizing: border-box;
+}
+
+.register-card * {
+    box-sizing: border-box;
 }
 
 .register-card h2 {
@@ -302,8 +307,9 @@
         flex-direction: column;
         gap: 16px;
     }
-}/*
- Charity application notice styles */
+}
+
+/* Charity application notice styles */
 .charity-application-notice {
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   border: 2px solid #e91e63;
