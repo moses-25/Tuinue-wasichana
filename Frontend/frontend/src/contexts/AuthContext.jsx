@@ -110,7 +110,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    authAPI.logout();
+    // Clear all stored auth data
+    apiUtils.logout();
     setUser(null);
     setIsAuthenticated(false);
   };

@@ -46,8 +46,15 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    forceLogout();
-    navigate('/'); // Redirect to login page after logout
+    try {
+      forceLogout();
+      navigate('/'); // Redirect to login page after logout
+    } catch (error) {
+      console.error('Logout error:', error);
+      // Emergency logout if normal logout fails
+      localStorage.clear();
+      window.location.href = '/';
+    }
   };
 
   return (

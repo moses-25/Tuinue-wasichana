@@ -74,7 +74,7 @@ const FAQ = () => {
               </span>
             </div>
             <div className="faq-answer">
-              <p>{faq.answer}</p>
+              <div>{faq.answer}</div>
             </div>
           </div>
         ))}
