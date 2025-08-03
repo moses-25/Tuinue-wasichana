@@ -185,22 +185,26 @@ def create_admin_user():
         
         with app.app_context():
             # Check if admin exists
-            admin = User.query.filter_by(email='admin@tuinuewasichana.org').first()
+            admin_email = os.getenv('ADMIN_EMAIL', 'admin@tuinuewasichana.org')
+            admin_password = os.getenv('ADMIN_PASSWORD', 'admin123')
+            admin = User.query.filter_by(email=admin_email).first()
             
             if not admin:
-                # Create admin user
+                # Create admin user with correct field names
                 admin_user = User(
-                    email='admin@tuinuewasichana.org',
-                    password_hash=generate_password_hash('admin123'),
-                    first_name='Admin',
-                    last_name='User',
-                    role='admin',
-                    is_verified=True
+                    email=admin_email,
+                    name='System Administrator',  # Use 'name' instead of first_name/last_name
+                    role='admin'
                 )
+                # Set password using the model's method if available
+                if hasattr(admin_user, 'set_password'):
+                    admin_user.set_password(admin_password)
+                else:
+                    admin_user.password_hash = generate_password_hash(admin_password)
                 
                 db.session.add(admin_user)
                 db.session.commit()
-                logger.info("Default admin user created: admin@tuinuewasichana.org / admin123")
+                logger.info(f"Default admin user created: {admin_email} / {admin_password}")
             else:
                 logger.info("Admin user already exists")
                 

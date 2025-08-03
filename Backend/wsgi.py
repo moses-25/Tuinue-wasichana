@@ -37,7 +37,12 @@ def initialize_database(app):
                     email=admin_email,
                     role='admin'
                 )
-                admin_user.set_password(admin_password)
+                # Set password using the model's method if available
+                if hasattr(admin_user, 'set_password'):
+                    admin_user.set_password(admin_password)
+                else:
+                    from werkzeug.security import generate_password_hash
+                    admin_user.password_hash = generate_password_hash(admin_password)
                 db.session.add(admin_user)
                 db.session.commit()
                 app.logger.info("Default admin user created successfully")
@@ -68,9 +73,21 @@ with application.app_context():
     def health_check():
         return {'status': 'healthy', 'service': 'tuinue-wasichana-api'}, 200
 
-# Initialize database (only in production)
-if os.getenv('FLASK_ENV') == 'production':
-    initialize_database(application)
+# Initialize database automatically on startup (production)
+if os.getenv('FLASK_ENV') == 'production' or os.getenv('INIT_DB') == 'true':
+    try:
+        # Import the robust initialization
+        import sys
+        sys.path.append(os.path.dirname(__file__))
+        
+        # Run the comprehensive database initialization
+        from init_database import main as init_db_main
+        init_db_main()
+        
+    except Exception as e:
+        application.logger.warning(f"Robust DB init failed, trying simple init: {e}")
+        # Fallback to simple initialization
+        initialize_database(application)
 
 # For compatibility, also expose as 'app'
 app = application
