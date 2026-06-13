@@ -27,10 +27,10 @@ Make sure these environment variables are configured in your Render dashboard:
 
 ### 2. Files Required
 Ensure these files are in your repository:
-- ✅ `Backend/render.yaml` - Render configuration
-- ✅ `Backend/deploy.py` - Deployment script
-- ✅ `Backend/requirements.txt` - Python dependencies
-- ✅ `Backend/app.py` - Flask application
+- ✅ `server/render.yaml` - Render configuration
+- ✅ `server/deploy.py` - Deployment script
+- ✅ `server/requirements.txt` - Python dependencies
+- ✅ `server/app.py` - Flask application
 - ✅ `.gitignore` - Git ignore rules
 
 ## 🔧 Deployment Steps

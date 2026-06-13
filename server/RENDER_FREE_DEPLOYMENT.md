@@ -55,7 +55,7 @@ databases:
     plan: free
 ```
 
-### 2. **`requirements.txt`** (Copy from Backend/requirements.txt)
+### 2. **`requirements.txt`** (Copy from server/requirements.txt)
 ```txt
 alembic==1.16.4
 amqp==5.3.1
@@ -108,7 +108,7 @@ python-3.12.3
 
 ### Step 1: Prepare Repository
 ```bash
-# Navigate to repository root (parent of Backend folder)
+# Navigate to repository root (parent of server folder)
 cd /path/to/your/repository
 
 # Create the deployment files (copy content from above)
@@ -116,8 +116,8 @@ touch render.yaml
 touch requirements.txt
 touch runtime.txt
 
-# Copy requirements from Backend
-cp Backend/requirements.txt requirements.txt
+# Copy requirements from server
+cp server/requirements.txt requirements.txt
 
 # Commit changes
 git add .

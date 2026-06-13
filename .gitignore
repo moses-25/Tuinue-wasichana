@@ -76,8 +76,8 @@ yarn-error.log*
 pnpm-debug.log*
 
 # Production builds
-Frontend/frontend/dist/
-Frontend/frontend/build/
+client/dist/
+client/build/
 
 # Runtime data
 pids
