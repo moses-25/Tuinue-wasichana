@@ -1,15 +1,29 @@
-/* Navbar.css */
+
+
 .navbar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1.6rem 2rem;
-  background-color: #fff9fa;
-  border-bottom: 1px solid #ffe6eb;
+  background-color: rgba(255, 249, 250, 0.438);
+  border-bottom: 1px solid rgba(255, 230, 235, 0.5); 
   position: sticky;
   top: 0;
   z-index: 100;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(0px); 
+  -webkit-backdrop-filter: blur(0px);
 }
+
+/* glass effect when scrolling */
+.navbar-container.scrolled {
+  background-color: rgba(255, 249, 250, 0.85);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 2px 15px rgba(210, 51, 105, 0.1);
+  padding: 1rem 2rem; 
+}
+
 
 .navbar-logo a {
   font-size: 1.5rem;

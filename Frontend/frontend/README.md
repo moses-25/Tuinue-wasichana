@@ -38,7 +38,7 @@ tuinue-wasichana-frontend/
 │   │   ├── Button/
 │   │   ├── Navbar/
 │   │   ├── Footer/
-│   │   ├── HeroSection/                            Zaki
+│   │   ├── HeroSection/                            Zakiii
 │   │   ├── ProgramCard/
 │   │   ├── CharityCard/
 │   │   ├── StoryCard/
@@ -95,16 +95,27 @@ tuinue-wasichana-frontend/
 │   ├── hooks/
 │   │   ├── useAuth.js
 │   │   ├── useFetch.js
-│   │   └── usePagination.js                                          Elvis
+│   │   └── usePagination.js
 │   │
 
 │   │
-│   ├── context/                      # React context for auth/user data
-│   │   └── AuthContext.js
+│   ├── pages/
+│   │   ├── Home/
+│   │   │   ├── Home.jsx
+│   │   │   └── Home.css
+│   │   ├── About/
+│   │   │   ├── About.jsx
+│   │   │   └── About.css
+│   │   ├── Dashboard/
+│   │   │   ├── Dashboard.jsx
+│   │   │   └── Dashboard.css
+│   │   ├── NotFound/
+│   │   │   ├── NotFound.jsx
+│   │   │   └── NotFound.css
 │   │
-│   ├── utils/                        # Reusable helpers
-│   │   ├── validators.js
-│   │   └── formatters.js
+│   ├── services/
+│   │   ├── api.js
+│   │   └── axiosInstance.js
 │   │
 │   ├── constants/                    # Static enums, roles, routes, etc.
 │   │   ├── routes.js
@@ -120,4 +131,3 @@ tuinue-wasichana-frontend/
 ├── .env
 ├── .gitignore
 ├── package.json
-
