@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FiHeart, FiHome, FiDollarSign, FiBookmark, FiMessageSquare, FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
-import logo from '../assets/TN.svg';
+import { FiHome, FiDollarSign, FiBookmark, FiMessageSquare, FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
 import './Footer.css';
 
 const Footer = () => {
@@ -10,15 +9,11 @@ const Footer = () => {
       <div className="footer-content">
         <div className="footer-section">
           <h3>
-            <img src={logo} alt="Tuinue Wasichana" className="footer-logo" />
+            <img src="/favicon.svg" alt="Tuinue Wasichana" className="footer-logo" />
             Tuinue Wasichana
           </h3>
           <p>Empowering girls through education. Every donation helps break the cycle of poverty and builds a brighter future for communities in Kenya.</p>
-          <div className="social-media">
-            <a href="#" aria-label="Facebook"><FiHeart /></a>
-            <a href="#" aria-label="Twitter"><FiHeart /></a>
-            <a href="#" aria-label="Instagram"><FiHeart /></a>
-          </div>
+
         </div>
 
         <div className="footer-section">
@@ -53,7 +48,7 @@ const Footer = () => {
       </div>
 
       <div className="footer-bottom">
-        <p>&copy; {new Date().getFullYear()} Tuinue Wasichana. All rights reserved. Made with <FiHeart className="heart-icon" /> for every girl.</p>
+        <p>&copy; {new Date().getFullYear()} Tuinue Wasichana. All rights reserved.</p>
       </div>
     </footer>
   );
