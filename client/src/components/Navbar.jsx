@@ -11,6 +11,7 @@ import {
 } from 'react-icons/fi';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import logo from '../assets/TN.svg';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -53,7 +54,9 @@ const Navbar = () => {
   return (
     <nav className={`navbar-container ${scrolled ? 'scrolled' : ''}`}>
       <div className="navbar-logo">
-        <Link to={isAuthenticated ? "/home" : "/"}>TuinueWasichana</Link>
+        <Link to="/home">
+          <img src={logo} alt="Tuinue Wasichana" className="navbar-logo-img" />
+        </Link>
       </div>
       
       <div className="navbar-links">
