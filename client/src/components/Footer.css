@@ -1,6 +1,6 @@
 .tuinue-footer {
-  background: linear-gradient(135deg, #e91e63 0%, #ad1457 100%);
-  color: white;
+  background: #ffffff;
+  color: #000000;
   padding: 3rem 0 1rem;
   margin-top: auto;
 }
@@ -23,24 +23,12 @@
 }
 
 .footer-logo {
-  height: 32px;
+  height: 64px;
   width: auto;
-  filter: brightness(0) invert(1);
-}
-
-.heart-icon {
-  color: #e74c3c;
-  animation: heartbeat 2s ease-in-out infinite;
-}
-
-@keyframes heartbeat {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
 }
 
 .footer-section p {
-  color: #bdc3c7;
+  color: #333333;
   line-height: 1.6;
   margin-bottom: 1.5rem;
 }
@@ -56,35 +44,19 @@
 }
 
 .footer-links a {
-  color: #bdc3c7;
+  color: #000000;
   text-decoration: none;
+  font-weight: 600;
   transition: color 0.3s ease;
 }
 
 .footer-links a:hover {
-  color: #f8bbd9;
-}
-
-.social-media {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.social-media a {
-  color: #bdc3c7;
-  font-size: 1.5rem;
-  transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.social-media a:hover {
-  color: #f8bbd9;
-  transform: translateY(-2px);
+  color: #d23369;
 }
 
 .footer-cta {
-  background: #f48fb1;
-  color: white;
+  background: #d23369;
+  color: #ffffff;
   padding: 0.75rem 1.5rem;
   border-radius: 25px;
   text-align: center;
@@ -92,19 +64,20 @@
   transition: background 0.3s ease, transform 0.3s ease;
   display: inline-block;
   text-decoration: none;
+  font-weight: 700;
 }
 
 .footer-cta:hover {
-  background: #ec407a;
+  background: #ad1457;
   transform: translateY(-2px);
 }
 
 .footer-bottom {
-  border-top: 1px solid #34495e;
+  border-top: 1px solid #000000;
   margin-top: 2rem;
   padding-top: 1rem;
   text-align: center;
-  color: #95a5a6;
+  color: #000000;
   font-size: 0.9rem;
 }
 
