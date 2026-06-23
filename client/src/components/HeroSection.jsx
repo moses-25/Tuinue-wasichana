@@ -33,11 +33,6 @@ const HeroSection = () => {
           <span className="hero-title-accent">Infinite possibilities.</span>
         </h1>
       </div>
-
-      <div className="hero-scroll">
-        <span className="hero-scroll-text">Scroll to explore our work</span>
-        <span className="hero-scroll-line" />
-      </div>
     </section>
   );
 };
