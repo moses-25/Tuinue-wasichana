@@ -1,10 +1,9 @@
 .navbar {
   position: fixed;
-  top: var(--space-4);
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: calc(100% - var(--space-8));
-  max-width: var(--max-width);
+  width: 100%;
   height: var(--nav-height);
   z-index: 1000;
   transition: transform var(--transition-base), opacity var(--transition-base);
@@ -15,20 +14,21 @@
   align-items: center;
   justify-content: space-between;
   height: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
   padding: 0 var(--space-6);
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: var(--glass-border);
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-md);
+  border-bottom: var(--glass-border);
+  box-shadow: var(--shadow-sm);
 }
 
 .navbar.is-scrolled .navbar-inner {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-md);
 }
 
 .navbar-logo {
@@ -166,7 +166,7 @@
   padding: var(--space-1);
 }
 
-/* MOBILE MENU - Slide Up Panel */
+/* MOBILE MENU - Left Drawer */
 .mobile-menu {
   display: none;
   position: fixed;
@@ -193,20 +193,20 @@
 
 .mobile-menu-panel {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
-  right: 0;
-  max-height: 85vh;
+  bottom: 0;
+  width: 280px;
+  max-width: 75vw;
   background: var(--color-cream);
-  border-radius: 16px 16px 0 0;
-  padding: var(--space-6) var(--space-5) var(--space-8);
-  transform: translateY(100%);
+  padding: var(--space-8) var(--space-5);
+  transform: translateX(-100%);
   transition: transform var(--transition-base);
   overflow-y: auto;
 }
 
 .mobile-menu.is-open .mobile-menu-panel {
-  transform: translateY(0);
+  transform: translateX(0);
 }
 
 .mobile-menu-links {
@@ -269,13 +269,10 @@
 
 @media (max-width: 768px) {
   .navbar {
-    top: var(--space-2);
-    width: calc(100% - var(--space-4));
-    max-width: 100%;
+    width: 100%;
   }
 
   .navbar-inner {
-    border-radius: var(--border-radius-lg);
     padding: 0 var(--space-3);
   }
 
