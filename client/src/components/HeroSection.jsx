@@ -1,28 +1,43 @@
-import { Link } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
+import heroImg from '../assets/images/image 1.jpg';
 import './HeroSection.css';
-import heroImg from '../assets/images/image 1.jpg'; 
-
 
 const HeroSection = () => {
+  const heroRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!heroRef.current) return;
+      const offset = window.scrollY;
+      const hero = heroRef.current;
+      hero.style.setProperty('--parallax-offset', `${offset * 0.4}px`);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <section className="hero">
-      <div className="hero-content">
-        <div className="hero-text">
-          <h1>Empower a Girl, Transform a Nation</h1>
-          <h2>With Tuinue Wasichana, every donation helps break the cycle of poverty through education</h2>
-          <div className="hero-cta">
-            <Link to="/charity" className="cta-button primary">Donate Now</Link>
-          </div>
-        </div>
-        <div className="hero-image">
-            <img 
-            src={heroImg} 
-            alt="Empowered girl smiling"
-            className="hero-img"
-            />
-        </div>
+    <section className="hero" ref={heroRef}>
+      <div className="hero-background">
+        <img src={heroImg} alt="" className="hero-image" aria-hidden="true" />
+        <div className="hero-overlay" />
+        <div className="hero-grain" />
       </div>
 
+      <div className="hero-content">
+        <p className="hero-subtitle">Tuinue Wasichana</p>
+        <h1 className="hero-title">
+          One girl.<br />
+          One chance.<br />
+          <span className="hero-title-accent">Infinite possibilities.</span>
+        </h1>
+      </div>
+
+      <div className="hero-scroll">
+        <span className="hero-scroll-text">Scroll to explore our work</span>
+        <span className="hero-scroll-line" />
+      </div>
     </section>
   );
 };
