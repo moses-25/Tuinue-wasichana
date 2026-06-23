@@ -1,13 +1,16 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { 
-  FiHome, 
-  FiDollarSign, 
-  FiBookmark, 
+import {
+  FiHome,
+  FiDollarSign,
+  FiBookmark,
   FiMessageSquare,
   FiUser,
   FiLogIn,
   FiLogOut,
-  FiPieChart 
+  FiPieChart,
+  FiMenu,
+  FiX,
+  FiHeart
 } from 'react-icons/fi';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
@@ -18,6 +21,7 @@ const Navbar = () => {
   const { user, isAuthenticated, forceLogout } = useAuth();
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,83 +33,143 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    console.log("User isAuthenticated:", isAuthenticated);
-    console.log("User role:", user?.role);
-  }, [isAuthenticated, user]);
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
 
   const getDashboardPath = () => {
     switch (user?.role) {
-      case 'admin':
-        return '/admin';
-      case 'donor':
-        return '/donor';
-      case 'charity':
-        return '/org';
-      default:
-        return '/dashboard';
+      case 'admin': return '/admin';
+      case 'donor': return '/donor';
+      case 'charity': return '/org';
+      default: return '/dashboard';
     }
   };
 
   const handleLogout = () => {
     forceLogout();
-    navigate('/'); // Redirect to login page after logout
+    navigate('/');
+  };
+
+  const closeMenu = () => setMenuOpen(false);
+
+  const handleNavClick = () => {
+    closeMenu();
   };
 
   return (
-    <nav className={`navbar-container ${scrolled ? 'scrolled' : ''}`}>
-      <div className="navbar-logo">
-        <Link to="/home">
-          <img src={logo} alt="Tuinue Wasichana" className="navbar-logo-img" />
-        </Link>
-      </div>
-      
-      <div className="navbar-links">
-        <Link to="/home" className="nav-link">
-          <FiHome className="nav-icon" />
-          <span>Home</span>
-        </Link>
-        
-        <Link to="/charity" className="nav-link">
-          <FiDollarSign className="nav-icon" />
-          <span>Charities</span>
-        </Link>
-        
-        <Link to="/stories" className="nav-link">
-          <FiBookmark className="nav-icon" />
-          <span>Stories</span>
-        </Link>
-        
-        <Link to="/contact" className="nav-link">
-          <FiMessageSquare className="nav-icon" />
-          <span>Contact</span>
-        </Link>
+    <>
+      <nav className={`navbar ${scrolled ? 'is-scrolled' : ''}`}>
+        <div className="navbar-inner">
+          <Link to="/home" className="navbar-brand" onClick={handleNavClick}>
+            <img src={logo} alt="Tuinue Wasichana" className="navbar-logo" />
+          </Link>
 
-        {isAuthenticated && user?.role && (
-          <Link to={getDashboardPath()} className="nav-link">
-            <FiPieChart className="nav-icon" />
-            <span>Dashboard</span>
-          </Link>
-        )}
-        
-        {isAuthenticated ? (
-          <>
-            <Link to="/profile" className="nav-link">
-              <FiUser className="nav-icon" />
-              <span>Profile</span>
+          <div className="navbar-links-desktop">
+            <Link to="/home" className="nav-link" onClick={handleNavClick}>
+              <FiHome className="nav-icon" />
+              <span>Home</span>
             </Link>
-            <button onClick={handleLogout} className="nav-link logout-btn">
-              <FiLogOut className="nav-icon" />
-              <span>Logout</span>
+            <Link to="/contact" className="nav-link" onClick={handleNavClick}>
+              <FiMessageSquare className="nav-icon" />
+              <span>About</span>
+            </Link>
+            <Link to="/charity" className="nav-link" onClick={handleNavClick}>
+              <FiDollarSign className="nav-icon" />
+              <span>Impact</span>
+            </Link>
+            <Link to="/stories" className="nav-link" onClick={handleNavClick}>
+              <FiBookmark className="nav-icon" />
+              <span>Stories</span>
+            </Link>
+            {isAuthenticated && user?.role && (
+              <Link to={getDashboardPath()} className="nav-link" onClick={handleNavClick}>
+                <FiPieChart className="nav-icon" />
+                <span>Dashboard</span>
+              </Link>
+            )}
+            <Link to="/donate" className="btn-give" onClick={handleNavClick}>Give</Link>
+            {isAuthenticated ? (
+              <div className="navbar-user">
+                <Link to="/profile" className="nav-avatar" title="Profile" onClick={handleNavClick}>
+                  {user?.name ? user.name.charAt(0).toUpperCase() : <FiUser />}
+                </Link>
+                <button onClick={handleLogout} className="nav-logout" title="Logout">
+                  <FiLogOut />
+                </button>
+              </div>
+            ) : (
+              <Link to="/log" className="nav-link nav-login" onClick={handleNavClick}>
+                <FiLogIn className="nav-icon" />
+                <span>Login</span>
+              </Link>
+            )}
+          </div>
+
+          <div className="navbar-actions">
+            <button
+              className="nav-hamburger"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            >
+              {menuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
             </button>
-          </>
-        ) : (
-          <Link to="/log" className="nav-link">
-            <FiLogIn className="nav-icon" />
-            <span>Login/Signup</span>
-          </Link>
-        )}
+          </div>
+        </div>
+      </nav>
+
+      <div className={`mobile-menu ${menuOpen ? 'is-open' : ''}`}>
+        <div className="mobile-menu-overlay" onClick={closeMenu} />
+        <div className="mobile-menu-panel">
+          <div className="mobile-menu-links">
+            <Link to="/home" className="mobile-link" onClick={handleNavClick}>
+              <FiHome className="mobile-link-icon" />
+              <span>Home</span>
+            </Link>
+            <Link to="/contact" className="mobile-link" onClick={handleNavClick}>
+              <FiMessageSquare className="mobile-link-icon" />
+              <span>About</span>
+            </Link>
+            <Link to="/charity" className="mobile-link" onClick={handleNavClick}>
+              <FiDollarSign className="mobile-link-icon" />
+              <span>Impact</span>
+            </Link>
+            <Link to="/stories" className="mobile-link" onClick={handleNavClick}>
+              <FiBookmark className="mobile-link-icon" />
+              <span>Stories</span>
+            </Link>
+            {isAuthenticated && user?.role && (
+              <Link to={getDashboardPath()} className="mobile-link" onClick={handleNavClick}>
+                <FiPieChart className="mobile-link-icon" />
+                <span>Dashboard</span>
+              </Link>
+            )}
+            {isAuthenticated ? (
+              <>
+                <Link to="/profile" className="mobile-link" onClick={handleNavClick}>
+                  <FiUser className="mobile-link-icon" />
+                  <span>Profile</span>
+                </Link>
+                <button onClick={handleLogout} className="mobile-link mobile-link-logout">
+                  <FiLogOut className="mobile-link-icon" />
+                  <span>Logout</span>
+                </button>
+              </>
+            ) : (
+              <Link to="/log" className="mobile-link" onClick={handleNavClick}>
+                <FiLogIn className="mobile-link-icon" />
+                <span>Login</span>
+              </Link>
+            )}
+          </div>
+          <Link to="/donate" className="mobile-give" onClick={handleNavClick}>Make a Donation</Link>
+        </div>
       </div>
-    </nav>
+    </>
   );
 };
 

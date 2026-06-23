@@ -4,12 +4,11 @@ import HeroSection from "../components/HeroSection";
 import Footer from '../components/Footer';
 import FAQ from '../components/FAQItem';
 import ImpactNote from '../components/ImpactNote';
+import Button from '../components/Button';
 
 import './HomePage.css';
 
-
 const HomePage = () => {
-  // Featured charities data
   const featuredCharities = [
     {
       id: 1,
@@ -27,7 +26,7 @@ const HomePage = () => {
     },
     {
       id: 3,
-      name: "Nutrition for Her", 
+      name: "Nutrition for Her",
       description: "Ensuring proper nutrition for girls' healthy development",
       impact: "10,000+ meals served monthly",
       category: "Health"
@@ -37,62 +36,53 @@ const HomePage = () => {
   return (
     <>
       <Navbar />
-
       <HeroSection />
 
-      {/* How You Can Help Section */}
       <section className="how-section">
         <div className="container">
           <h2 className="section-title">How You Can Change a Girl's Life</h2>
           <p className="section-subtitle">Your simple actions create lasting impact. Here's how:</p>
-          
+
           <div className="steps-grid">
-            {/* Step 1 */}
             <div className="step-card">
               <div className="step-number">1</div>
               <h3>Choose Your Impact</h3>
-              <p>Select exactly how you want to help - education, nutrition, or safety. Every option directly benefits a girl in need.</p>
-              <Link to="/charity" className="step-link">View Causes →</Link>
+              <p>Select exactly how you want to help — education, nutrition, or safety. Every option directly benefits a girl in need.</p>
+              <Button to="/charity" variant="text">View Causes</Button>
             </div>
-            
-            {/* Step 2 */}
+
             <div className="step-card">
               <div className="step-number">2</div>
               <h3>Make Your Donation</h3>
-              <p>Give any amount - $50 educates a girl for a month, $300 provides a year of school supplies. Every dollar counts.</p>
-              <Link to="/donate" className="step-link">Donate Now →</Link>
+              <p>Give any amount — $50 educates a girl for a month, $300 provides a year of school supplies. Every dollar counts.</p>
+              <Button to="/donate" variant="text">Donate Now</Button>
             </div>
-            
-            {/* Step 3 */}
+
             <div className="step-card">
               <div className="step-number">3</div>
               <h3>See Your Impact</h3>
               <p>Receive updates showing exactly which girl you helped and how her life is changing through your support.</p>
-              <Link to="/stories" className="step-link">Read Stories →</Link>
+              <Button to="/stories" variant="text">Read Stories</Button>
             </div>
-            
-            {/* Step 4 */}
+
             <div className="step-card">
               <div className="step-number">4</div>
               <h3>Multiply Your Effect</h3>
-              <p>Share your action on social media and encourage friends to join. Together we can help more girls thrive.</p>
-              <Link to="/share" className="step-link">Share Now →</Link>
+              <p>Share your action and encourage friends to join. Together we can help more girls thrive.</p>
+              <Button to="/share" variant="text">Share Now</Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Charities Section */}
       <section className="featured-charities-section">
         <div className="container">
           <div className="charities-header">
             <h2 className="charities-title">Featured Charities Making a Difference</h2>
-            <Link to="/charity" className="view-all-link">
-              View All Charities →
-            </Link>
+            <Button to="/charity" variant="text">View All Charities</Button>
           </div>
           <p className="charities-subtitle">Support these organizations changing girls' lives every day</p>
-          
+
           <div className="charities-grid">
             {featuredCharities.map(charity => (
               <div key={charity.id} className="charity-card">
@@ -100,21 +90,22 @@ const HomePage = () => {
                 <h3 className="charity-name">{charity.name}</h3>
                 <p className="charity-description">{charity.description}</p>
                 <div className="charity-impact">
-                  <span className="impact-icon"></span> {charity.impact}
+                  <span className="impact-icon" /> {charity.impact}
                 </div>
-                <Link to="/donate" className="charity-button">
+                <Button to="/donate" variant="primary" size="sm" className="charity-button">
                   Support This Cause
-                </Link>
+                </Button>
               </div>
             ))}
           </div>
         </div>
       </section>
+
       <FAQ />
-      <ImpactNote 
-            message="Real change starts with you. Right now, 100+ girls are waiting for someone like you to change their future."
-            ctaText="Be Their Hero Today"
-            ctaLink="/charity"
+      <ImpactNote
+        message="Real change starts with you. Right now, 100+ girls are waiting for someone like you to change their future."
+        ctaText="Be Their Hero Today"
+        ctaLink="/charity"
       />
       <Footer />
     </>
