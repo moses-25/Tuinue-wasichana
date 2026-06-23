@@ -8,6 +8,12 @@
   justify-content: center;
 }
 
+@media (min-width: 769px) {
+  .hero {
+    max-height: 700px;
+  }
+}
+
 .hero-background {
   position: absolute;
   inset: 0;
@@ -49,7 +55,7 @@
   position: relative;
   z-index: 1;
   text-align: center;
-  padding: 0 var(--space-6);
+  padding: 160px var(--space-6) 0;
   max-width: 900px;
 }
 
@@ -65,11 +71,11 @@
 
 .hero-title {
   font-family: var(--font-heading);
-  font-size: var(--text-h1);
+  font-size: clamp(32px, 4vw, 56px);
   font-weight: var(--font-weight-bold);
   color: var(--color-pure-white);
-  line-height: 1.1;
-  letter-spacing: -1px;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
 }
 
 .hero-title-accent {
