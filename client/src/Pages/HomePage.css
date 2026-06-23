@@ -1,109 +1,101 @@
-/* Base Container */
-
 .container {
-  max-width: 1200px;
+  max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 var(--space-4);
 }
 
-/* Shared Section Styles */
 .section-title {
-  font-size: 2.2rem;
-  color: #d23369;
-  margin-bottom: 1rem;
+  font-family: var(--font-heading);
+  font-size: var(--text-h2);
+  color: var(--color-deep-plum);
+  margin-bottom: var(--space-2);
   text-align: center;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
 }
 
 .section-subtitle {
-  font-size: 1.2rem;
-  color: #718096;
-  margin-bottom: 3rem;
+  font-size: var(--text-body);
+  color: var(--color-deep-plum);
+  opacity: 0.6;
+  margin-bottom: var(--space-8);
   text-align: center;
-  max-width: 700px;
+  max-width: 600px;
   margin-left: auto;
   margin-right: auto;
 }
 
-/* How You Can Help Section */
 .how-section {
-  padding: 5rem 2rem;
-  background: linear-gradient(135deg, #fff9fa 0%, #ffebf1 100%);
+  padding: var(--space-12) var(--space-4);
+  background: var(--color-cream);
 }
 
 .steps-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin-bottom: 3rem;
+  gap: var(--space-5);
+  margin-bottom: var(--space-8);
 }
 
 .step-card {
-  background: white;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 5px 15px rgba(210, 51, 105, 0.08);
-  transition: all 0.3s ease;
+  background: var(--color-pure-white);
+  padding: var(--space-6);
   position: relative;
   overflow: hidden;
   text-align: left;
-  border: 1px solid #ffe5ec;
-}
-
-.step-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 25px rgba(210, 51, 105, 0.12);
 }
 
 .step-number {
   position: absolute;
-  top: 0;
-  right: 1.5rem;
-  font-size: 5rem;
-  font-weight: bold;
-  color: rgba(210, 51, 105, 0.05);
+  top: -10px;
+  right: var(--space-3);
+  font-family: var(--font-heading);
+  font-size: 80px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-soft-lavender);
   line-height: 1;
+  pointer-events: none;
 }
 
 .step-card h3 {
-  color: #d23369;
-  margin: 1rem 0;
-  font-size: 1.3rem;
-  position: relative;
+  font-family: var(--font-heading);
+  font-size: var(--text-h3);
+  color: var(--color-deep-plum);
+  margin: var(--space-3) 0 var(--space-2);
 }
 
 .step-card p {
-  color: #4a5568;
-  margin-bottom: 1.5rem;
-  font-size: 1rem;
+  color: var(--color-deep-plum);
+  opacity: 0.7;
+  margin-bottom: var(--space-4);
+  font-size: 16px;
   line-height: 1.6;
 }
 
-/* Featured Charities Section */
 .featured-charities-section {
-  padding: 5rem 2rem;
-  background: linear-gradient(135deg, #fff5f7 0%, #ffebf1 100%);
+  padding: var(--space-12) var(--space-4);
+  background: var(--color-warm-sand);
 }
 
 .charities-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-2);
   flex-wrap: wrap;
 }
 
 .charities-title {
-  font-size: 2.2rem;
-  color: #d23369;
-  margin-bottom: 0;
-  font-weight: 700;
+  font-family: var(--font-heading);
+  font-size: var(--text-h2);
+  color: var(--color-deep-plum);
+  font-weight: var(--font-weight-bold);
 }
 
 .charities-subtitle {
-  font-size: 1.2rem;
-  color: #718096;
-  margin-bottom: 3rem;
+  font-size: var(--text-body);
+  color: var(--color-deep-plum);
+  opacity: 0.6;
+  margin-bottom: var(--space-8);
   text-align: center;
   width: 100%;
 }
@@ -111,134 +103,77 @@
 .charities-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-bottom: 3rem;
+  gap: var(--space-5);
 }
 
 .charity-card {
-  background: white;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 5px 15px rgba(210, 51, 105, 0.08);
-  transition: all 0.3s ease;
-  border: 1px solid #ffe5ec;
+  background: var(--color-pure-white);
+  padding: var(--space-6);
+  transition: transform var(--transition-fast);
 }
 
 .charity-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(210, 51, 105, 0.12);
+  transform: translateY(-4px);
 }
 
 .charity-tag {
   display: inline-block;
-  background-color: #ffe5ec;
-  color: #d23369;
-  padding: 0.4rem 1rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  color: var(--color-royal-magenta);
+  background: var(--color-soft-lavender);
+  padding: 4px var(--space-2);
+  margin-bottom: var(--space-3);
 }
 
 .charity-name {
-  color: #2c3e50;
-  font-size: 1.3rem;
-  margin: 0.5rem 0 1rem;
+  font-family: var(--font-heading);
+  font-size: var(--text-h3);
+  color: var(--color-deep-plum);
+  margin: 0 0 var(--space-2);
 }
 
 .charity-description {
-  color: #4a5568;
-  font-size: 1rem;
+  color: var(--color-deep-plum);
+  opacity: 0.7;
+  font-size: 16px;
   line-height: 1.6;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-4);
 }
 
 .charity-impact {
-  color: #718096;
-  font-size: 0.95rem;
-  margin: 1.5rem 0;
-  display: flex;
-  align-items: center;
-}
-
-.impact-icon {
-  margin-right: 0.5rem;
-  font-size: 1.1rem;
-}
-
-/* Shared Link/Button Styles */
-.step-link,
-.view-all-link,
-.charity-button {
-  color: #d23369;
-  font-weight: 600;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  transition: all 0.3s ease;
-}
-
-.step-link:hover,
-.view-all-link:hover {
-  color: #a0296a;
-}
-
-.step-link::after,
-.view-all-link::after {
-  content: "→";
-  margin-left: 0.5rem;
-  transition: transform 0.3s ease;
-}
-
-.step-link:hover::after,
-.view-all-link:hover::after {
-  transform: translateX(3px);
+  color: var(--color-deep-plum);
+  opacity: 0.5;
+  font-size: var(--text-small);
+  margin: var(--space-4) 0;
 }
 
 .charity-button {
-  display: block;
-  background-color: #d23369;
-  color: white;
-  text-align: center;
-  padding: 0.8rem;
-  border-radius: 8px;
+  width: 100%;
 }
 
-.charity-button:hover {
-  background-color: #a0296a;
-  color: white;
-}
-
-.view-all-link {
-  white-space: nowrap;
-  margin-left: 1.5rem;
-  font-size: 1rem;
-}
-
-/* Responsive Design */
 @media (max-width: 768px) {
   .how-section,
   .featured-charities-section {
-    padding: 3rem 1rem;
+    padding: var(--space-8) var(--space-3);
   }
-  
+
   .section-title,
   .charities-title {
-    font-size: 1.8rem;
+    font-size: clamp(24px, 6vw, 32px);
   }
-  
+
   .steps-grid,
   .charities-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .charities-header {
     flex-direction: column;
     align-items: flex-start;
-  }
-  
-  .view-all-link {
-    margin: 0.5rem 0 0 0;
-    align-self: flex-end;
+    gap: var(--space-2);
   }
 }
