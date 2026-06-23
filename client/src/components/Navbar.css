@@ -148,6 +148,15 @@
   font-size: 14px;
 }
 
+.navbar-mobile-title {
+  display: none;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-deep-plum);
+  letter-spacing: -0.3px;
+}
+
 .nav-hamburger {
   display: none;
   background: none;
@@ -272,6 +281,12 @@
 
   .navbar-links-desktop {
     display: none;
+  }
+
+  .navbar-mobile-title {
+    display: block;
+    flex: 1;
+    margin-left: var(--space-2);
   }
 
   .nav-hamburger {
