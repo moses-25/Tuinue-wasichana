@@ -69,6 +69,8 @@ const Navbar = () => {
             <img src={logo} alt="Tuinue Wasichana" className="navbar-logo" />
           </Link>
 
+          <span className="navbar-mobile-title">Tuinue Wasichana</span>
+
           <div className="navbar-links-desktop">
             <Link to="/home" className="nav-link" onClick={handleNavClick}>
               <FiHome className="nav-icon" />
