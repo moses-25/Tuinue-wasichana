@@ -1,0 +1,87 @@
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+.about-hero {
+  padding: 160px var(--space-4) var(--space-8);
+  background: var(--color-deep-plum);
+  text-align: center;
+}
+
+.about-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-h1);
+  color: var(--color-pure-white);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-2);
+}
+
+.about-subtitle {
+  font-size: var(--text-body);
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.about-steps {
+  padding: var(--space-10) var(--space-4);
+  background: var(--color-cream);
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-5);
+  margin-bottom: var(--space-8);
+}
+
+.step-card {
+  background: var(--color-pure-white);
+  padding: var(--space-6);
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+}
+
+.step-number {
+  position: absolute;
+  top: -10px;
+  right: var(--space-3);
+  font-family: var(--font-heading);
+  font-size: 80px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-soft-lavender);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.step-card h3 {
+  font-family: var(--font-heading);
+  font-size: var(--text-h3);
+  color: var(--color-deep-plum);
+  margin: var(--space-3) 0 var(--space-2);
+}
+
+.step-card p {
+  color: var(--color-deep-plum);
+  opacity: 0.7;
+  margin-bottom: var(--space-4);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .about-hero {
+    padding: 120px var(--space-3) var(--space-6);
+  }
+
+  .about-title {
+    font-size: clamp(28px, 8vw, 40px);
+  }
+
+  .steps-grid {
+    grid-template-columns: 1fr;
+  }
+}

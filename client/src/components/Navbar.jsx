@@ -77,7 +77,7 @@ const Navbar = () => {
               <FiHome className="nav-icon" />
               <span>Home</span>
             </Link>
-            <Link to="/contact" className="nav-link" onClick={handleNavClick}>
+            <Link to="/about" className="nav-link" onClick={handleNavClick}>
               <FiInfo className="nav-icon" />
               <span>About</span>
             </Link>
@@ -137,7 +137,7 @@ const Navbar = () => {
               <FiHome className="mobile-link-icon" />
               <span>Home</span>
             </Link>
-            <Link to="/contact" className="mobile-link" onClick={handleNavClick}>
+            <Link to="/about" className="mobile-link" onClick={handleNavClick}>
               <FiInfo className="mobile-link-icon" />
               <span>About</span>
             </Link>

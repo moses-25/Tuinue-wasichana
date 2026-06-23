@@ -22,6 +22,7 @@ import DonationPage from './Pages/Donate';
 import ApplyCharity from './Pages/ApplyCharity';
 import Profile from './Pages/Profile';
 import Contact from './Pages/Contact';
+import About from './Pages/About/About';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="/prog" element={<ProgramCards />} />
           <Route path="/story" element={<StoryCard />} />
           <Route path="/Charity" element={<Charities />} />
+          <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/don" element={<Donations />} />
           <Route path="/stories" element={<Stories />} />
