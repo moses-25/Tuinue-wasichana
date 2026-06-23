@@ -1,0 +1,143 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast),
+    border-color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+/* SIZES */
+.btn--sm {
+  font-size: 12px;
+  padding: 8px var(--space-3);
+  border-radius: var(--border-radius-sm);
+}
+
+.btn--md {
+  font-size: 14px;
+  padding: 12px var(--space-5);
+  border-radius: var(--border-radius-sm);
+}
+
+.btn--lg {
+  font-size: 16px;
+  padding: 16px var(--space-6);
+  border-radius: var(--border-radius-sm);
+}
+
+/* VARIANTS */
+.btn--primary {
+  background: var(--color-sunset-coral);
+  color: var(--color-cream);
+}
+
+.btn--primary:hover {
+  background: #c93e5f;
+  transform: translateY(-2px);
+}
+
+.btn--secondary {
+  background: transparent;
+  color: var(--color-deep-plum);
+  border: 1px solid var(--color-deep-plum);
+}
+
+.btn--secondary:hover {
+  background: var(--color-soft-lavender);
+  border-color: var(--color-soft-lavender);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--color-deep-plum);
+  letter-spacing: 0;
+  text-transform: none;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+}
+
+.btn--ghost:hover {
+  opacity: 0.7;
+}
+
+.btn--text {
+  background: transparent;
+  color: var(--color-royal-magenta);
+  padding: 0;
+  letter-spacing: 0;
+  text-transform: none;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  position: relative;
+}
+
+.btn--text::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width var(--transition-base);
+}
+
+.btn--text:hover::after {
+  width: 100%;
+}
+
+/* TEXT LINK (inline) */
+.btn--text-link {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  letter-spacing: 0;
+  text-transform: none;
+  font-family: var(--font-body);
+  font-weight: inherit;
+  text-decoration: none;
+  position: relative;
+}
+
+.btn--text-link::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width var(--transition-base);
+}
+
+.btn--text-link:hover::after {
+  width: 100%;
+}
+
+/* FULL WIDTH */
+.btn--full {
+  width: 100%;
+}
+
+/* DISABLED */
+.btn:disabled,
+.btn--disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
