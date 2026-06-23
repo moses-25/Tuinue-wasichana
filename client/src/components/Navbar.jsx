@@ -3,6 +3,7 @@ import {
   FiHome,
   FiDollarSign,
   FiBookmark,
+  FiInfo,
   FiMessageSquare,
   FiUser,
   FiLogIn,
@@ -77,7 +78,7 @@ const Navbar = () => {
               <span>Home</span>
             </Link>
             <Link to="/contact" className="nav-link" onClick={handleNavClick}>
-              <FiMessageSquare className="nav-icon" />
+              <FiInfo className="nav-icon" />
               <span>About</span>
             </Link>
             <Link to="/charity" className="nav-link" onClick={handleNavClick}>
@@ -87,6 +88,10 @@ const Navbar = () => {
             <Link to="/stories" className="nav-link" onClick={handleNavClick}>
               <FiBookmark className="nav-icon" />
               <span>Stories</span>
+            </Link>
+            <Link to="/contact" className="nav-link" onClick={handleNavClick}>
+              <FiMessageSquare className="nav-icon" />
+              <span>Contact Us</span>
             </Link>
             {isAuthenticated && user?.role && (
               <Link to={getDashboardPath()} className="nav-link" onClick={handleNavClick}>
@@ -133,7 +138,7 @@ const Navbar = () => {
               <span>Home</span>
             </Link>
             <Link to="/contact" className="mobile-link" onClick={handleNavClick}>
-              <FiMessageSquare className="mobile-link-icon" />
+              <FiInfo className="mobile-link-icon" />
               <span>About</span>
             </Link>
             <Link to="/charity" className="mobile-link" onClick={handleNavClick}>
@@ -143,6 +148,10 @@ const Navbar = () => {
             <Link to="/stories" className="mobile-link" onClick={handleNavClick}>
               <FiBookmark className="mobile-link-icon" />
               <span>Stories</span>
+            </Link>
+            <Link to="/contact" className="mobile-link" onClick={handleNavClick}>
+              <FiMessageSquare className="mobile-link-icon" />
+              <span>Contact Us</span>
             </Link>
             {isAuthenticated && user?.role && (
               <Link to={getDashboardPath()} className="mobile-link" onClick={handleNavClick}>
