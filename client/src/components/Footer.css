@@ -1,6 +1,6 @@
 .tuinue-footer {
-  background: #ffffff;
-  color: #000000;
+  background: linear-gradient(135deg, #4a5568 0%, #2d3748 50%, #1a202c 100%);
+  color: #ffffff;
   padding: 3rem 0 1rem;
   margin-top: auto;
 }
@@ -20,6 +20,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  color: #ffffff;
 }
 
 .footer-logo {
@@ -28,7 +29,7 @@
 }
 
 .footer-section p {
-  color: #333333;
+  color: #f0f0f0;
   line-height: 1.6;
   margin-bottom: 1.5rem;
 }
@@ -41,17 +42,18 @@
 
 .footer-links li {
   margin-bottom: 0.5rem;
+  color: #ffffff;
 }
 
 .footer-links a {
-  color: #000000;
+  color: #ffffff;
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s ease;
 }
 
 .footer-links a:hover {
-  color: #d23369;
+  color: #ffd700;
 }
 
 .footer-cta {
@@ -73,11 +75,11 @@
 }
 
 .footer-bottom {
-  border-top: 1px solid #000000;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
   margin-top: 2rem;
   padding-top: 1rem;
   text-align: center;
-  color: #000000;
+  color: #ffffff;
   font-size: 0.9rem;
 }
 
