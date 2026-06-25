@@ -70,7 +70,6 @@ const About = () => {
                 a future, and the courage to dream beyond what poverty tells them 
                 they can be."
               </p>
-              <p className="quote-attribution">— Grace A., Teacher, Nakuru County</p>
             </div>
             <div className="testimonial-images">
               <div className="testimonial-img testimonial-img-1">
