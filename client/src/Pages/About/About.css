@@ -4,7 +4,9 @@
   --editorial-dark: #2a2a2a;
   --editorial-accent: #d4c5b9;
   --editorial-serif: 'Playfair Display', 'Georgia', serif;
-  --editorial-sans: 'Inter', 'Helvetica', sans-serif;
+  --editorial-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --editorial-display: 'Space Grotesk', sans-serif;
+  --editorial-script: 'Dancing Script', cursive;
 }
 
 .container {
@@ -32,19 +34,21 @@
 
 .hero-title-main {
   font-family: var(--editorial-serif);
-  font-size: clamp(36px, 5vw, 56px);
-  font-weight: 400;
+  font-size: clamp(40px, 5.5vw, 64px);
+  font-weight: 500;
   color: var(--editorial-dark);
-  line-height: 1.3;
-  margin-bottom: 4rem;
-  max-width: 800px;
+  line-height: 1.2;
+  margin-bottom: 3rem;
+  max-width: 900px;
   margin-left: auto;
   margin-right: auto;
+  letter-spacing: -0.5px;
 }
 
 .hero-title-main em {
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
+  color: #8b7355;
 }
 
 .hero-description-grid {
@@ -59,10 +63,11 @@
 .hero-desc-left,
 .hero-desc-right {
   font-family: var(--editorial-sans);
-  font-size: 14px;
-  line-height: 1.8;
+  font-size: 15px;
+  line-height: 1.9;
   color: var(--editorial-dark);
-  opacity: 0.8;
+  opacity: 0.85;
+  font-weight: 400;
 }
 
 /* Founder Section */
@@ -109,12 +114,13 @@
 }
 
 .founder-text {
-  font-family: var(--editorial-sans);
-  font-size: 15px;
-  line-height: 1.8;
+  font-family: var(--editorial-serif);
+  font-size: 16px;
+  line-height: 1.9;
   color: var(--editorial-dark);
-  opacity: 0.8;
+  opacity: 0.85;
   margin-bottom: 3rem;
+  font-style: italic;
 }
 
 .founder-signature {
@@ -123,10 +129,11 @@
 }
 
 .founder-name {
-  font-family: 'Dancing Script', cursive;
-  font-size: 28px;
+  font-family: var(--editorial-script);
+  font-size: 32px;
+  font-weight: 600;
   color: var(--editorial-dark);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .founder-role {
@@ -170,10 +177,11 @@
 
 .quote-text {
   font-family: var(--editorial-serif);
-  font-size: 32px;
-  line-height: 1.4;
+  font-size: clamp(24px, 3vw, 36px);
+  line-height: 1.5;
   color: var(--editorial-dark);
-  font-weight: 300;
+  font-weight: 400;
+  font-style: italic;
   margin-bottom: 2rem;
 }
 
@@ -227,25 +235,29 @@
 
 .mission-title {
   font-family: var(--editorial-serif);
-  font-size: clamp(40px, 6vw, 64px);
-  font-weight: 300;
+  font-size: clamp(42px, 6vw, 72px);
+  font-weight: 500;
   color: var(--editorial-dark);
-  line-height: 1.2;
+  line-height: 1.15;
   margin-bottom: 2rem;
+  letter-spacing: -1px;
 }
 
 .mission-title em {
   font-style: italic;
+  font-weight: 400;
+  color: #8b7355;
 }
 
 .mission-subtitle {
-  font-family: var(--editorial-sans);
-  font-size: 16px;
-  line-height: 1.6;
+  font-family: var(--editorial-serif);
+  font-size: 18px;
+  line-height: 1.7;
   color: var(--editorial-dark);
-  opacity: 0.8;
+  opacity: 0.9;
   max-width: 700px;
   margin: 0 auto 3rem;
+  font-weight: 400;
 }
 
 .mission-description {
@@ -259,10 +271,10 @@
 
 .mission-description p {
   font-family: var(--editorial-sans);
-  font-size: 14px;
-  line-height: 1.8;
+  font-size: 15px;
+  line-height: 1.9;
   color: var(--editorial-dark);
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 /* Values Grid */
@@ -293,9 +305,9 @@
 }
 
 .value-card h3 {
-  font-family: var(--editorial-sans);
-  font-size: 13px;
-  letter-spacing: 2px;
+  font-family: var(--editorial-display);
+  font-size: 14px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
   font-weight: 600;
   color: var(--editorial-dark);
@@ -304,10 +316,10 @@
 
 .value-card p {
   font-family: var(--editorial-sans);
-  font-size: 13px;
-  line-height: 1.7;
+  font-size: 14px;
+  line-height: 1.8;
   color: var(--editorial-dark);
-  opacity: 0.7;
+  opacity: 0.75;
   text-align: left;
 }
 

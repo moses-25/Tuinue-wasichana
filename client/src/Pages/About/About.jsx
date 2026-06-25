@@ -1,6 +1,5 @@
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
-import Button from '../../components/Button';
 import './About.css';
 
 const About = () => {
@@ -8,32 +7,28 @@ const About = () => {
     <>
       <Navbar />
       
-      {/* Hero Section with Editorial Typography */}
       <section className="about-hero-editorial">
         <div className="container">
-          <p className="hero-label">ABOUT</p>
+          <p className="hero-label">Our Story</p>
           <h1 className="hero-title-main">
-            We don't just follow trends—<br />
-            <em>we set the rules.</em>
+            Every girl deserves<br />
+            <em>a chance to shine.</em>
           </h1>
           <div className="hero-description-grid">
             <p className="hero-desc-left">
-              At Tuinue Wasichana, we believe every girl deserves the opportunity 
-              to break free from the cycle of poverty through education. We're not 
-              just another charity—we're a movement dedicated to transforming lives 
-              and communities across Kenya.
+              In the heart of Kenya, thousands of girls are forced to drop out of school 
+              each year—not because they lack talent or ambition, but because poverty 
+              leaves them no choice. Tuinue Wasichana exists to change that.
             </p>
             <p className="hero-desc-right">
-              Our approach is different. We don't just provide aid; we create 
-              sustainable change through strategic partnerships, transparency, 
-              and direct impact. Every donation, every story, every girl matters. 
-              We measure success not in dollars, but in transformed futures.
+              We believe education is the most powerful force for breaking the cycle of 
+              poverty. When you educate a girl, you don't just change her life—you 
+              transform her family, her community, and generations to come.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Founder Section */}
       <section className="founder-section">
         <div className="container">
           <div className="founder-layout">
@@ -44,14 +39,14 @@ const About = () => {
               <h2 className="founder-title">
                 FROM<br />
                 THE<br />
-                FOUNDER
+                HEART
               </h2>
               <p className="founder-text">
-                "Growing up in Kenya, I witnessed firsthand how education transforms 
-                not just individual lives, but entire communities. Too many bright, 
-                capable girls are denied their potential simply because of their 
-                circumstances. Tuinue Wasichana was born from a simple belief: 
-                every girl deserves a chance to write her own story."
+                "I grew up in a small village in Kenya where I watched brilliant girls 
+                disappear from classrooms year after year—not because they weren't smart 
+                enough, but because the world had decided they weren't worth investing in. 
+                I started Tuinue Wasichana because I refused to accept that. Every girl 
+                I've met has a dream. Our job is to make sure poverty doesn't steal it."
               </p>
               <div className="founder-signature">
                 <p className="founder-name">Sarah Njeri</p>
@@ -65,16 +60,17 @@ const About = () => {
         </div>
       </section>
 
-      {/* Testimonial Section */}
       <section className="testimonial-section">
         <div className="container">
           <div className="testimonial-layout">
             <div className="testimonial-quote">
               <p className="quote-text">
-                "Her gorgeous editorial style, extensive expertise, strong sense of 
-                brand, and sheer work ethic has <em>elevated everything she touches.</em>"
+                "What Tuinue Wasichana does isn't charity—it's <em>justice.</em> 
+                They don't just give girls an education; they give them a voice, 
+                a future, and the courage to dream beyond what poverty tells them 
+                they can be."
               </p>
-              <p className="quote-attribution">— JANE DOE, FORBES 2023</p>
+              <p className="quote-attribution">— Grace A., Teacher, Nakuru County</p>
             </div>
             <div className="testimonial-images">
               <div className="testimonial-img testimonial-img-1">
@@ -88,29 +84,28 @@ const About = () => {
         </div>
       </section>
 
-      {/* Mission Section */}
       <section className="mission-section">
         <div className="container">
           <h2 className="mission-title">
-            <em>Beyond</em><br />
-            THE BRAND:
+            <em>Our</em> Mission
           </h2>
           <p className="mission-subtitle">
-            We've created more than a charity—we've cultivated 
-            the world's most sustainable empowerment model 
-            for girls, changing lives in a class of its own.
+            To ensure every girl in Kenya has access to quality education, 
+            mentorship, and the support she needs to build her own future.
           </p>
           <div className="mission-description">
             <p>
-              Our work goes far beyond simple donations. We build ecosystems of support, 
-              connecting girls with mentors, resources, and opportunities that last a lifetime. 
-              Through strategic partnerships with local schools, communities, and businesses, 
-              we create pathways to success that are sustainable and scalable.
+              We partner with local schools and communities to identify the girls most 
+              at risk of dropping out—those orphaned, living in extreme poverty, or 
+              facing early marriage. Through sponsorships, school supplies, and 
+              mentorship programs, we keep them in class and on track.
             </p>
             <p>
-              Every program we launch is designed with one goal: lasting transformation. 
-              We measure our impact not just in the number of girls helped today, but in 
-              the generations of families lifted out of poverty tomorrow.
+              Our approach goes beyond tuition. We provide sanitary pads so girls 
+              don't miss school during their periods. We offer counseling and 
+              life-skills training. We work with families to change mindsets about 
+              girls' education. We stay with each girl from enrollment through 
+              graduation and beyond.
             </p>
           </div>
           
@@ -119,11 +114,11 @@ const About = () => {
               <div className="value-image">
                 <img src="/value-education.jpg" alt="Education" />
               </div>
-              <h3>We put EDUCATION</h3>
+              <h3>Education First</h3>
               <p>
-                At the heart of everything we do. Quality education isn't a privilege—
-                it's a fundamental right. We ensure every girl has access to excellent 
-                schools, supplies, and support.
+                A girl with an education marries later, earns more, raises healthier 
+                children, and lifts her entire community out of poverty. It's the 
+                single most powerful investment we can make.
               </p>
             </div>
 
@@ -131,11 +126,11 @@ const About = () => {
               <div className="value-image">
                 <img src="/value-transparency.jpg" alt="Transparency" />
               </div>
-              <h3>We put TRANSPARENCY</h3>
+              <h3>Full Transparency</h3>
               <p>
-                Above all else. Every donor deserves to know exactly where their money 
-                goes and the impact it creates. We provide detailed reports and real 
-                stories of transformation.
+                Every shilling you give goes directly to a girl in need. We track 
+                every expense, share real stories, and send you updates on the 
+                lives your generosity is transforming.
               </p>
             </div>
 
@@ -143,11 +138,11 @@ const About = () => {
               <div className="value-image">
                 <img src="/value-community.jpg" alt="Community" />
               </div>
-              <h3>We put COMMUNITY</h3>
+              <h3>Community Rooted</h3>
               <p>
-                At the center of our mission. Real change happens when communities come 
-                together. We empower local leaders and create networks of support that 
-                last generations.
+                We don't impose solutions from outside. We work hand-in-hand with 
+                Kenyan families, schools, and local leaders to create change that 
+                is owned by the community and built to last.
               </p>
             </div>
           </div>
