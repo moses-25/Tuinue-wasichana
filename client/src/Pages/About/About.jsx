@@ -7,46 +7,153 @@ const About = () => {
   return (
     <>
       <Navbar />
-      <section className="about-hero">
+      
+      {/* Hero Section with Editorial Typography */}
+      <section className="about-hero-editorial">
         <div className="container">
-          <h1 className="about-title">How You Can Change a Girl's Life</h1>
-          <p className="about-subtitle">Your simple actions create lasting impact. Here's how:</p>
+          <p className="hero-label">ABOUT</p>
+          <h1 className="hero-title-main">
+            We don't just follow trends—<br />
+            <em>we set the rules.</em>
+          </h1>
+          <div className="hero-description-grid">
+            <p className="hero-desc-left">
+              At Tuinue Wasichana, we believe every girl deserves the opportunity 
+              to break free from the cycle of poverty through education. We're not 
+              just another charity—we're a movement dedicated to transforming lives 
+              and communities across Kenya.
+            </p>
+            <p className="hero-desc-right">
+              Our approach is different. We don't just provide aid; we create 
+              sustainable change through strategic partnerships, transparency, 
+              and direct impact. Every donation, every story, every girl matters. 
+              We measure success not in dollars, but in transformed futures.
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className="about-steps">
+      {/* Founder Section */}
+      <section className="founder-section">
         <div className="container">
-          <div className="steps-grid">
-            <div className="step-card">
-              <div className="step-number">1</div>
-              <h3>Choose Your Impact</h3>
-              <p>Select exactly how you want to help — education, nutrition, or safety. Every option directly benefits a girl in need.</p>
-              <Button to="/charity" variant="text">View Causes</Button>
+          <div className="founder-layout">
+            <div className="founder-image-main">
+              <img src="/founder-main.jpg" alt="Founder" />
             </div>
-
-            <div className="step-card">
-              <div className="step-number">2</div>
-              <h3>Make Your Donation</h3>
-              <p>Give any amount — $50 educates a girl for a month, $300 provides a year of school supplies. Every dollar counts.</p>
-              <Button to="/donate" variant="text">Donate Now</Button>
+            <div className="founder-content">
+              <h2 className="founder-title">
+                FROM<br />
+                THE<br />
+                FOUNDER
+              </h2>
+              <p className="founder-text">
+                "Growing up in Kenya, I witnessed firsthand how education transforms 
+                not just individual lives, but entire communities. Too many bright, 
+                capable girls are denied their potential simply because of their 
+                circumstances. Tuinue Wasichana was born from a simple belief: 
+                every girl deserves a chance to write her own story."
+              </p>
+              <div className="founder-signature">
+                <p className="founder-name">Sarah Njeri</p>
+                <p className="founder-role">Founder & Executive Director</p>
+              </div>
             </div>
-
-            <div className="step-card">
-              <div className="step-number">3</div>
-              <h3>See Your Impact</h3>
-              <p>Receive updates showing exactly which girl you helped and how her life is changing through your support.</p>
-              <Button to="/stories" variant="text">Read Stories</Button>
-            </div>
-
-            <div className="step-card">
-              <div className="step-number">4</div>
-              <h3>Multiply Your Effect</h3>
-              <p>Share your action and encourage friends to join. Together we can help more girls thrive.</p>
-              <Button to="/share" variant="text">Share Now</Button>
+            <div className="founder-image-small">
+              <img src="/founder-small.jpg" alt="Founder portrait" />
             </div>
           </div>
         </div>
       </section>
+
+      {/* Testimonial Section */}
+      <section className="testimonial-section">
+        <div className="container">
+          <div className="testimonial-layout">
+            <div className="testimonial-quote">
+              <p className="quote-text">
+                "Her gorgeous editorial style, extensive expertise, strong sense of 
+                brand, and sheer work ethic has <em>elevated everything she touches.</em>"
+              </p>
+              <p className="quote-attribution">— JANE DOE, FORBES 2023</p>
+            </div>
+            <div className="testimonial-images">
+              <div className="testimonial-img testimonial-img-1">
+                <img src="/impact-1.jpg" alt="Impact story" />
+              </div>
+              <div className="testimonial-img testimonial-img-2">
+                <img src="/impact-2.jpg" alt="Impact story" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Mission Section */}
+      <section className="mission-section">
+        <div className="container">
+          <h2 className="mission-title">
+            <em>Beyond</em><br />
+            THE BRAND:
+          </h2>
+          <p className="mission-subtitle">
+            We've created more than a charity—we've cultivated 
+            the world's most sustainable empowerment model 
+            for girls, changing lives in a class of its own.
+          </p>
+          <div className="mission-description">
+            <p>
+              Our work goes far beyond simple donations. We build ecosystems of support, 
+              connecting girls with mentors, resources, and opportunities that last a lifetime. 
+              Through strategic partnerships with local schools, communities, and businesses, 
+              we create pathways to success that are sustainable and scalable.
+            </p>
+            <p>
+              Every program we launch is designed with one goal: lasting transformation. 
+              We measure our impact not just in the number of girls helped today, but in 
+              the generations of families lifted out of poverty tomorrow.
+            </p>
+          </div>
+          
+          <div className="values-grid">
+            <div className="value-card">
+              <div className="value-image">
+                <img src="/value-education.jpg" alt="Education" />
+              </div>
+              <h3>We put EDUCATION</h3>
+              <p>
+                At the heart of everything we do. Quality education isn't a privilege—
+                it's a fundamental right. We ensure every girl has access to excellent 
+                schools, supplies, and support.
+              </p>
+            </div>
+
+            <div className="value-card">
+              <div className="value-image">
+                <img src="/value-transparency.jpg" alt="Transparency" />
+              </div>
+              <h3>We put TRANSPARENCY</h3>
+              <p>
+                Above all else. Every donor deserves to know exactly where their money 
+                goes and the impact it creates. We provide detailed reports and real 
+                stories of transformation.
+              </p>
+            </div>
+
+            <div className="value-card">
+              <div className="value-image">
+                <img src="/value-community.jpg" alt="Community" />
+              </div>
+              <h3>We put COMMUNITY</h3>
+              <p>
+                At the center of our mission. Real change happens when communities come 
+                together. We empower local leaders and create networks of support that 
+                last generations.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </>
   );
