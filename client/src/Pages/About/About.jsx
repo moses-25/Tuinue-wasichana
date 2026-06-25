@@ -1,6 +1,7 @@
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import founderPortrait from '../../assets/potrait.jpg';
+import founderFrame from '../../assets/founder.jpg';
 import './About.css';
 
 const About = () => {
@@ -55,7 +56,7 @@ const About = () => {
               </div>
             </div>
             <div className="founder-image-small">
-              <img src={founderPortrait} alt="Moses Otieno Ochieng" />
+              <img src={founderFrame} alt="Moses Otieno Ochieng" />
             </div>
           </div>
         </div>
