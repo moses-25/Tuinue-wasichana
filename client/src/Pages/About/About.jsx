@@ -42,14 +42,14 @@ const About = () => {
                 HEART
               </h2>
               <p className="founder-text">
-                "I grew up in a small village in Kenya where I watched brilliant girls 
-                disappear from classrooms year after year—not because they weren't smart 
-                enough, but because the world had decided they weren't worth investing in. 
-                I started Tuinue Wasichana because I refused to accept that. Every girl 
-                I've met has a dream. Our job is to make sure poverty doesn't steal it."
+"I grew up in Kisumu, Kenya, where I watched brilliant girls 
+              disappear from classrooms year after year—not because they weren't smart 
+              enough, but because poverty left them no choice. 
+              I founded Tuinue Wasichana because I refused to accept that. Every girl 
+              I've met has a dream. Our job is to make sure the world doesn't steal it."
               </p>
               <div className="founder-signature">
-                <p className="founder-name">Sarah Njeri</p>
+                <p className="founder-name">Moses Otieno Ochieng</p>
                 <p className="founder-role">Founder & Executive Director</p>
               </div>
             </div>
