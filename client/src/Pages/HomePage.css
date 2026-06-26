@@ -22,7 +22,7 @@
   font-family: 'Playfair Display', serif;
   font-size: clamp(32px, 5vw, 44px);
   font-weight: 700;
-  color: #2d3748;
+  color: #000000;
   margin-bottom: 16px;
   line-height: 1.2;
 }
@@ -112,7 +112,7 @@
   font-family: 'Space Grotesk', sans-serif;
   font-size: 22px;
   font-weight: 700;
-  color: #1e293b;
+  color: #000000;
   margin-bottom: 12px;
   line-height: 1.3;
 }
