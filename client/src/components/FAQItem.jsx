@@ -61,6 +61,7 @@ const FAQ = () => {
     return (
         <div className="faq-section-modern">
             <div className="faq-container">
+                <h2 className="faq-header">Frequently Asked Questions</h2>
                 <div className="faq-list-modern">
                     {faqs.map((faq, index) => (
                         <FAQItem 
