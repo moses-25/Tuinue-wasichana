@@ -40,7 +40,7 @@ const Footer = () => {
           <h3><FiMessageSquare /> Contact</h3>
           <ul className="footer-links">
             <li><FiMapPin /> Nairobi, Kenya</li>
-            <li><FiPhone /> +254 700 000 000</li>
+            <li><FiPhone /> +254 757 268 162</li>
             <li><FiMail /> info@tuinuwasichana.org</li>
           </ul>
           <Link to="/donate" className="footer-cta">Donate Now</Link>
