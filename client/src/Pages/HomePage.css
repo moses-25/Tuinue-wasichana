@@ -19,6 +19,7 @@
 }
 
 .impact-title {
+  font-family: 'Playfair Display', serif;
   font-size: clamp(32px, 5vw, 44px);
   font-weight: 700;
   color: #2d3748;
@@ -27,6 +28,7 @@
 }
 
 .impact-subtitle {
+  font-family: 'Inter', sans-serif;
   font-size: 16px;
   line-height: 1.7;
   color: #64748b;
@@ -96,8 +98,9 @@
 }
 
 .impact-icon svg {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
+  stroke-width: 1.5;
 }
 
 /* Content Styles */
@@ -106,6 +109,7 @@
 }
 
 .impact-content h3 {
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 22px;
   font-weight: 700;
   color: #1e293b;
@@ -114,6 +118,7 @@
 }
 
 .impact-content p {
+  font-family: 'Inter', sans-serif;
   font-size: 15px;
   line-height: 1.7;
   color: #64748b;

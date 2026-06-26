@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import FAQ from '../components/FAQItem';
 import Button from '../components/Button';
 import ImpactNote from '../components/ImpactNote';
+import { IoRestaurantOutline, IoWaterOutline, IoHeartCircleOutline, IoSchoolOutline, IoCashOutline, IoShieldCheckmarkOutline } from 'react-icons/io5';
 import './HomePage.css';
 
 const HomePage = () => {
@@ -40,114 +41,94 @@ const HomePage = () => {
       <section className="featured-charities-section">
         <div className="container">
           <div className="impact-section-header">
-            <h2 className="impact-title">The power of your sponsorship</h2>
+            <h2 className="impact-title">Your donation creates real change</h2>
             <p className="impact-subtitle">
-              When you sponsor a girl, you fund life-changing projects in her community—projects 
-              that help girls access their basic human rights, education, and opportunities for a brighter future.
+              Every contribution to Tuinue Wasichana directly supports girls in Kenya through comprehensive programs 
+              that address the root causes of poverty and create pathways to success. Here's how your generosity makes a difference.
             </p>
           </div>
 
           <div className="impact-grid">
             <div className="impact-item">
               <div className="impact-icon impact-icon-nutrition">
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4C12.9543 4 4 12.9543 4 24C4 35.0457 12.9543 44 24 44Z" fill="currentColor" opacity="0.2"/>
-                  <path d="M24 28C26.2091 28 28 26.2091 28 24C28 21.7909 26.2091 20 24 20C21.7909 20 20 21.7909 20 24C20 26.2091 21.7909 28 24 28Z" stroke="currentColor" strokeWidth="2"/>
-                  <path d="M24 16V12M24 36V32M32 24H36M12 24H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                </svg>
+                <IoRestaurantOutline />
               </div>
               <div className="impact-content">
-                <h3>Adequate nutrition</h3>
+                <h3>Nutrition support</h3>
                 <p>
-                  Malnutrition can stunt girls' development and pull them away from education. 
-                  With your support, we provide sustainable meal programs, nutritious food supplies, 
-                  and emergency vouchers ensuring girls have the energy to learn and thrive.
+                  We partner with local schools to provide nutritious meals that fuel learning. 
+                  Hungry girls can't focus on their studies. Your support ensures they receive the daily 
+                  nutrition they need to attend school, concentrate in class, and reach their full potential.
                 </p>
               </div>
             </div>
 
             <div className="impact-item">
               <div className="impact-icon impact-icon-water">
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M24 44C30.6274 44 36 38.6274 36 32C36 25.3726 24 12 24 12C24 12 12 25.3726 12 32C12 38.6274 17.3726 44 24 44Z" fill="currentColor" opacity="0.2"/>
-                  <path d="M24 44C30.6274 44 36 38.6274 36 32C36 25.3726 24 12 24 12C24 12 12 25.3726 12 32C12 38.6274 17.3726 44 24 44Z" stroke="currentColor" strokeWidth="2"/>
-                </svg>
+                <IoWaterOutline />
               </div>
               <div className="impact-content">
-                <h3>Water and sanitation</h3>
+                <h3>Clean water access</h3>
                 <p>
-                  Girls often carry the burden of water collection which can mean traveling long distances, 
-                  missing school and being exposed to risky situations. Help girls, families and entire communities 
-                  gain access to safe, clean water and proper sanitation facilities.
+                  Many girls miss school to fetch water for their families. We work with communities 
+                  to establish clean water sources near schools and homes, giving girls back their time 
+                  to focus on education and reducing health risks from contaminated water.
                 </p>
               </div>
             </div>
 
             <div className="impact-item">
               <div className="impact-icon impact-icon-health">
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="24" cy="24" r="20" fill="currentColor" opacity="0.2"/>
-                  <path d="M24 16V32M16 24H32" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
-                </svg>
+                <IoHeartCircleOutline />
               </div>
               <div className="impact-content">
-                <h3>Health care</h3>
+                <h3>Healthcare and hygiene</h3>
                 <p>
-                  Each year, thousands of girls face preventable illnesses. Together with our partners, 
-                  we work to improve health care access for mothers and children, provide essential medical 
-                  supplies, and ensure girls have the healthiest start in life.
+                  Lack of menstrual hygiene products forces many girls to miss school monthly. 
+                  We provide hygiene kits, basic healthcare education, and partner with local clinics 
+                  to ensure girls stay healthy, confident, and never miss a day of learning.
                 </p>
               </div>
             </div>
 
             <div className="impact-item">
               <div className="impact-icon impact-icon-education">
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8 20L24 12L40 20L24 28L8 20Z" fill="currentColor" opacity="0.2"/>
-                  <path d="M8 20L24 12L40 20M8 20L24 28M8 20V28L24 36M40 20L24 28M40 20V28L24 36M24 28V36" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <IoSchoolOutline />
               </div>
               <div className="impact-content">
-                <h3>Education</h3>
+                <h3>Educational resources</h3>
                 <p>
-                  When you sponsor a girl, you help build new schools and work with communities to 
-                  promote the importance of sending and keeping girls in school. Education is the foundation 
-                  for breaking the cycle of poverty and creating lasting change.
+                  From textbooks to uniforms, school fees to tutoring programs—we provide everything 
+                  a girl needs to succeed in school. Your donations remove financial barriers that 
+                  prevent families from prioritizing their daughters' education.
                 </p>
               </div>
             </div>
 
             <div className="impact-item">
               <div className="impact-icon impact-icon-income">
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="24" cy="24" r="20" fill="currentColor" opacity="0.2"/>
-                  <path d="M24 16V32M20 20H26C27.1046 20 28 20.8954 28 22C28 23.1046 27.1046 24 26 24H22C20.8954 24 20 24.8954 20 26C20 27.1046 20.8954 28 22 28H28" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                </svg>
+                <IoCashOutline />
               </div>
               <div className="impact-content">
-                <h3>Family income</h3>
+                <h3>Economic empowerment</h3>
                 <p>
-                  Child sponsors help support vocational skills training for youth and families. 
-                  These programs offer apprenticeships, helping them gain employment and giving their 
-                  families income-making power over their lives and futures.
+                  We offer vocational training and microfinance programs for mothers and older girls, 
+                  creating income opportunities that lift entire families. When mothers earn, they invest 
+                  in their daughters' futures, creating a cycle of empowerment.
                 </p>
               </div>
             </div>
 
             <div className="impact-item">
               <div className="impact-icon impact-icon-protection">
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M24 4L8 12V24C8 33.6 14.4 42.4 24 44C33.6 42.4 40 33.6 40 24V12L24 4Z" fill="currentColor" opacity="0.2"/>
-                  <path d="M24 4L8 12V24C8 33.6 14.4 42.4 24 44C33.6 42.4 40 33.6 40 24V12L24 4Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
-                  <path d="M20 24L22.5 27L28 20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <IoShieldCheckmarkOutline />
               </div>
               <div className="impact-content">
-                <h3>Child protection</h3>
+                <h3>Safety and mentorship</h3>
                 <p>
-                  We work to ensure that all girls are protected and safe. Without help protecting children, 
-                  they can't prove their legal age or claim protection under any legislation. Birth certificates 
-                  also enable girls to gain access to critical services and resources they need.
+                  Girls face unique challenges and dangers on their path to education. We provide 
+                  safe spaces, mentorship programs with successful women role models, and advocacy 
+                  to protect girls' rights and ensure they can learn without fear.
                 </p>
               </div>
             </div>
@@ -155,7 +136,7 @@ const HomePage = () => {
 
           <div className="impact-cta">
             <Button to="/charity" variant="primary" size="lg">
-              View All Our Programs
+              Support Our Programs
             </Button>
           </div>
         </div>
