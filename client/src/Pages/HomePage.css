@@ -61,46 +61,23 @@
   align-items: center;
   justify-content: center;
   transition: transform 0.3s ease;
+  background: transparent;
 }
 
 .impact-item:hover .impact-icon {
   transform: scale(1.05);
 }
 
-.impact-icon-nutrition {
-  background: linear-gradient(135deg, #a7f3d0 0%, #6ee7b7 100%);
-  color: #059669;
-}
-
-.impact-icon-water {
-  background: linear-gradient(135deg, #bfdbfe 0%, #93c5fd 100%);
-  color: #2563eb;
-}
-
-.impact-icon-health {
-  background: linear-gradient(135deg, #ddd6fe 0%, #c4b5fd 100%);
-  color: #7c3aed;
-}
-
-.impact-icon-education {
-  background: linear-gradient(135deg, #fde68a 0%, #fcd34d 100%);
-  color: #d97706;
-}
-
-.impact-icon-income {
-  background: linear-gradient(135deg, #86efac 0%, #4ade80 100%);
-  color: #16a34a;
-}
-
-.impact-icon-protection {
-  background: linear-gradient(135deg, #fde047 0%, #facc15 100%);
-  color: #ca8a04;
-}
-
 .impact-icon svg {
   width: 40px;
   height: 40px;
   stroke-width: 1.5;
+}
+
+.impact-icon img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
 }
 
 /* Content Styles */
@@ -166,6 +143,11 @@
     height: 42px;
   }
 
+  .impact-icon img {
+    width: 42px;
+    height: 42px;
+  }
+
   .impact-content h3 {
     font-size: 20px;
   }
@@ -207,6 +189,11 @@
     height: 38px;
   }
 
+  .impact-icon img {
+    width: 38px;
+    height: 38px;
+  }
+
   .impact-content h3 {
     font-size: 19px;
   }
@@ -231,6 +218,11 @@
   }
 
   .impact-icon svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .impact-icon img {
     width: 32px;
     height: 32px;
   }
