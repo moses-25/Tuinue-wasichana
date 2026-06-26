@@ -131,6 +131,25 @@
   margin-top: 50px;
 }
 
+.impact-cta .btn {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 16px 48px;
+  background: #000000;
+  color: #ffffff;
+  border-radius: 8px;
+  text-transform: none;
+  letter-spacing: normal;
+  transition: all 0.3s ease;
+}
+
+.impact-cta .btn:hover {
+  background: #7c3aed;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.3);
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .impact-grid {
