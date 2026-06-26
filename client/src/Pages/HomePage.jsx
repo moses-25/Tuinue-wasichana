@@ -5,8 +5,15 @@ import Footer from '../components/Footer';
 import FAQ from '../components/FAQItem';
 import Button from '../components/Button';
 import ImpactNote from '../components/ImpactNote';
-import { IoRestaurantOutline, IoWaterOutline, IoHeartCircleOutline, IoSchoolOutline, IoCashOutline, IoShieldCheckmarkOutline } from 'react-icons/io5';
 import './HomePage.css';
+
+// Import SVG icons
+import child1 from '../assets/child1.svg';
+import child2 from '../assets/child2.svg';
+import child3 from '../assets/child3.svg';
+import child4 from '../assets/child4.svg';
+import child5 from '../assets/child5.svg';
+import child6 from '../assets/child6.svg';
 
 const HomePage = () => {
   const featuredCharities = [
@@ -51,7 +58,7 @@ const HomePage = () => {
           <div className="impact-grid">
             <div className="impact-item">
               <div className="impact-icon impact-icon-nutrition">
-                <IoRestaurantOutline />
+                <img src={child1} alt="Nutrition support icon" />
               </div>
               <div className="impact-content">
                 <h3>Nutrition support</h3>
@@ -65,7 +72,7 @@ const HomePage = () => {
 
             <div className="impact-item">
               <div className="impact-icon impact-icon-water">
-                <IoWaterOutline />
+                <img src={child2} alt="Clean water access icon" />
               </div>
               <div className="impact-content">
                 <h3>Clean water access</h3>
@@ -79,7 +86,7 @@ const HomePage = () => {
 
             <div className="impact-item">
               <div className="impact-icon impact-icon-health">
-                <IoHeartCircleOutline />
+                <img src={child3} alt="Healthcare and hygiene icon" />
               </div>
               <div className="impact-content">
                 <h3>Healthcare and hygiene</h3>
@@ -93,7 +100,7 @@ const HomePage = () => {
 
             <div className="impact-item">
               <div className="impact-icon impact-icon-education">
-                <IoSchoolOutline />
+                <img src={child4} alt="Educational resources icon" />
               </div>
               <div className="impact-content">
                 <h3>Educational resources</h3>
@@ -107,7 +114,7 @@ const HomePage = () => {
 
             <div className="impact-item">
               <div className="impact-icon impact-icon-income">
-                <IoCashOutline />
+                <img src={child5} alt="Economic empowerment icon" />
               </div>
               <div className="impact-content">
                 <h3>Economic empowerment</h3>
@@ -121,7 +128,7 @@ const HomePage = () => {
 
             <div className="impact-item">
               <div className="impact-icon impact-icon-protection">
-                <IoShieldCheckmarkOutline />
+                <img src={child6} alt="Safety and mentorship icon" />
               </div>
               <div className="impact-content">
                 <h3>Safety and mentorship</h3>
