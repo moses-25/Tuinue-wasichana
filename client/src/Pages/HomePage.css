@@ -1,103 +1,217 @@
+/* Featured Impact Section */
 .featured-charities-section {
-  padding: var(--space-12) var(--space-4);
-  background: var(--color-warm-sand);
+  padding: 80px 20px;
+  background: #ffffff;
 }
 
-.charities-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-2);
-  flex-wrap: wrap;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.charities-title {
-  font-family: var(--font-heading);
-  font-size: var(--text-h2);
-  color: var(--color-deep-plum);
-  font-weight: var(--font-weight-bold);
-}
-
-.charities-subtitle {
-  font-size: var(--text-body);
-  color: var(--color-deep-plum);
-  opacity: 0.6;
-  margin-bottom: var(--space-8);
+/* Section Header */
+.impact-section-header {
   text-align: center;
-  width: 100%;
+  margin-bottom: 60px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.charities-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--space-5);
+.impact-title {
+  font-size: clamp(32px, 5vw, 44px);
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 16px;
+  line-height: 1.2;
 }
 
-.charity-card {
-  background: var(--color-pure-white);
-  padding: var(--space-6);
-  transition: transform var(--transition-fast);
-}
-
-.charity-card:hover {
-  transform: translateY(-4px);
-}
-
-.charity-tag {
-  display: inline-block;
-  font-family: var(--font-heading);
-  font-size: 11px;
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: var(--letter-spacing-wide);
-  text-transform: uppercase;
-  color: var(--color-royal-magenta);
-  background: var(--color-soft-lavender);
-  padding: 4px var(--space-2);
-  margin-bottom: var(--space-3);
-}
-
-.charity-name {
-  font-family: var(--font-heading);
-  font-size: var(--text-h3);
-  color: var(--color-deep-plum);
-  margin: 0 0 var(--space-2);
-}
-
-.charity-description {
-  color: var(--color-deep-plum);
-  opacity: 0.7;
+.impact-subtitle {
   font-size: 16px;
-  line-height: 1.6;
-  margin-bottom: var(--space-4);
+  line-height: 1.7;
+  color: #64748b;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.charity-impact {
-  color: var(--color-deep-plum);
-  opacity: 0.5;
-  font-size: var(--text-small);
-  margin: var(--space-4) 0;
+/* Impact Grid */
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+  margin-bottom: 50px;
 }
 
-.charity-button {
-  width: 100%;
+/* Individual Impact Item */
+.impact-item {
+  display: flex;
+  gap: 20px;
+  align-items: start;
+}
+
+/* Icon Styles */
+.impact-icon {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.impact-item:hover .impact-icon {
+  transform: scale(1.05);
+}
+
+.impact-icon-nutrition {
+  background: linear-gradient(135deg, #a7f3d0 0%, #6ee7b7 100%);
+  color: #059669;
+}
+
+.impact-icon-water {
+  background: linear-gradient(135deg, #bfdbfe 0%, #93c5fd 100%);
+  color: #2563eb;
+}
+
+.impact-icon-health {
+  background: linear-gradient(135deg, #ddd6fe 0%, #c4b5fd 100%);
+  color: #7c3aed;
+}
+
+.impact-icon-education {
+  background: linear-gradient(135deg, #fde68a 0%, #fcd34d 100%);
+  color: #d97706;
+}
+
+.impact-icon-income {
+  background: linear-gradient(135deg, #86efac 0%, #4ade80 100%);
+  color: #16a34a;
+}
+
+.impact-icon-protection {
+  background: linear-gradient(135deg, #fde047 0%, #facc15 100%);
+  color: #ca8a04;
+}
+
+.impact-icon svg {
+  width: 48px;
+  height: 48px;
+}
+
+/* Content Styles */
+.impact-content {
+  flex: 1;
+}
+
+.impact-content h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.impact-content p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #64748b;
+  margin: 0;
+}
+
+/* CTA Button */
+.impact-cta {
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .impact-grid {
+    gap: 35px;
+  }
+
+  .impact-icon {
+    width: 70px;
+    height: 70px;
+  }
+
+  .impact-icon svg {
+    width: 42px;
+    height: 42px;
+  }
+
+  .impact-content h3 {
+    font-size: 20px;
+  }
+
+  .impact-content p {
+    font-size: 14px;
+  }
 }
 
 @media (max-width: 768px) {
   .featured-charities-section {
-    padding: var(--space-8) var(--space-3);
+    padding: 60px 16px;
   }
 
-  .charities-title {
-    font-size: clamp(24px, 6vw, 32px);
+  .impact-section-header {
+    margin-bottom: 40px;
   }
 
-  .charities-grid {
+  .impact-title {
+    font-size: 28px;
+  }
+
+  .impact-subtitle {
+    font-size: 15px;
+  }
+
+  .impact-grid {
     grid-template-columns: 1fr;
+    gap: 30px;
   }
 
-  .charities-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-2);
+  .impact-icon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .impact-icon svg {
+    width: 38px;
+    height: 38px;
+  }
+
+  .impact-content h3 {
+    font-size: 19px;
+  }
+
+  .impact-content p {
+    font-size: 14px;
+  }
+
+  .impact-cta {
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .impact-item {
+    gap: 16px;
+  }
+
+  .impact-icon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .impact-icon svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .impact-content h3 {
+    font-size: 18px;
   }
 }
