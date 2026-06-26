@@ -1,8 +1,9 @@
 .tuinue-footer {
-  background: linear-gradient(135deg, #4a5568 0%, #2d3748 50%, #1a202c 100%);
+  background: #000000;
   color: #ffffff;
   padding: 3rem 0 1rem;
   margin-top: auto;
+  font-family: 'Inter', sans-serif;
 }
 
 .footer-content {

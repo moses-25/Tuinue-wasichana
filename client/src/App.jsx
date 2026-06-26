@@ -29,7 +29,7 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<Login2 />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/apply-charity" element={<ApplyCharity />} />
           <Route path="/navbar" element={<Navbar />} />
