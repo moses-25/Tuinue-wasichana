@@ -9,6 +9,15 @@
   margin: 0 auto;
 }
 
+.faq-header {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(28px, 4vw, 36px);
+  font-weight: 700;
+  color: #000000;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
 .faq-list-modern {
   display: flex;
   flex-direction: column;
@@ -130,12 +139,13 @@
 
 .faq-cta-button {
   display: inline-block;
-  padding: 12px 32px;
+  padding: 14px 36px;
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 16px;
-  font-weight: 600;
-  color: #7c3aed;
-  background: transparent;
-  border: 3px solid #7c3aed;
+  font-weight: 700;
+  color: #ffffff;
+  background: #000000;
+  border: none;
   border-radius: 8px;
   text-decoration: none;
   transition: all 0.3s ease;
@@ -144,7 +154,6 @@
 
 .faq-cta-button:hover {
   background: #7c3aed;
-  color: #ffffff;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(124, 58, 237, 0.3);
 }
