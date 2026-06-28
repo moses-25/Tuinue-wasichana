@@ -2,6 +2,7 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import founderPortrait from '../../assets/potrait.jpg';
 import founderFrame from '../../assets/founder.jpg';
+import child4 from '../../assets/child4.svg';
 import './About.css';
 
 const About = () => {
@@ -113,7 +114,7 @@ const About = () => {
           <div className="values-grid">
             <div className="value-card">
               <div className="value-image">
-                <img src="/value-education.jpg" alt="Education" />
+                <img src={child4} alt="Education" />
               </div>
               <h3>Education First</h3>
               <p>
