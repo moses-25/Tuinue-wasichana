@@ -4,6 +4,7 @@ import founderPortrait from '../../assets/potrait.jpg';
 import founderFrame from '../../assets/founder.jpg';
 import child4 from '../../assets/child4.svg';
 import about2 from '../../assets/About2.svg';
+import logo from '../../assets/TN.svg';
 import './About.css';
 
 const About = () => {
@@ -66,22 +67,36 @@ const About = () => {
 
       <section className="testimonial-section">
         <div className="container">
-          <div className="testimonial-layout">
-            <div className="testimonial-quote">
-              <p className="quote-text">
-                "What Tuinue Wasichana does isn't charity—it's <em>justice.</em> 
-                They don't just give girls an education; they give them a voice, 
-                a future, and the courage to dream beyond what poverty tells them 
-                they can be."
+          <div className="testimonial-quote">
+            <p className="quote-text">
+              "What Tuinue Wasichana does isn't charity—it's <em>justice.</em> 
+              They don't just give girls an education; they give them a voice, 
+              a future, and the courage to dream beyond what poverty tells them 
+              they can be."
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="vision-section">
+        <div className="container">
+          <div className="vision-layout">
+            <div className="vision-content">
+              <h2 className="vision-heading">Our Vision</h2>
+              <p className="vision-text">
+                A Kenya where every girl—regardless of her 
+                background—has the opportunity to complete her education, 
+                pursue her dreams, and become a leader in her community.
+                We envision a future where no girl is left behind, where 
+                poverty no longer determines destiny, and where every 
+                young woman has the tools, support, and belief she needs 
+                to rise. A future where educated girls transform families, 
+                uplift communities, and build a stronger, more equitable 
+                Kenya for generations to come.
               </p>
             </div>
-            <div className="testimonial-images">
-              <div className="testimonial-img testimonial-img-1">
-                <img src="/impact-1.jpg" alt="Impact story" />
-              </div>
-              <div className="testimonial-img testimonial-img-2">
-                <img src="/impact-2.jpg" alt="Impact story" />
-              </div>
+            <div className="vision-image">
+              <img src={logo} alt="Tuinue Wasichana" />
             </div>
           </div>
         </div>
