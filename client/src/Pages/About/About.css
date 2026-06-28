@@ -375,6 +375,21 @@
     gap: 2rem;
   }
 
+  .testimonial-images {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .testimonial-img {
+    aspect-ratio: 1;
+    max-width: 100%;
+  }
+
+  .testimonial-img-1,
+  .testimonial-img-2 {
+    margin-top: 0;
+  }
+
   .mission-description {
     grid-template-columns: 1fr;
     gap: 1.5rem;
