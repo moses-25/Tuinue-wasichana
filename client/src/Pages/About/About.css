@@ -64,8 +64,8 @@
   font-family: var(--editorial-sans);
   font-size: 17px;
   line-height: 1.8;
-  color: var(--editorial-dark);
-  opacity: 0.85;
+  color: #000000;
+  opacity: 1;
   font-weight: 400;
 }
 
@@ -313,8 +313,8 @@
   font-family: var(--editorial-sans);
   font-size: 15px;
   line-height: 1.7;
-  color: var(--editorial-dark);
-  opacity: 0.75;
+  color: #000000;
+  opacity: 1;
   text-align: left;
 }
 
@@ -381,7 +381,7 @@
   }
 
   .testimonial-img {
-    aspect-ratio: 1;
+    aspect-ratio: 4/3;
     max-width: 100%;
   }
 
