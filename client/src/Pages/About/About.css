@@ -17,7 +17,7 @@
 
 .about-hero-editorial {
   background: var(--editorial-beige);
-  padding: 120px 3rem 80px;
+  padding: 80px 3rem 60px;
   text-align: center;
 }
 
@@ -27,7 +27,7 @@
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--editorial-dark);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   font-weight: 500;
 }
 
@@ -37,7 +37,7 @@
   font-weight: 500;
   color: var(--editorial-dark);
   line-height: 1.2;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
@@ -53,7 +53,7 @@
 .hero-description-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2.5rem;
+  gap: 1.5rem;
   max-width: 900px;
   margin: 0 auto;
   text-align: left;
@@ -71,13 +71,13 @@
 
 .founder-section {
   background: var(--editorial-beige);
-  padding: 70px 3rem;
+  padding: 50px 3rem;
 }
 
 .founder-layout {
   display: grid;
   grid-template-columns: 300px 1fr 200px;
-  gap: 3rem;
+  gap: 2rem;
   align-items: start;
   max-width: 1200px;
   margin: 0 auto;
@@ -107,7 +107,7 @@
   font-weight: 400;
   line-height: 1.1;
   color: var(--editorial-dark);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   letter-spacing: -1px;
 }
 
@@ -117,7 +117,7 @@
   line-height: 1.8;
   color: var(--editorial-dark);
   opacity: 0.85;
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
   font-style: italic;
 }
 
@@ -160,13 +160,13 @@
 
 .testimonial-section {
   background: var(--editorial-beige);
-  padding: 70px 3rem;
+  padding: 50px 3rem;
 }
 
 .testimonial-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3rem;
+  gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
   align-items: center;
@@ -225,7 +225,7 @@
 
 .mission-section {
   background: var(--editorial-beige);
-  padding: 80px 3rem;
+  padding: 60px 3rem;
   text-align: center;
 }
 
@@ -235,7 +235,7 @@
   font-weight: 500;
   color: var(--editorial-dark);
   line-height: 1.15;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   letter-spacing: -1px;
 }
 
@@ -252,7 +252,7 @@
   color: var(--editorial-dark);
   opacity: 0.9;
   max-width: 700px;
-  margin: 0 auto 2rem;
+  margin: 0 auto 1.5rem;
   font-weight: 400;
 }
 
@@ -261,7 +261,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   max-width: 900px;
-  margin: 0 auto 3rem;
+  margin: 0 auto 2rem;
   text-align: left;
 }
 
@@ -278,7 +278,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   max-width: 1200px;
-  margin: 3rem auto 0;
+  margin: 2rem auto 0;
 }
 
 .value-card {
@@ -289,7 +289,7 @@
   width: 100%;
   aspect-ratio: 4/3;
   background: #e0d9d3;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   overflow: hidden;
 }
 
@@ -306,7 +306,7 @@
   text-transform: uppercase;
   font-weight: 600;
   color: var(--editorial-dark);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .value-card p {
@@ -349,7 +349,7 @@
 
 @media (max-width: 768px) {
   .about-hero-editorial {
-    padding: 100px 1.5rem 60px;
+    padding: 60px 1.5rem 40px;
   }
 
   .hero-description-grid {
@@ -375,12 +375,27 @@
     gap: 2rem;
   }
 
+  .testimonial-images {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .testimonial-img {
+    aspect-ratio: 1;
+    max-width: 100%;
+  }
+
+  .testimonial-img-1,
+  .testimonial-img-2 {
+    margin-top: 0;
+  }
+
   .mission-description {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
 
   .mission-section {
-    padding: 60px 1.5rem;
+    padding: 40px 1.5rem;
   }
 }

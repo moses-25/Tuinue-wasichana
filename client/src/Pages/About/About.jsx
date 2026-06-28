@@ -2,6 +2,8 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import founderPortrait from '../../assets/potrait.jpg';
 import founderFrame from '../../assets/founder.jpg';
+import child4 from '../../assets/child4.svg';
+import about2 from '../../assets/About2.svg';
 import './About.css';
 
 const About = () => {
@@ -44,7 +46,7 @@ const About = () => {
                 HEART
               </h2>
               <p className="founder-text">
-"I grew up in Kisumu, Kenya, where I watched brilliant girls 
+"I grew up in Nairobi, Kenya, where I watched brilliant girls 
               disappear from classrooms year after year—not because they weren't smart 
               enough, but because poverty left them no choice. 
               I founded Tuinue Wasichana because I refused to accept that. Every girl 
@@ -113,7 +115,7 @@ const About = () => {
           <div className="values-grid">
             <div className="value-card">
               <div className="value-image">
-                <img src="/value-education.jpg" alt="Education" />
+                <img src={child4} alt="Education" />
               </div>
               <h3>Education First</h3>
               <p>
@@ -125,7 +127,7 @@ const About = () => {
 
             <div className="value-card">
               <div className="value-image">
-                <img src="/value-transparency.jpg" alt="Transparency" />
+                <img src={about2} alt="Transparency" />
               </div>
               <h3>Full Transparency</h3>
               <p>
@@ -137,7 +139,7 @@ const About = () => {
 
             <div className="value-card">
               <div className="value-image">
-                <img src="/value-community.jpg" alt="Community" />
+                <img src="/About3.jpg" alt="Community" />
               </div>
               <h3>Community Rooted</h3>
               <p>
