@@ -45,7 +45,7 @@ const About = () => {
                 HEART
               </h2>
               <p className="founder-text">
-"I grew up in Kisumu, Kenya, where I watched brilliant girls 
+"I grew up in Nairobi, Kenya, where I watched brilliant girls 
               disappear from classrooms year after year—not because they weren't smart 
               enough, but because poverty left them no choice. 
               I founded Tuinue Wasichana because I refused to accept that. Every girl 
