@@ -1,5 +1,5 @@
 .charities-page {
-  padding: 3rem 0;
+  padding: calc(80px + 3rem) 0 3rem;
   background-color: #f8f9fa;
   min-height: calc(100vh - 120px);
 }
