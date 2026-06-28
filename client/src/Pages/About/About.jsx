@@ -3,6 +3,7 @@ import Footer from '../../components/Footer';
 import founderPortrait from '../../assets/potrait.jpg';
 import founderFrame from '../../assets/founder.jpg';
 import child4 from '../../assets/child4.svg';
+import about2 from '../../assets/About2.svg';
 import './About.css';
 
 const About = () => {
@@ -126,7 +127,7 @@ const About = () => {
 
             <div className="value-card">
               <div className="value-image">
-                <img src="/value-transparency.jpg" alt="Transparency" />
+                <img src={about2} alt="Transparency" />
               </div>
               <h3>Full Transparency</h3>
               <p>
@@ -138,7 +139,7 @@ const About = () => {
 
             <div className="value-card">
               <div className="value-image">
-                <img src="/value-community.jpg" alt="Community" />
+                <img src="/About3.jpg" alt="Community" />
               </div>
               <h3>Community Rooted</h3>
               <p>
