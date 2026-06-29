@@ -62,17 +62,17 @@
   font-family: 'Space Grotesk', sans-serif;
   font-size: 2.5rem;
   font-weight: 700;
-  color: #2D1B2E;
+  color: #000000;
   text-align: center;
   margin-bottom: 0.75rem;
 }
 
 .section-title em {
   font-style: italic;
-  background: linear-gradient(135deg, #E94B6F, #8B1874);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #000000;
+  background: none;
+  -webkit-text-fill-color: #000000;
+  background-clip: unset;
 }
 
 .section-sub {
@@ -251,32 +251,145 @@
 .impact-sidebar-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  background: #0a0a0a;
+  position: relative;
 }
 
 .impact-sidebar-layout .impact-calculator-section {
-  padding: 1.5rem 2rem 1.5rem 0;
-  background: #FDFBF7;
+  padding: 2rem 2rem 2rem 0;
+  background: transparent;
   border-bottom: none;
-  border-right: 1px solid rgba(45, 27, 46, 0.08);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.impact-sidebar-layout .impact-calculator-section::before {
+  content: '$';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  font-size: 200px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.03);
+  pointer-events: none;
+  transform: rotate(-10deg);
 }
 
 .impact-sidebar-layout .impact-feed-section {
-  padding: 1.5rem 0 1.5rem 2rem;
-  background: #FDFBF7;
+  padding: 2rem 0 2rem 2rem;
+  background: transparent;
   border-bottom: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.impact-sidebar-layout .impact-feed-section::before {
+  content: '♥';
+  position: absolute;
+  bottom: -30px;
+  right: -10px;
+  font-size: 180px;
+  color: rgba(255, 255, 255, 0.03);
+  pointer-events: none;
+  transform: rotate(15deg);
 }
 
 .impact-sidebar-layout .impact-calculator-section .section-sub {
   font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .impact-sidebar-layout .impact-feed-section .section-sub {
   font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .impact-sidebar-layout .impact-feed-section .section-title {
-  color: #2D1B2E;
+  color: #ffffff;
   font-weight: 700;
+}
+
+.impact-sidebar-layout .impact-calculator-section .section-title {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.impact-sidebar-layout .calc-label {
+  color: #000000;
+}
+
+.impact-sidebar-layout .calc-value {
+  color: #E94B6F;
+}
+
+.impact-sidebar-layout .calc-markers {
+  color: #000000;
+}
+
+.impact-sidebar-layout .calc-result {
+  color: #000000;
+}
+
+.impact-sidebar-layout .calc-mini-labels {
+  color: #000000;
+}
+
+.impact-sidebar-layout .donation-name {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.impact-sidebar-layout .donation-amount {
+  color: #E94B6F;
+}
+
+.impact-sidebar-layout .donation-location {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.impact-sidebar-layout .donation-time {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.impact-sidebar-layout .donation-icon {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.impact-sidebar-layout .calc-mini-item span {
+  background: rgba(255, 255, 255, 0.2) !important;
+}
+
+.impact-sidebar-layout .section-title em {
+  background: none;
+  -webkit-text-fill-color: #ffffff;
+  background-clip: unset;
+  color: #ffffff;
+}
+
+.impact-sidebar-layout .calc-slider {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.impact-sidebar-layout .calc-slider::-webkit-slider-thumb {
+  background: #000000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.impact-sidebar-layout .calc-slider::-moz-range-thumb {
+  background: #000000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.impact-sidebar-layout .calc-cta {
+  background: #ffffff;
+  color: #0a0a0a;
+}
+
+.impact-sidebar-layout .calc-cta:hover {
+  background: rgba(255, 255, 255, 0.85);
+  color: #0a0a0a;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
 .impact-calculator-section {
@@ -589,7 +702,7 @@
   .impact-sidebar-layout .impact-calculator-section {
     padding: 1.5rem 0;
     border-right: none;
-    border-bottom: 1px solid rgba(45, 27, 46, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .impact-sidebar-layout .impact-feed-section {
@@ -621,10 +734,15 @@
 .impact-sidebar-layout .calculator-card {
   max-width: none;
   margin: 0;
+  background: #000000;
+  box-shadow: none;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .impact-sidebar-layout .donation-feed {
   max-width: none;
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .impact-sidebar-layout .impact-feed-section .section-title,
