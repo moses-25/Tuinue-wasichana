@@ -1,5 +1,5 @@
 .impact-page {
-  background: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 100%);
+  background: linear-gradient(180deg, #FDFBF7 0%, #F0E8D8 100%);
   min-height: 100vh;
 }
 
@@ -11,30 +11,45 @@
 
 /* Hero */
 .impact-hero {
-  background: linear-gradient(135deg, #2D1B2E 0%, #8B1874 100%);
-  padding: calc(80px + 3rem) 0 3rem;
+  background: linear-gradient(135deg, #F6F0E5 0%, #EDE0D4 50%, #F8F4EC 100%);
+  padding: calc(60px + 4rem) 0 4rem;
   text-align: center;
   position: relative;
   overflow: hidden;
+  border-bottom: 3px solid #2D1B2E;
+}
+
+.impact-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(45, 27, 46, 0.015) 2px,
+    rgba(45, 27, 46, 0.015) 4px
+  );
+  pointer-events: none;
 }
 
 .impact-hero-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(48px, 6vw, 80px);
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(42px, 5vw, 72px);
   font-weight: 700;
-  color: #ffffff;
+  color: #2D1B2E;
   margin-bottom: 1rem;
   position: relative;
 }
 
 .impact-hero-title em {
   font-style: italic;
-  color: #E94B6F;
+  color: #8B1874;
 }
 
 .impact-hero-sub {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 1.2rem;
+  color: rgba(45, 27, 46, 0.7);
+  font-size: 1.15rem;
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
@@ -46,7 +61,7 @@
   font-family: 'Space Grotesk', sans-serif;
   font-size: 2.5rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #2D1B2E;
   text-align: center;
   margin-bottom: 0.75rem;
 }
@@ -61,7 +76,7 @@
 
 .section-sub {
   text-align: center;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(45, 27, 46, 0.6);
   font-size: 1.1rem;
   margin-bottom: 3rem;
 }
@@ -69,17 +84,18 @@
 /* What Your Money Does - Dark Dashboard Style */
 .impact-breakdown-section {
   padding: 3rem 0;
-  background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
+  background: #FDFBF7;
+  border-bottom: 1px solid rgba(45, 27, 46, 0.08);
 }
 
 .impact-breakdown-section .section-title {
   font-family: 'Playfair Display', serif;
   font-weight: 700;
-  color: #ffffff;
+  color: #2D1B2E;
 }
 
 .impact-breakdown-section .section-sub {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(45, 27, 46, 0.6);
   font-weight: 600;
 }
 
@@ -96,17 +112,15 @@
 
 /* Main Dashboard Card */
 .dashboard-card {
-  background: rgba(30, 30, 30, 0.8);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
+  background: #F8F4EC;
+  border: 1px solid rgba(45, 27, 46, 0.1);
   padding: 2rem;
   transition: all 0.3s ease;
 }
 
 .dashboard-card:hover {
-  border-color: rgba(233, 75, 111, 0.4);
-  box-shadow: 0 8px 32px rgba(233, 75, 111, 0.2);
+  border-color: rgba(139, 24, 116, 0.3);
+  box-shadow: 0 8px 24px rgba(45, 27, 46, 0.06);
 }
 
 .card-header {
@@ -119,7 +133,7 @@
 .card-header h3 {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #ffffff;
+  color: #2D1B2E;
   margin: 0;
 }
 
@@ -148,8 +162,8 @@
   height: 24px;
   border-radius: 12px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+  background: rgba(45, 27, 46, 0.05);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
 }
 
 .bar-segment {
@@ -171,15 +185,14 @@
 
 .legend-item {
   padding: 0.875rem 1rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
+  background: rgba(45, 27, 46, 0.02);
+  border: 1px solid rgba(45, 27, 46, 0.08);
   transition: all 0.3s ease;
 }
 
 .legend-item:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(45, 27, 46, 0.04);
+  border-color: rgba(45, 27, 46, 0.12);
 }
 
 .legend-top {
@@ -192,12 +205,12 @@
   list-style: none;
   margin: 0.5rem 0 0;
   padding: 0.5rem 0 0 1.25rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(45, 27, 46, 0.08);
 }
 
 .legend-items li {
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(45, 27, 46, 0.55);
   padding: 0.15rem 0;
   position: relative;
 }
@@ -206,7 +219,7 @@
   content: '•';
   position: absolute;
   left: -0.75rem;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(45, 27, 46, 0.3);
 }
 
 .legend-dot {
@@ -220,19 +233,20 @@
 .legend-label {
   flex: 1;
   font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(45, 27, 46, 0.85);
   font-weight: 500;
 }
 
 .legend-percent {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #2D1B2E;
 }
 
 .impact-calculator-section {
   padding: 3rem 0;
-  background: #0f0f0f;
+  background: #FDFBF7;
+  border-bottom: 1px solid rgba(45, 27, 46, 0.08);
 }
 
 .calculator-card {
@@ -349,15 +363,15 @@
 /* Live Donation Feed */
 .impact-feed-section {
   padding: 3rem 0;
-  background: #1a1a1a;
+  background: #FDFBF7;
+  border-bottom: 1px solid rgba(45, 27, 46, 0.08);
 }
 
 .donation-feed {
   max-width: 600px;
   margin: 0 auto;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  background: #F8F4EC;
+  border: 1px solid rgba(45, 27, 46, 0.1);
   overflow: hidden;
 }
 
@@ -405,12 +419,12 @@
 }
 
 .donation-location {
-  color: #6c757d;
+  color: rgba(45, 27, 46, 0.55);
   font-size: 0.85rem;
 }
 
 .donation-time {
-  color: #adb5bd;
+  color: rgba(45, 27, 46, 0.4);
   font-size: 0.8rem;
   min-width: 65px;
   text-align: right;
@@ -419,7 +433,7 @@
 /* Stories */
 .impact-stories-section {
   padding: 3rem 0;
-  background: #0f0f0f;
+  background: #FDFBF7;
 }
 
 .stories-compact {
