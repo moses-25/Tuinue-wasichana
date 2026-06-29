@@ -336,29 +336,46 @@
   color: #000000;
 }
 
-.impact-sidebar-layout .donation-name {
-  color: rgba(255, 255, 255, 0.85);
+.impact-sidebar-layout .calc-mini-labels span:nth-child(1) {
+  color: #8B1874;
 }
 
-.impact-sidebar-layout .donation-amount {
+.impact-sidebar-layout .calc-mini-labels span:nth-child(2) {
   color: #E94B6F;
 }
 
+.impact-sidebar-layout .calc-mini-labels span:nth-child(3) {
+  color: #D97D3A;
+}
+
+.impact-sidebar-layout .calc-mini-labels span:nth-child(4) {
+  color: #2D5F3F;
+}
+
+.impact-sidebar-layout .calc-mini-labels span:nth-child(5) {
+  color: #1A1F3A;
+}
+
+.impact-sidebar-layout .donation-name {
+  color: #000000;
+}
+
+.impact-sidebar-layout .donation-amount {
+  color: #000000;
+}
+
 .impact-sidebar-layout .donation-location {
-  color: rgba(255, 255, 255, 0.5);
+  color: #6c757d;
 }
 
 .impact-sidebar-layout .donation-time {
-  color: rgba(255, 255, 255, 0.35);
+  color: #6c757d;
 }
 
 .impact-sidebar-layout .donation-icon {
-  color: rgba(255, 255, 255, 0.5);
+  color: #6c757d;
 }
 
-.impact-sidebar-layout .calc-mini-item span {
-  background: rgba(255, 255, 255, 0.2) !important;
-}
 
 .impact-sidebar-layout .section-title em {
   background: none;
@@ -693,7 +710,25 @@
   color: #E94B6F;
 }
 
-/* Responsive */
+.impact-sidebar-layout .calculator-card {
+  max-width: none;
+  margin: 0;
+  background: #000000;
+  box-shadow: none;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.impact-sidebar-layout .donation-feed {
+  max-width: none;
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.impact-sidebar-layout .impact-feed-section .section-title,
+.impact-sidebar-layout .impact-calculator-section .section-title {
+  font-size: 2rem;
+}
+
 @media (max-width: 768px) {
   .impact-sidebar-layout {
     grid-template-columns: 1fr;
@@ -707,6 +742,16 @@
 
   .impact-sidebar-layout .impact-feed-section {
     padding: 1.5rem 0;
+  }
+
+  .impact-sidebar-layout .donation-feed {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .impact-sidebar-layout .calculator-card {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
   }
 
   .impact-hero {
@@ -731,26 +776,7 @@
     gap: 1rem;
   }
 
-.impact-sidebar-layout .calculator-card {
-  max-width: none;
-  margin: 0;
-  background: #000000;
-  box-shadow: none;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.impact-sidebar-layout .donation-feed {
-  max-width: none;
-  background: #1a1a1a;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.impact-sidebar-layout .impact-feed-section .section-title,
-.impact-sidebar-layout .impact-calculator-section .section-title {
-  font-size: 2rem;
-}
-
-.calculator-card {
+  .calculator-card {
     padding: 1.5rem;
   }
 
