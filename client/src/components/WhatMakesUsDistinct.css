@@ -1,0 +1,149 @@
+.what-makes-us-distinct {
+  background: #ffffff;
+  padding: 3rem 2rem;
+  color: #2a2a2a;
+}
+
+.distinct-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.distinct-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #2a2a2a;
+}
+
+.distinct-subtitle {
+  font-size: 1rem;
+  line-height: 1.5;
+  max-width: 800px;
+  margin: 0 auto 1.5rem;
+  color: #4a4a4a;
+}
+
+.distinct-divider {
+  width: 100px;
+  height: 2px;
+  background: #d23369;
+  margin: 0 auto 2rem;
+  border-radius: 2px;
+}
+
+.distinct-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.distinct-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.distinct-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  background: linear-gradient(135deg, #d23369 0%, #a0296a 100%);
+  border-radius: 50%;
+  padding: 1.2rem;
+}
+
+.distinct-icon:hover {
+  transform: scale(1.1);
+}
+
+.distinct-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.distinct-item-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #2a2a2a;
+}
+
+.distinct-item-description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #5a5a5a;
+  max-width: 320px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .distinct-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .what-makes-us-distinct {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .distinct-title {
+    font-size: 1.75rem;
+  }
+
+  .distinct-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .distinct-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .distinct-icon {
+    width: 70px;
+    height: 70px;
+  }
+
+  .distinct-item-title {
+    font-size: 1.15rem;
+  }
+
+  .distinct-item-description {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .what-makes-us-distinct {
+    padding: 2rem 1rem;
+  }
+
+  .distinct-title {
+    font-size: 1.5rem;
+  }
+
+  .distinct-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .distinct-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .distinct-divider {
+    width: 80px;
+    margin: 0 auto 1.5rem;
+  }
+}

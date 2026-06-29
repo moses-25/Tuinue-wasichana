@@ -4,7 +4,7 @@ import HeroSection from "../components/HeroSection";
 import Footer from '../components/Footer';
 import FAQ from '../components/FAQItem';
 import Button from '../components/Button';
-import ImpactNote from '../components/ImpactNote';
+import WhatMakesUsDistinct from '../components/WhatMakesUsDistinct';
 import './HomePage.css';
 
 // Import SVG icons
@@ -150,11 +150,7 @@ const HomePage = () => {
       </section>
 
       <FAQ />
-      <ImpactNote
-        message="Real change starts with you. Right now, 100+ girls are waiting for someone like you to change their future."
-        ctaText="Be Their Hero Today"
-        ctaLink="/charity"
-      />
+      <WhatMakesUsDistinct />
       <Footer />
     </>
   );
