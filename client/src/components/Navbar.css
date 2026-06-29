@@ -40,7 +40,7 @@
 }
 
 .navbar-logo {
-  height: 36px;
+  height: 90px;
   width: auto;
   transition: opacity var(--transition-fast);
 }
@@ -52,7 +52,7 @@
 .navbar-links-desktop {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
+  gap: var(--space-5);
 }
 
 .nav-link {
