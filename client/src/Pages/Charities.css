@@ -254,14 +254,14 @@
 }
 
 .impact-sidebar-layout .impact-calculator-section {
-  padding: 3rem 2rem 3rem 0;
+  padding: 1.5rem 2rem 1.5rem 0;
   background: #FDFBF7;
   border-bottom: none;
   border-right: 1px solid rgba(45, 27, 46, 0.08);
 }
 
 .impact-sidebar-layout .impact-feed-section {
-  padding: 3rem 0 3rem 2rem;
+  padding: 1.5rem 0 1.5rem 2rem;
   background: #FDFBF7;
   border-bottom: none;
 }
@@ -574,13 +574,13 @@
   }
 
   .impact-sidebar-layout .impact-calculator-section {
-    padding: 3rem 0;
+    padding: 1.5rem 0;
     border-right: none;
     border-bottom: 1px solid rgba(45, 27, 46, 0.08);
   }
 
   .impact-sidebar-layout .impact-feed-section {
-    padding: 3rem 0;
+    padding: 1.5rem 0;
   }
 
   .impact-hero {
