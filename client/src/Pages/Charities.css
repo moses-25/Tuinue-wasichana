@@ -12,7 +12,7 @@
 /* Hero */
 .impact-hero {
   background: linear-gradient(135deg, #F6F0E5 0%, #EDE0D4 50%, #F8F4EC 100%);
-  padding: calc(60px + 4rem) 0 4rem;
+  padding: calc(60px + 1.25rem) 0 1.25rem;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -50,6 +50,7 @@
 .impact-hero-sub {
   color: rgba(45, 27, 46, 0.7);
   font-size: 1.15rem;
+  font-weight: 700;
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
@@ -541,7 +542,7 @@
 /* Responsive */
 @media (max-width: 768px) {
   .impact-hero {
-    padding: calc(80px + 3rem) 0 3rem;
+    padding: calc(60px + 1.5rem) 0 1.5rem;
   }
 
   .impact-hero-title {
