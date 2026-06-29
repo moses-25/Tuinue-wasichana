@@ -182,74 +182,75 @@ const Charities = () => {
           </div>
         </section>
 
-        {/* Calculator */}
-        <section className="impact-calculator-section">
-          <div className="container">
-            <h2 className="section-title">Your <em>Impact</em> Calculator</h2>
-            <p className="section-sub">Slide to see exactly what your donation provides.</p>
-            <div className="calculator-card">
-              <div className="calculator-amount">
-                <span className="calc-label">Your donation</span>
-                <span className="calc-value">${calcAmount}</span>
+        {/* Calculator + Live Donations Sidebar */}
+        <div className="impact-sidebar-layout">
+          <section className="impact-calculator-section">
+            <div className="container">
+              <h2 className="section-title">Your <em>Impact</em> Calculator</h2>
+              <p className="section-sub">Slide to see exactly what your donation provides.</p>
+              <div className="calculator-card">
+                <div className="calculator-amount">
+                  <span className="calc-label">Your donation</span>
+                  <span className="calc-value">${calcAmount}</span>
+                </div>
+                <input
+                  type="range"
+                  min={25}
+                  max={500}
+                  step={25}
+                  value={calcAmount}
+                  onChange={(e) => setCalcAmount(Number(e.target.value))}
+                  className="calc-slider"
+                />
+                <div className="calc-markers">
+                  <span>$25</span>
+                  <span>$100</span>
+                  <span>$250</span>
+                  <span>$500</span>
+                </div>
+                <p className="calc-result">{currentCalc.items}</p>
+                <div className="calc-mini-breakdown">
+                  {Object.entries(currentCalc.breakdown).map(([key, val]) => {
+                    const item = impactBreakdown.find(b => b.label.toLowerCase().includes(key));
+                    return (
+                      <div key={key} className="calc-mini-item" style={{ width: `${val}%` }}>
+                        <span style={{ background: item?.color || "#8B1874" }} />
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="calc-mini-labels">
+                  <span>School fees</span>
+                  <span>Pads</span>
+                  <span>Mentorship</span>
+                  <span>Nutrition</span>
+                  <span>Community</span>
+                </div>
+                <Link to="/donate" className="calc-cta">Make This Donation</Link>
               </div>
-              <input
-                type="range"
-                min={25}
-                max={500}
-                step={25}
-                value={calcAmount}
-                onChange={(e) => setCalcAmount(Number(e.target.value))}
-                className="calc-slider"
-              />
-              <div className="calc-markers">
-                <span>$25</span>
-                <span>$100</span>
-                <span>$250</span>
-                <span>$500</span>
-              </div>
-              <p className="calc-result">{currentCalc.items}</p>
-              <div className="calc-mini-breakdown">
-                {Object.entries(currentCalc.breakdown).map(([key, val]) => {
-                  const item = impactBreakdown.find(b => b.label.toLowerCase().includes(key));
-                  return (
-                    <div key={key} className="calc-mini-item" style={{ width: `${val}%` }}>
-                      <span style={{ background: item?.color || "#8B1874" }} />
-                    </div>
-                  );
-                })}
-              </div>
-              <div className="calc-mini-labels">
-                <span>School fees</span>
-                <span>Pads</span>
-                <span>Mentorship</span>
-                <span>Nutrition</span>
-                <span>Community</span>
-              </div>
-              <Link to="/donate" className="calc-cta">Make This Donation</Link>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* Live Donation Feed */}
-        <section className="impact-feed-section">
-          <div className="container">
-            <h2 className="section-title">Live Donations</h2>
-            <p className="section-sub">Real-time impact from people like you.</p>
-            <div className="donation-feed">
-              <div className="donation-ticker">
-                {recentDonations.map((d, i) => (
-                  <div key={i} className={`donation-item ${i === donationIndex ? 'active' : ''}`}>
-                    <FiDollarSign className="donation-icon" />
-                    <span className="donation-name">{d.name}</span>
-                    <span className="donation-amount">${d.amount}</span>
-                    <span className="donation-location">{d.location}</span>
-                    <span className="donation-time">{d.time}</span>
-                  </div>
-                ))}
+          <section className="impact-feed-section">
+            <div className="container">
+              <h2 className="section-title">Live Donations</h2>
+              <p className="section-sub">Real-time impact from people like you.</p>
+              <div className="donation-feed">
+                <div className="donation-ticker">
+                  {recentDonations.map((d, i) => (
+                    <div key={i} className={`donation-item ${i === donationIndex ? 'active' : ''}`}>
+                      <FiDollarSign className="donation-icon" />
+                      <span className="donation-name">{d.name}</span>
+                      <span className="donation-amount">${d.amount}</span>
+                      <span className="donation-location">{d.location}</span>
+                      <span className="donation-time">{d.time}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
 
         {/* Success Stories */}
         <section className="impact-stories-section">

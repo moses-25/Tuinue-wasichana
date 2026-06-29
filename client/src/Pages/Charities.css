@@ -248,6 +248,24 @@
   color: #2D1B2E;
 }
 
+.impact-sidebar-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.impact-sidebar-layout .impact-calculator-section {
+  padding: 3rem 2rem 3rem 0;
+  background: #FDFBF7;
+  border-bottom: none;
+  border-right: 1px solid rgba(45, 27, 46, 0.08);
+}
+
+.impact-sidebar-layout .impact-feed-section {
+  padding: 3rem 0 3rem 2rem;
+  background: #FDFBF7;
+  border-bottom: none;
+}
+
 .impact-calculator-section {
   padding: 3rem 0;
   background: #FDFBF7;
@@ -545,6 +563,20 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+  .impact-sidebar-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .impact-sidebar-layout .impact-calculator-section {
+    padding: 3rem 0;
+    border-right: none;
+    border-bottom: 1px solid rgba(45, 27, 46, 0.08);
+  }
+
+  .impact-sidebar-layout .impact-feed-section {
+    padding: 3rem 0;
+  }
+
   .impact-hero {
     padding: calc(60px + 1.5rem) 0 1.5rem;
   }
@@ -567,7 +599,21 @@
     gap: 1rem;
   }
 
-  .calculator-card {
+.impact-sidebar-layout .calculator-card {
+  max-width: none;
+  margin: 0;
+}
+
+.impact-sidebar-layout .donation-feed {
+  max-width: none;
+}
+
+.impact-sidebar-layout .impact-feed-section .section-title,
+.impact-sidebar-layout .impact-calculator-section .section-title {
+  font-size: 2rem;
+}
+
+.calculator-card {
     padding: 1.5rem;
   }
 
