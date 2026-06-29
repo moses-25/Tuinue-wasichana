@@ -383,6 +383,12 @@
   color: #ffffff;
 }
 
+.impact-feed-section .calc-cta {
+  display: block;
+  width: fit-content;
+  margin: 2rem auto 0;
+}
+
 /* Live Donation Feed */
 .impact-feed-section {
   padding: 3rem 0;

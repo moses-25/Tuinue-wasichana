@@ -226,7 +226,6 @@ const Charities = () => {
                   <span>Nutrition</span>
                   <span>Community</span>
                 </div>
-                <Link to="/donate" className="calc-cta">Make This Donation</Link>
               </div>
             </div>
           </section>
@@ -248,6 +247,7 @@ const Charities = () => {
                   ))}
                 </div>
               </div>
+              <Link to="/donate" className="calc-cta">Make This Donation</Link>
             </div>
           </section>
         </div>
