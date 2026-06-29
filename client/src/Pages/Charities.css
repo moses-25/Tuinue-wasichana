@@ -266,6 +266,19 @@
   border-bottom: none;
 }
 
+.impact-sidebar-layout .impact-calculator-section .section-sub {
+  font-weight: 700;
+}
+
+.impact-sidebar-layout .impact-feed-section .section-sub {
+  font-weight: 700;
+}
+
+.impact-sidebar-layout .impact-feed-section .section-title {
+  color: #2D1B2E;
+  font-weight: 700;
+}
+
 .impact-calculator-section {
   padding: 3rem 0;
   background: #FDFBF7;
