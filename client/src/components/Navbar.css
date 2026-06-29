@@ -40,7 +40,7 @@
 }
 
 .navbar-logo {
-  height: 30px;
+  height: 90px;
   width: auto;
   transition: opacity var(--transition-fast);
 }
