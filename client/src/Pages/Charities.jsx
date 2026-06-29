@@ -101,9 +101,16 @@ const impactBreakdown = [
 const calculatorOptions = [
   { amount: 25, items: "1 girl with school supplies for a term", breakdown: { fees: 11, pads: 6, mentorship: 4, nutrition: 3, community: 1 } },
   { amount: 50, items: "2 girls with sanitary pads for a year", breakdown: { fees: 22, pads: 13, mentorship: 8, nutrition: 5, community: 2 } },
+  { amount: 75, items: "School supplies for 3 girls for a term", breakdown: { fees: 34, pads: 19, mentorship: 11, nutrition: 7, community: 4 } },
   { amount: 100, items: "Full school sponsorship for 1 girl for a term", breakdown: { fees: 45, pads: 25, mentorship: 15, nutrition: 10, community: 5 } },
+  { amount: 150, items: "Sponsor 1 girl + sanitary pads for 2 more", breakdown: { fees: 67, pads: 38, mentorship: 23, nutrition: 15, community: 7 } },
+  { amount: 200, items: "Sponsor 2 girls through a school term", breakdown: { fees: 90, pads: 50, mentorship: 30, nutrition: 20, community: 10 } },
   { amount: 250, items: "Sponsor 3 girls through a school term", breakdown: { fees: 112, pads: 63, mentorship: 38, nutrition: 25, community: 12 } },
+  { amount: 300, items: "Sponsor 3 girls + full mentorship program", breakdown: { fees: 135, pads: 75, mentorship: 45, nutrition: 30, community: 15 } },
+  { amount: 400, items: "Sponsor 4 girls through an entire term", breakdown: { fees: 180, pads: 100, mentorship: 60, nutrition: 40, community: 20 } },
   { amount: 500, items: "Sponsor a girl for an entire school year", breakdown: { fees: 225, pads: 125, mentorship: 75, nutrition: 50, community: 25 } },
+  { amount: 750, items: "Sponsor 2 girls for a full school year", breakdown: { fees: 338, pads: 187, mentorship: 113, nutrition: 75, community: 37 } },
+  { amount: 1000, items: "Sponsor 3 girls for a full school year", breakdown: { fees: 450, pads: 250, mentorship: 150, nutrition: 100, community: 50 } },
 ];
 
 const Charities = () => {
@@ -193,21 +200,22 @@ const Charities = () => {
                   <span className="calc-label">Your donation</span>
                   <span className="calc-value">${calcAmount}</span>
                 </div>
-                <input
-                  type="range"
-                  min={25}
-                  max={500}
-                  step={25}
-                  value={calcAmount}
-                  onChange={(e) => setCalcAmount(Number(e.target.value))}
-                  className="calc-slider"
-                />
-                <div className="calc-markers">
-                  <span>$25</span>
-                  <span>$100</span>
-                  <span>$250</span>
-                  <span>$500</span>
-                </div>
+              <input
+                type="range"
+                min={25}
+                max={1000}
+                step={25}
+                value={calcAmount}
+                onChange={(e) => setCalcAmount(Number(e.target.value))}
+                className="calc-slider"
+              />
+              <div className="calc-markers">
+                <span>$25</span>
+                <span>$100</span>
+                <span>$250</span>
+                <span>$500</span>
+                <span>$1000</span>
+              </div>
                 <p className="calc-result">{currentCalc.items}</p>
                 <div className="calc-mini-breakdown">
                   {Object.entries(currentCalc.breakdown).map(([key, val]) => {
