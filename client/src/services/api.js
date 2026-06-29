@@ -166,16 +166,33 @@ export const donationAPI = {
   },
 };
 
-// Stories API (assuming it exists based on routes)
+// Stories API
 export const storiesAPI = {
   getStories: async () => {
     return apiRequest('/stories/', { includeAuth: false });
+  },
+
+  getStoryById: async (storyId) => {
+    return apiRequest(`/stories/${storyId}`, { includeAuth: false });
   },
 
   createStory: async (storyData) => {
     return apiRequest('/stories/', {
       method: 'POST',
       body: JSON.stringify(storyData),
+    });
+  },
+
+  updateStory: async (storyId, storyData) => {
+    return apiRequest(`/stories/${storyId}`, {
+      method: 'PUT',
+      body: JSON.stringify(storyData),
+    });
+  },
+
+  deleteStory: async (storyId) => {
+    return apiRequest(`/stories/${storyId}`, {
+      method: 'DELETE',
     });
   },
 
