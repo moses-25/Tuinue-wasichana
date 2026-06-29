@@ -713,15 +713,15 @@
 .impact-sidebar-layout .calculator-card {
   max-width: none;
   margin: 0;
-  background: #000000;
+  background: #ffffff;
   box-shadow: none;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .impact-sidebar-layout .donation-feed {
   max-width: none;
-  background: #1a1a1a;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .impact-sidebar-layout .impact-feed-section .section-title,
