@@ -49,16 +49,21 @@
 }
 
 .distinct-icon {
-  width: 80px;
-  height: 80px;
+  width: 130px;
+  height: 130px;
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: transform 0.3s ease;
-  background: linear-gradient(135deg, #d23369 0%, #a0296a 100%);
   border-radius: 50%;
   padding: 1.2rem;
+}
+
+.distinct-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .distinct-icon:hover {
@@ -84,6 +89,11 @@
   max-width: 320px;
 }
 
+.distinct-item-description-bold {
+  font-weight: 700;
+  color: #000000;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .distinct-grid {
@@ -94,29 +104,36 @@
 
 @media (max-width: 768px) {
   .what-makes-us-distinct {
-    padding: 2.5rem 1.5rem;
+    padding: 1.5rem 1rem;
   }
 
   .distinct-title {
     font-size: 1.75rem;
+    margin-bottom: 0.5rem;
   }
 
   .distinct-subtitle {
     font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .distinct-divider {
+    margin-bottom: 1rem;
   }
 
   .distinct-grid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 1rem;
+    margin-top: 1rem;
   }
 
   .distinct-icon {
-    width: 70px;
-    height: 70px;
+    margin-bottom: 0.5rem;
   }
 
   .distinct-item-title {
     font-size: 1.15rem;
+    margin-bottom: 0.4rem;
   }
 
   .distinct-item-description {
@@ -135,11 +152,6 @@
 
   .distinct-subtitle {
     font-size: 0.9rem;
-  }
-
-  .distinct-icon {
-    width: 60px;
-    height: 60px;
   }
 
   .distinct-divider {
