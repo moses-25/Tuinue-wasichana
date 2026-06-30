@@ -23,11 +23,13 @@ import ApplyCharity from './Pages/ApplyCharity';
 import Profile from './Pages/Profile';
 import Contact from './Pages/Contact';
 import About from './Pages/About/About';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
     <AuthProvider>
       <Router>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/home" element={<HomePage />} />
